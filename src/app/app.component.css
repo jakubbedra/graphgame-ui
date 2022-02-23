@@ -1,0 +1,11 @@
+.container {
+  background-color: rgba(255, 255, 255, 0.05);
+  margin: 4% auto;
+  width: 1400px;
+  height: 690px;
+  box-shadow: 0px 0px 2px 2px black;
+}
+
+.corners {
+  border-radius: 8px;
+}

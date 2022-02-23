@@ -1,0 +1,20 @@
+<header>
+  <img class="logo" alt="[insert logo here]"/>
+  <nav class="navigation-bar">
+    <ul class="navigation-links">
+      <li [ngClass]="{'active' : active === 0}">
+        <a href="#" (click)="onClickLink(0)">Play</a>
+      </li>
+      <li [ngClass]="{'active' : active === 1}">
+        <a href="#" (click)="onClickLink(1)">Top Charts</a>
+      </li>
+      <li [ngClass]="{'active' : active === 2}">
+        <a href="#" (click)="onClickLink(2)">My progress</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="user-login">
+    <a>Login: </a>
+    <button class="user-login-button"></button>
+  </div>
+</header>
