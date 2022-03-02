@@ -1,0 +1,50 @@
+<div class="auth-div" *ngIf="loginMode">
+  <h1>Login</h1>
+
+  <form #loginForm="ngForm" (ngSubmit)="onSubmitLogin(loginForm)">
+    <label for="email"><b>Email:</b></label>
+    <input name="email" id="email" type="text" placeholder="Enter Email" ngModel required #email="ngModel"/>
+    <label for="password"><b>Password:</b></label>
+    <input name="password" id="password" type="password" placeholder="Enter Password" ngModel required
+           #password="ngModel"/>
+    <button class="auth-button">Login</button>
+  </form>
+
+  <div class="bottom-divs">
+    <div class="left-bottom-div">
+      <p>Do not have an account yet?</p>
+      <button class="bottom-button" (click)="onClickChangeMode()">Register</button>
+    </div>
+    <div class="right-bottom-div">
+      <p>Forgot password?</p>
+      <button class="bottom-button" routerLink="../auth/recovery">Recovery</button>
+    </div>
+  </div>
+</div>
+
+<div class="auth-div" *ngIf="!loginMode">
+  <h1>Register</h1>
+
+  <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
+    <label for="email1"><b>Email:</b></label>
+    <input name="email1" id="email1" type="text" placeholder="Enter Email" ngModel required #email="ngModel"/>
+    <label for="username"><b>Username:</b></label>
+    <input name="username" id="username" type="text" placeholder="Enter Username" ngModel required #username="ngModel"/>
+    <label for="password1"><b>Password:</b></label>
+    <input name="password1" id="password1" type="password" placeholder="Enter Password" ngModel required
+           #password="ngModel"/>
+    <label for="password2"><b>Retype Password:</b></label>
+    <input name="password2" id="password2" type="password" placeholder="Retype Password" ngModel required
+           #passwordRetype="ngModel"/>
+    <button class="auth-button">Register</button>
+  </form>
+
+  <div class="bottom-divs">
+    <div class="left-bottom-div">
+      <p>Already have an account?</p>
+      <button (click)="onClickChangeMode()" class="bottom-button">Login</button>
+    </div>
+  </div>
+
+</div>
+

@@ -1,0 +1,77 @@
+.auth-div {
+  margin: 4% auto;
+  color: #F5F7FA;
+  width: 40%;
+}
+
+.auth-div h1 {
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+.auth-div input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #F5F7FA;
+  box-sizing: border-box;
+  border-radius: 8px;
+
+  border: none;
+  box-shadow: 0 0 1px 1px black;
+}
+
+.auth-div input:focus {
+  outline-style: solid;
+  outline-color: #BB86FC;
+}
+
+.auth-button {
+  transition: all 0.3s ease 0s;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #F5F7FA;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 1px 1px black;
+}
+
+.auth-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.bottom-button {
+  transition: all 0.3s ease 0s;
+  background-color: #BB86FC;
+  color: #F5F7FA;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 1px 1px black;
+}
+
+.bottom-divs {
+  display: inline-block;
+  width: 100%;
+}
+
+.left-bottom-div {
+  width: 40%;
+  float: left;
+}
+
+.right-bottom-div {
+  width: 40%;
+  float: right;
+}
