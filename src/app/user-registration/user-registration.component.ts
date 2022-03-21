@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
+import {AuthService} from "../users/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-registration',
@@ -15,7 +17,10 @@ export class UserRegistrationComponent implements OnInit {
   passwordRetype: string;
   token: string;
 
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.loginMode = true;
     this.email = "";
     this.token = "";
@@ -27,7 +32,16 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   onSubmitLogin(formData: NgForm): void {
-
+   const email = formData.value.email;
+   const password = formData.value.password;
+   console.log(email+"_DUPA_"+password);
+//
+    var authObs = this.authService.login(email, password);
+    authObs.subscribe(
+      resData => {
+        this.router.navigate(['./my-progress']);
+      }
+    );
   }
 
   onSubmitRegister(formData: NgForm): void {
