@@ -16,7 +16,10 @@
       </li>
     </ul>
   </nav>
-  <div class="user-login">
+  <div class="user-login" *ngIf="!isAuthenticated">
     <button class="login-button" routerLink="auth">Login</button>
+  </div>
+  <div class="user-login" *ngIf="isAuthenticated">
+    <button class="login-button">Logout</button>
   </div>
 </header>
