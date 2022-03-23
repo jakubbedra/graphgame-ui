@@ -1,0 +1,27 @@
+<div class="top-users-div">
+  <h1>Top users of {{timePeriod}} in {{taskType}}</h1>
+
+  <div id="selection">
+    <label for="time-period">Select time period</label>
+    <select id="time-period"> <!--(change)="" [(ngModel)]=""-->
+      <option>today</option>
+      <option>all time</option>
+    </select>
+  </div>
+
+  <table class="top-users-table">
+    <tr>
+      <th>Place</th>
+      <th>User</th>
+      <th>Correct answers</th>
+      <th>Wrong answers</th>
+    </tr>
+    <tr *ngFor="let topUser of topUsers">
+      <td>{{topUser.place}}</td>
+      <td>{{topUser.username}}</td>
+      <td>{{topUser.correctTotal}}</td>
+      <td>{{topUser.wrongTotal}}</td>
+    </tr>
+  </table>
+
+</div>

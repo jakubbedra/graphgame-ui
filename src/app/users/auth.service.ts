@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {catchError, Subject, tap} from "rxjs";
-import {User} from "./user.model";
+import {User} from "./user.auth.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   signup(username: string, email: string, password: string) {
-
+    //todo
   }
 
   login(email: string, password: string) {

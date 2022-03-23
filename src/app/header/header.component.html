@@ -5,11 +5,11 @@
       <li [ngClass]="{'active' : active === 0}">
         <a href="#" (click)="onClickLink(0)">Play</a>
       </li>
-      <li [ngClass]="{'active' : active === 1}">
-        <a href="#" (click)="onClickLink(1)">Top Charts</a>
+      <li routerLinkActive="active">
+        <a routerLink="./top-charts">Top Charts</a>
       </li>
       <li routerLinkActive="active">
-        <a routerLink="./my-progress" (click)="onClickLink(2)">My progress</a>
+        <a routerLink="./my-progress">My progress</a>
       </li>
       <li [ngClass]="{'active' : active === 3}">
         <a href="#" (click)="onClickLink(3)">Manage users</a>

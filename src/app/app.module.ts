@@ -10,6 +10,8 @@ import { UserPasswordRecoveryComponent } from './user-password-recovery/user-pas
 import {AuthService} from "./users/auth.service";
 import { UserProgressComponent } from './users/user-progress/user-progress.component';
 import {HttpClientModule} from "@angular/common/http";
+import { TopUsersComponent } from './users/top-users/top-users.component';
+import {UserStatsService} from "./users/user-stats.service";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import {HttpClientModule} from "@angular/common/http";
     HeaderComponent,
     UserRegistrationComponent,
     UserPasswordRecoveryComponent,
-    UserProgressComponent
+    UserProgressComponent,
+    TopUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    UserStatsService
   ],
   bootstrap: [AppComponent]
 })
