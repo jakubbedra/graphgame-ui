@@ -12,7 +12,25 @@ export class UserStatsService {
 
   getTopUsersOverall(page: number): Observable<TopUserList> {
     return this.http.get<TopUserList>(
-      environment.apiUrl + "/users/topChart/overall/" + page, {}
+      environment.apiUrl + "/users/topChart/overall/" + page
+    );
+  }
+
+  getTopUsersOverallToday(page: number): Observable<TopUserList> {
+    return this.http.get<TopUserList>(
+      environment.apiUrl + "/users/topChart/overall/" + page + "/today"
+    );
+  }
+
+  getTopUsersByTask(taskId: number, page: number): Observable<TopUserList> {
+    return this.http.get<TopUserList>(
+      environment.apiUrl + "/users/topChart/" + taskId + "/" + page
+    );
+  }
+
+  getTopUsersByTaskToday(taskId: number, page: number): Observable<TopUserList> {
+    return this.http.get<TopUserList>(
+      environment.apiUrl + "/users/topChart/" + taskId + "/" + page + "/today"
     );
   }
 

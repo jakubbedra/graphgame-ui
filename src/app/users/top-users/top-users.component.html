@@ -1,14 +1,23 @@
 <div class="top-users-div">
-  <h1>Top users of {{timePeriod}} in {{taskType}}</h1>
+  <h1>Top users of {{selectedTimePeriod}} in {{getTaskNameById(selectedTaskType)}}</h1>
 
-  <div id="selection">
-    <label for="time-period">Select time period</label>
-    <select id="time-period"> <!--(change)="" [(ngModel)]=""-->
-      <option>today</option>
-      <option>all time</option>
-    </select>
+  <div id="input-div">
+    <div class="top-users-input">
+      <label for="time-period">Select time period</label>
+      <select id="time-period" (change)="onChangeOption()" [(ngModel)]="selectedTimePeriod">
+        <option value="all time">all time</option>
+        <option value="today">today</option>
+      </select>
+    </div>
+
+    <div class="top-users-input">
+      <label for="task-type">Select task type</label>
+      <select id="task-type" (change)="onChangeOption()" [(ngModel)]="selectedTaskType">
+        <option value="{{-1}}">every task</option>
+        <option *ngFor="let task of tasks" value="{{task.id}}">{{task.name}}</option>
+      </select>
+    </div>
   </div>
-
   <table class="top-users-table">
     <tr>
       <th>Place</th>
@@ -23,5 +32,13 @@
       <td>{{topUser.wrongTotal}}</td>
     </tr>
   </table>
-
+  <div class="pagination-div">
+    <button
+      class="pagination-button"
+      (click)="onPrevPage()"
+      [ngClass]="{'pagination-button-disabled':page == 1, 'pagination-button': page > 1}"
+    ><<</button>
+    Page: {{page}}
+    <button class="pagination-button" (click)="onNextPage()">>></button>
+  </div>
 </div>

@@ -1,42 +1,111 @@
 .top-users-div {
   margin: 4% auto;
   color: #F5F7FA;
-  width: 40%;
+  width: 60%;
 }
 
 .top-users-div h1 {
-  padding-top: 16px;
+  padding-top: 36px;
 }
 
 .top-users-table {
 
+  box-shadow: 0px 0px 2px 2px black;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .top-users-table td, th {
   width: 280px;
   text-align: center;
+  font-size: 24px;
+  padding: 5px;
 }
 
 select {
+  transition: all 0.3s ease 0s;
   width: 40%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: none;
   box-shadow: 0px 0px 2px 2px black;
-  border-radius: 4px;
+  border-radius: 8px;
   box-sizing: border-box;
   color: #F5F7FA;
   background-color: rgba(255, 255, 255, 0.05);
 }
 
 select:focus {
-  border: 1px rgba(255, 255, 255, 0.05);
-  /*#BB86FC todo*/
+  outline-style: solid;
+  outline-color: #BB86FC;
+}
+
+select:hover {
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
 option {
   background-color: #323232;
+  outline-color: #121212;
   border: 1px solid black;
   font-size: 18px;
 }
+
+label {
+  display: block;
+}
+
+.top-users-input {
+  display: table-cell;
+  width: 1000px;
+  padding-right: 40px;
+}
+
+.top-users-input select {
+  width: 100%;
+}
+
+#input-div {
+  padding-top: 30px;
+  padding-bottom: 40px;
+  display: table;
+}
+
+.pagination-div {
+  padding-top: 20px;
+  margin: 4% auto;
+  width: 40%;
+}
+
+.pagination-button {
+  transition: all 0.3s ease 0s;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #F5F7FA;
+  border: none;
+  box-shadow: 0 0 1px 1px black;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 24px;
+  margin-right: 32px;
+  margin-left: 32px;
+}
+
+.pagination-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+}
+
+.pagination-button-disabled {
+  transition: all 0.3s ease 0s;
+  background-color: rgba(255, 255, 255, 0.01);
+  color: black;
+  border: none;
+  box-shadow: 0 0 1px 1px black;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 24px;
+  margin-right: 32px;
+  margin-left: 32px;
+}
+
