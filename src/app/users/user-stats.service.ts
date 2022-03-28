@@ -1,8 +1,9 @@
-import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {UserStats} from "./user-stats.model";
+import {UserStatsList} from "./usr-stats-list.model";
 import {environment} from "../../environments/environment";
-import {TopUserList} from "./top-user-list.model";
+import {Injectable} from "@angular/core";
 
 @Injectable()
 export class UserStatsService {
@@ -10,28 +11,49 @@ export class UserStatsService {
   constructor(private http: HttpClient) {
   }
 
-  getTopUsersOverall(page: number): Observable<TopUserList> {
-    return this.http.get<TopUserList>(
-      environment.apiUrl + "/users/topChart/overall/" + page
-    );
+  getUserStatsTask(
+    userId: number, taskId: number, startDate?: string, endDate?: string
+  ): Observable<UserStats> {
+    if (startDate === undefined || endDate === undefined) {
+      return this.http.get<UserStats>(
+        environment.apiUrl + "/users/" + userId + "/stats/" + taskId
+      );
+    } else {
+      return this.http.get<UserStats>(
+        environment.apiUrl + "/users/" + userId + "/stats/" + taskId,
+        {params: {startDate: startDate, endDate: endDate}}
+      );
+    }
   }
 
-  getTopUsersOverallToday(page: number): Observable<TopUserList> {
-    return this.http.get<TopUserList>(
-      environment.apiUrl + "/users/topChart/overall/" + page + "/today"
-    );
+  getUserStatsListOverall(
+    userId: number, startDate?: string, endDate?: string
+  ): Observable<UserStatsList> {
+    if (startDate === undefined || endDate === undefined) {
+      return this.http.get<UserStatsList>(
+        environment.apiUrl + "/users/" + userId + "/stats/list"
+      );
+    } else {
+      return this.http.get<UserStatsList>(
+        environment.apiUrl + "/users/" + userId + "/stats/list",
+        {params: {startDate: startDate, endDate: endDate}}
+      );
+    }
   }
 
-  getTopUsersByTask(taskId: number, page: number): Observable<TopUserList> {
-    return this.http.get<TopUserList>(
-      environment.apiUrl + "/users/topChart/" + taskId + "/" + page
-    );
-  }
-
-  getTopUsersByTaskToday(taskId: number, page: number): Observable<TopUserList> {
-    return this.http.get<TopUserList>(
-      environment.apiUrl + "/users/topChart/" + taskId + "/" + page + "/today"
-    );
+  getUserStatsListTask(
+    userId: number, taskId: number, startDate?: string, endDate?: string
+  ): Observable<UserStatsList> {
+    if (startDate === undefined || endDate === undefined) {
+      return this.http.get<UserStatsList>(
+        environment.apiUrl + "/users/" + userId + "/stats/" + taskId + "/list"
+      );
+    } else {
+      return this.http.get<UserStatsList>(
+        environment.apiUrl + "/users/" + userId + "/stats/" + taskId + "/list",
+        {params: {startDate: startDate, endDate: endDate}}
+      );
+    }
   }
 
 }
