@@ -1,9 +1,65 @@
 <div clas="user-progress-div">
 
-  <p>user-progress works!</p>
-
-  <div id="chartDiv">
+  <div class="bar-chart-div">
     <canvas id="myChart"></canvas>
+    <div class="user-stats-input">
+
+      <button *ngIf="!specificTimePeriodInBarChart" (click)="onSpecificTimePeriodBar()">
+        All time
+      </button>
+
+      <button *ngIf="specificTimePeriodInBarChart" (click)="onSpecificTimePeriodBar()">
+        Specific time period
+      </button>
+      <div *ngIf="specificTimePeriodInBarChart" class="date-selection">
+        <label for="startDateBar">Start date</label>
+        <input id="startDateBar"
+               type="date"
+               [value]="startDateBar | date:'yyyy-MM-dd'"
+               (input)="startDateBar = $event.target.value"
+               (change)="onChangeDateBar()"/>
+        <label for="endDateBar">End date</label>
+        <input id="endDateBar"
+               type="date"
+               [value]="endDateBar | date: 'yyyy-MM-dd'"
+               (input)="endDateBar = $event.target.value"
+               (change)="onChangeDateBar()"/>
+      </div>
+
+    </div>
   </div>
 
+  <div class="linear-chart-div">
+    <canvas id="linearChart"></canvas>
+    <div class="user-stats-input">
+
+      <button *ngIf="!specificTimePeriodInLinearChart" (click)="onSpecificTimePeriodLinear()">
+        All time
+      </button>
+
+      <button *ngIf="specificTimePeriodInLinearChart" (click)="onSpecificTimePeriodLinear()">
+        Specific time period
+      </button>
+      <div *ngIf="specificTimePeriodInLinearChart" class="date-selection">
+        <label for="startDateLinear">Start date</label>
+        <input id="startDateLinear"
+               type="date"
+               [value]="startDateLinear | date:'yyyy-MM-dd'"
+               (input)="startDateLinear = $event.target.value"
+               (change)="onChangeDateLinear()"/>
+        <label for="endDateLinear">End date</label>
+        <input id="endDateLinear"
+               type="date"
+               [value]="endDateLinear | date: 'yyyy-MM-dd'"
+               (input)="endDateLinear = $event.target.value"
+               (change)="onChangeDateLinear()"/>
+      </div>
+
+      <label for="task-type">Select task type</label>
+      <select id="task-type" (change)="fetchLinearChartStats()" [(ngModel)]="selectedTaskId">
+        <option value="{{-1}}">every task</option>
+        <option *ngFor="let task of tasks" value="{{task.id}}">{{task.name}}</option>
+      </select>
+    </div>
+  </div>
 </div>

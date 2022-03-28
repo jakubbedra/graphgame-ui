@@ -1,6 +1,81 @@
-#chartDiv {
-  display: block;
-  width: 400px;
-  height: 400px;
+.linear-chart-div {
+  float: left;
+  width: 45.5%;
+  height: 500px;
   color: #F5F7FA;
+  box-shadow: 0px 0px 2px 2px black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.05);
+  margin: 4px auto;
+  margin-top: 30px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.bar-chart-div {
+  float: left;
+  width: 45.5%;
+  height: 500px;
+  color: #F5F7FA;
+  box-shadow: 0px 0px 2px 2px black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.05);
+  margin: 4px auto;
+  margin-top: 30px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+select, input, button {
+  transition: all 0.3s ease 0s;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: none;
+  box-shadow: 0px 0px 2px 2px black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #F5F7FA;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+input {
+  width: 40%;
+}
+
+select:focus {
+  outline-style: solid;
+  outline-color: #BB86FC;
+}
+
+select:hover, button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+option {
+  background-color: #323232;
+  outline-color: #121212;
+  border: 1px solid black;
+  font-size: 18px;
+}
+
+label {
+  margin-top: 10px;
+  display: block;
+}
+
+.date-selection {
+  margin-top: 20px;
+  display: flex;
+}
+
+.date-selection label {
+  margin-right: 1px;
+}
+
+.date-selection input {
+  margin-right: 20px;
 }

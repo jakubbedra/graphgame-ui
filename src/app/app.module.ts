@@ -11,8 +11,9 @@ import {AuthService} from "./users/auth.service";
 import { UserProgressComponent } from './users/user-progress/user-progress.component';
 import {HttpClientModule} from "@angular/common/http";
 import { TopUsersComponent } from './users/top-users/top-users.component';
-import {UserStatsService} from "./users/user-stats.service";
+import {TopUsersService} from "./users/top-users.service";
 import {TaskService} from "./tasks/task.service";
+import {UserStatsService} from "./users/user-stats.service";
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import {TaskService} from "./tasks/task.service";
   ],
   providers: [
     AuthService,
-    UserStatsService,
-    TaskService
+    TopUsersService,
+    TaskService,
+    UserStatsService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TopUser} from "../top-user.model";
-import {UserStatsService} from "../user-stats.service";
+import {TopUsersService} from "../top-users.service";
 import {TaskService} from "../../tasks/task.service";
 import {TaskType} from "../../tasks/task-type.model";
 
@@ -20,7 +20,7 @@ export class TopUsersComponent implements OnInit {
   page: number;
 
   constructor(
-    private userStatsService: UserStatsService,
+    private userStatsService: TopUsersService,
     private taskService: TaskService
   ) {
     this.selectedTimePeriod = "all time";
