@@ -12,7 +12,7 @@ export class TaskService {
 
   getAllTasks(): Observable<TaskList> {
     return this.http.get<TaskList>(
-      environment.apiUrl + "/tasks"
+      environment.apiUrl + "/tasks/subjects"
     );
   }
 

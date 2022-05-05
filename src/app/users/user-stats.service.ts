@@ -12,7 +12,7 @@ export class UserStatsService {
   }
 
   getUserStatsTask(
-    userId: number, taskId: number, startDate?: string, endDate?: string
+    userId: number, taskId: string, startDate?: string, endDate?: string
   ): Observable<UserStats> {
     if (startDate === undefined || endDate === undefined) {
       return this.http.get<UserStats>(
@@ -42,7 +42,7 @@ export class UserStatsService {
   }
 
   getUserStatsListTask(
-    userId: number, taskId: number, startDate?: string, endDate?: string
+    userId: number, taskId: string, startDate?: string, endDate?: string
   ): Observable<UserStatsList> {
     if (startDate === undefined || endDate === undefined) {
       return this.http.get<UserStatsList>(

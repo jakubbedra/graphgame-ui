@@ -3,7 +3,7 @@ import {Chart, registerables} from 'chart.js';
 import {TaskService} from "../../tasks/task.service";
 import {UserStatsService} from "../user-stats.service";
 import {UserStats} from "../user-stats.model";
-import {TaskType} from "../../tasks/task-type.model";
+import {TaskSubject} from "../../tasks/task-type.model";
 import {UserStatsList} from "../usr-stats-list.model";
 
 Chart.register(...registerables);
@@ -18,7 +18,7 @@ export class UserProgressComponent implements OnInit {
   specificTimePeriodInLinearChart: boolean;
   startDateLinear: string;
   endDateLinear: string;
-  selectedTaskId: number;
+  selectedTaskId: string;
 
   specificTimePeriodInBarChart: boolean;
   startDateBar: string;
@@ -27,7 +27,7 @@ export class UserProgressComponent implements OnInit {
 
   mockUserId: number; //todo: ONLY FOR TEST, REMOVE THIS SHIT LATER ON!!!!!!!!!!
 
-  tasks: TaskType[] = [];
+  tasks: TaskSubject[] = [];
   overallStats: Map<number, UserStats>;
   linearChartStats: UserStatsList;
 
@@ -41,18 +41,18 @@ export class UserProgressComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedTaskId = -1;
+    this.selectedTaskId = "all";
     this.specificTimePeriodInLinearChart = false;
     this.specificTimePeriodInBarChart = false;
     this.overallStats = new Map<number, UserStats>();
     this.mockUserId = 1;
-    this.fetchTaskTypes();
+    this.fetchTaskSubjects();
     this.updateLinearChart();
   }
 
-  fetchTaskTypes() {
+  fetchTaskSubjects() {
     this.taskService.getAllTasks().subscribe(respData => {
-      this.tasks = respData.tasks;
+      this.tasks = respData.subjects;
       this.fetchBarChartStats();
       this.fetchLinearChartStats();
     });
@@ -62,18 +62,18 @@ export class UserProgressComponent implements OnInit {
     if (!this.specificTimePeriodInBarChart) {
       for (let task of this.tasks) {
         this.userStatsService.getUserStatsTask(
-          this.mockUserId, task.id
+          this.mockUserId, task.value
         ).subscribe(respData => {
-          this.overallStats[task.id] = respData;
+          this.overallStats[task.value] = respData;
           this.updateBarChart();
         });
       }
     } else {
       for (let task of this.tasks) {
         this.userStatsService.getUserStatsTask(
-          this.mockUserId, task.id, this.startDateBar, this.endDateBar
+          this.mockUserId, task.value, this.startDateBar, this.endDateBar
         ).subscribe(respData => {
-          this.overallStats[task.id] = respData;
+          this.overallStats[task.value] = respData;
           this.updateBarChart();
         });
       }
@@ -89,7 +89,7 @@ export class UserProgressComponent implements OnInit {
   }
 
   private fetchLinearChartStatsNoDates() {
-    if (this.selectedTaskId == -1) {
+    if (this.selectedTaskId == "all") {
       this.userStatsService.getUserStatsListOverall(
         this.mockUserId,
       ).subscribe(respData => {
@@ -107,7 +107,7 @@ export class UserProgressComponent implements OnInit {
   }
 
   private fetchLinearChartStatsDates() {
-    if (this.selectedTaskId == -1) {
+    if (this.selectedTaskId == "all") {
       this.userStatsService.getUserStatsListOverall(
         this.mockUserId, this.startDateLinear, this.endDateLinear
       ).subscribe(respData => {
@@ -154,7 +154,7 @@ export class UserProgressComponent implements OnInit {
   private getBarChartLabels() {
     let labels = [];
     for (let task of this.tasks) {
-      labels.push(task.name);
+      labels.push(task.label);
     }
     return labels;
   }
@@ -163,11 +163,11 @@ export class UserProgressComponent implements OnInit {
     let scores = [];
     if (type == 'correct answers') {
       for (let task of this.tasks) {
-        scores.push(this.overallStats[task.id].correct);
+        scores.push(this.overallStats[task.value].correct);
       }
     } else {
       for (let task of this.tasks) {
-        scores.push(this.overallStats[task.id].wrong);
+        scores.push(this.overallStats[task.value].wrong);
       }
     }
     return scores;

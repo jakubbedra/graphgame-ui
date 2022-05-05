@@ -22,13 +22,13 @@ export class TopUsersService {
     );
   }
 
-  getTopUsersByTask(taskId: number, page: number): Observable<TopUserList> {
+  getTopUsersByTask(taskId: string, page: number): Observable<TopUserList> {
     return this.http.get<TopUserList>(
       environment.apiUrl + "/users/topChart/" + taskId + "/" + page
     );
   }
 
-  getTopUsersByTaskToday(taskId: number, page: number): Observable<TopUserList> {
+  getTopUsersByTaskToday(taskId: string, page: number): Observable<TopUserList> {
     return this.http.get<TopUserList>(
       environment.apiUrl + "/users/topChart/" + taskId + "/" + page + "/today"
     );

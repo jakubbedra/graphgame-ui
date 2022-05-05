@@ -1,4 +1,4 @@
-export class TaskType {
-  id: number;
-  name: string;
+export class TaskSubject {
+  value: string;
+  label: string;
 }

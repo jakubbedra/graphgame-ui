@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TopUser} from "../top-user.model";
 import {TopUsersService} from "../top-users.service";
 import {TaskService} from "../../tasks/task.service";
-import {TaskType} from "../../tasks/task-type.model";
+import {TaskSubject} from "../../tasks/task-type.model";
 
 @Component({
   selector: 'app-top-users',
@@ -11,11 +11,11 @@ import {TaskType} from "../../tasks/task-type.model";
 })
 export class TopUsersComponent implements OnInit {
 
-  tasks: TaskType[];
+  tasks: TaskSubject[];
   topUsers: TopUser[];
 
   selectedTimePeriod: string;
-  selectedTaskType: number;
+  selectedTaskSubject: string;
 
   page: number;
 
@@ -24,7 +24,7 @@ export class TopUsersComponent implements OnInit {
     private taskService: TaskService
   ) {
     this.selectedTimePeriod = "all time";
-    this.selectedTaskType = -1;
+    this.selectedTaskSubject = "all";
     this.page = 1;
   }
 
@@ -35,7 +35,7 @@ export class TopUsersComponent implements OnInit {
 
   fetchTasks(): void {
     this.taskService.getAllTasks().subscribe(responseData => {
-      this.tasks = responseData.tasks;
+      this.tasks = responseData.subjects;
       console.log(this.tasks);
     });
   }
@@ -56,12 +56,12 @@ export class TopUsersComponent implements OnInit {
 
   fetchTopUsersByTaskPage(page: number): void {
     if (this.selectedTimePeriod === "all time") {
-      this.userStatsService.getTopUsersByTask(this.selectedTaskType, page).subscribe(responseData => {
+      this.userStatsService.getTopUsersByTask(this.selectedTaskSubject, page).subscribe(responseData => {
         this.topUsers = responseData.topUsers;
         this.page = page;
       });
     } else if (this.selectedTimePeriod === "today") {
-      this.userStatsService.getTopUsersByTaskToday(this.selectedTaskType, page).subscribe(responseData => {
+      this.userStatsService.getTopUsersByTaskToday(this.selectedTaskSubject, page).subscribe(responseData => {
         this.topUsers = responseData.topUsers;
         this.page = page;
       });
@@ -69,8 +69,8 @@ export class TopUsersComponent implements OnInit {
   }
 
   onChangeOption() {
-    console.log(this.selectedTaskType);
-    if (this.selectedTaskType == -1) {
+    console.log(this.selectedTaskSubject);
+    if (this.selectedTaskSubject == "all") {
       this.fetchTopUsersOverallPage(this.page);
     } else {
       this.fetchTopUsersByTaskPage(this.page);
@@ -96,10 +96,10 @@ export class TopUsersComponent implements OnInit {
     }
   }
 
-  getTaskNameById(id: number): string {
+  getTaskNameById(value: string): string {
     for (let t of this.tasks) {
-      if (t.id == id) {
-        return t.name;
+      if (t.value == value) {
+        return t.label;
       }
     }
     return 'every task';

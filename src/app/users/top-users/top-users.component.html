@@ -1,5 +1,5 @@
 <div class="top-users-div">
-  <h1>Top users of {{selectedTimePeriod}} in {{getTaskNameById(selectedTaskType)}}</h1>
+  <h1>Top users of {{selectedTimePeriod}} in {{getTaskNameById(selectedTaskSubject)}}</h1>
 
   <div id="input-div">
     <div class="top-users-input">
@@ -12,9 +12,9 @@
 
     <div class="top-users-input">
       <label for="task-type">Select task type</label>
-      <select id="task-type" (change)="onChangeOption()" [(ngModel)]="selectedTaskType">
-        <option value="{{-1}}">every task</option>
-        <option *ngFor="let task of tasks" value="{{task.id}}">{{task.name}}</option>
+      <select id="task-type" (change)="onChangeOption()" [(ngModel)]="selectedTaskSubject">
+        <option value="all">every task</option>
+        <option *ngFor="let task of tasks" value="{{task.value}}">{{task.label}}</option>
       </select>
     </div>
   </div>
