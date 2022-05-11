@@ -4,12 +4,14 @@ import {UserRegistrationComponent} from "./user-registration/user-registration.c
 import {UserPasswordRecoveryComponent} from "./user-password-recovery/user-password-recovery.component";
 import {UserProgressComponent} from "./users/user-progress/user-progress.component";
 import {TopUsersComponent} from "./users/top-users/top-users.component";
+import {GameComponent} from "./game/game.component";
 
 const routes: Routes = [
   {path: 'auth', component: UserRegistrationComponent},
   {path: 'auth/recovery', component: UserPasswordRecoveryComponent},
   {path: 'my-progress', component: UserProgressComponent},
-  {path: 'top-charts', component: TopUsersComponent}
+  {path: 'top-charts', component: TopUsersComponent},
+  {path: 'game', component: GameComponent}
 ];
 
 @NgModule({

@@ -1,58 +1,74 @@
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {exhaustMap, Observable, take} from "rxjs";
 import {UserStats} from "./user-stats.model";
 import {UserStatsList} from "./usr-stats-list.model";
 import {environment} from "../../environments/environment";
 import {Injectable} from "@angular/core";
+import {AuthService} from "./auth.service";
 
 @Injectable()
 export class UserStatsService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
   }
 
   getUserStatsTask(
-    userId: number, taskId: string, startDate?: string, endDate?: string
+    taskId: string, startDate?: string, endDate?: string
   ): Observable<UserStats> {
     if (startDate === undefined || endDate === undefined) {
-      return this.http.get<UserStats>(
-        environment.apiUrl + "/users/" + userId + "/stats/" + taskId
-      );
+      return this.authService.user.pipe(take(1), exhaustMap(user => {
+        return this.http.get<UserStats>(
+          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "?token=" + user.token
+        );
+      }));
     } else {
-      return this.http.get<UserStats>(
-        environment.apiUrl + "/users/" + userId + "/stats/" + taskId,
-        {params: {startDate: startDate, endDate: endDate}}
-      );
+      return this.authService.user.pipe(take(1), exhaustMap(user => {
+        return this.http.get<UserStats>(
+          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "?token=" + user.token,
+          {params: {startDate: startDate, endDate: endDate}}
+        );
+      }));
     }
   }
 
   getUserStatsListOverall(
-    userId: number, startDate?: string, endDate?: string
+    startDate?: string, endDate?: string
   ): Observable<UserStatsList> {
     if (startDate === undefined || endDate === undefined) {
-      return this.http.get<UserStatsList>(
-        environment.apiUrl + "/users/" + userId + "/stats/list"
-      );
+      return this.authService.user.pipe(take(1), exhaustMap(user => {
+        return this.http.get<UserStatsList>(
+          environment.apiUrl + "/users/" + user.id + "/stats/list?token=" + user.token
+        );
+      }));
     } else {
-      return this.http.get<UserStatsList>(
-        environment.apiUrl + "/users/" + userId + "/stats/list",
-        {params: {startDate: startDate, endDate: endDate}}
-      );
+      return this.authService.user.pipe(take(1), exhaustMap(user => {
+        return this.http.get<UserStatsList>(
+          environment.apiUrl + "/users/" + user.id + "/stats/list?token=" + user.token,
+          {params: {startDate: startDate, endDate: endDate}}
+        );
+      }));
     }
   }
 
   getUserStatsListTask(
-    userId: number, taskId: string, startDate?: string, endDate?: string
+    taskId: string, startDate?: string, endDate?: string
   ): Observable<UserStatsList> {
     if (startDate === undefined || endDate === undefined) {
-      return this.http.get<UserStatsList>(
-        environment.apiUrl + "/users/" + userId + "/stats/" + taskId + "/list"
-      );
+      return this.authService.user.pipe(take(1), exhaustMap(user => {
+        return this.http.get<UserStatsList>(
+          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "/list?token=" + user.token
+        );
+      }));
     } else {
-      return this.http.get<UserStatsList>(
-        environment.apiUrl + "/users/" + userId + "/stats/" + taskId + "/list",
-        {params: {startDate: startDate, endDate: endDate}}
-      );
+      return this.authService.user.pipe(take(1), exhaustMap(user => {
+        return this.http.get<UserStatsList>(
+          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "/list?token=" + user.token,
+          {params: {startDate: startDate, endDate: endDate}}
+        );
+      }));
     }
   }
 

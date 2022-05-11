@@ -11,7 +11,7 @@
     </div>
 
     <div class="top-users-input">
-      <label for="task-type">Select task type</label>
+      <label for="task-type">Select task subject</label>
       <select id="task-type" (change)="onChangeOption()" [(ngModel)]="selectedTaskSubject">
         <option value="all">every task</option>
         <option *ngFor="let task of tasks" value="{{task.value}}">{{task.label}}</option>

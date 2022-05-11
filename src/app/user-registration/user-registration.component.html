@@ -27,15 +27,16 @@
 
   <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
     <label for="email1"><b>Email:</b></label>
-    <input name="email1" id="email1" type="text" placeholder="Enter Email" ngModel required #email="ngModel"/>
+    <input name="email1" id="email1" type="text" placeholder="Enter Email" ngModel required #email1="ngModel"/>
     <label for="username"><b>Username:</b></label>
     <input name="username" id="username" type="text" placeholder="Enter Username" ngModel required #username="ngModel"/>
     <label for="password1"><b>Password:</b></label>
     <input name="password1" id="password1" type="password" placeholder="Enter Password" ngModel required
-           #password="ngModel"/>
+           #password1="ngModel"/>
     <label for="password2"><b>Retype Password:</b></label>
     <input name="password2" id="password2" type="password" placeholder="Retype Password" ngModel required
-           #passwordRetype="ngModel"/>
+           #password2="ngModel"/>
+    <p class="warning" *ngIf="invalidPassword">Retyped password is incorrect.</p>
     <button class="auth-button">Register</button>
   </form>
 

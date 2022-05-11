@@ -1,24 +1,32 @@
 import {Injectable} from "@angular/core";
-import {catchError, Subject, tap} from "rxjs";
+import {BehaviorSubject, exhaustMap, Subject, take, tap} from "rxjs";
 import {User} from "./user.auth.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
 export interface AuthResponseData {
   username: string;
+  user_id: number;
   _token: string;
-  _tokenExpiresIn: string;
+  _tokenExpirationTime: string;
 }
 
 @Injectable()
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient) {
   }
 
-  signup(username: string, email: string, password: string) {
-    //todo
+  register(username: string, email: string, password: string) {
+    return this.http.post<AuthResponseData>(
+      environment.apiUrl + "/users",
+      {
+        email,
+        username,
+        password
+      }
+    );
   }
 
   login(email: string, password: string) {
@@ -33,20 +41,33 @@ export class AuthService {
         this.handleAuthentication(
           email,
           resData.username,
+          resData.user_id,
           resData._token,
-          +resData._tokenExpiresIn
+          resData._tokenExpirationTime
         )
       })
     );
   }
 
-  private handleAuthentication(email: string, username: string, token: string, expiresIn: number) {
+  logout() {
+    return this.user.pipe(take(1), exhaustMap(user => {
+      this.user.next(null);
+      return this.http.delete(
+        environment.apiUrl + "/users/logout?token=" + user.token
+      );
+    }));
+  }
+
+  private handleAuthentication(
+    email: string, username: string, user_id: number, token: string, expiresIn: string
+  ) {
     const expirationDate = new Date(
-      new Date().getTime() + expiresIn * 1000
+      expiresIn
     );
     const user = new User(
       email,
       username,
+      user_id,
       token,
       expirationDate
     );

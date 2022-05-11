@@ -14,6 +14,7 @@ import { TopUsersComponent } from './users/top-users/top-users.component';
 import {TopUsersService} from "./users/top-users.service";
 import {TaskService} from "./tasks/task.service";
 import {UserStatsService} from "./users/user-stats.service";
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {UserStatsService} from "./users/user-stats.service";
     UserRegistrationComponent,
     UserPasswordRecoveryComponent,
     UserProgressComponent,
-    TopUsersComponent
+    TopUsersComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,

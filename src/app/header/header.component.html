@@ -2,16 +2,16 @@
   <img class="logo" alt="[insert logo here]"/>
   <nav class="navigation-bar">
     <ul class="navigation-links">
-      <li [ngClass]="{'active' : active === 0}">
-        <a href="#" (click)="onClickLink(0)">Play</a>
+      <li routerLinkActive="active">
+        <a routerLink="./game">Play</a>
       </li>
       <li routerLinkActive="active">
         <a routerLink="./top-charts">Top Charts</a>
       </li>
-      <li routerLinkActive="active">
+      <li routerLinkActive="active" *ngIf="isAuthenticated">
         <a routerLink="./my-progress">My progress</a>
       </li>
-      <li [ngClass]="{'active' : active === 3}">
+      <li [ngClass]="{'active' : active === 3}" *ngIf="isAuthenticated">
         <a href="#" (click)="onClickLink(3)">Manage users</a>
       </li>
     </ul>
@@ -20,6 +20,6 @@
     <button class="login-button" routerLink="auth">Login</button>
   </div>
   <div class="user-login" *ngIf="isAuthenticated">
-    <button class="login-button">Logout</button>
+    <button class="login-button" (click)="onLogout()">Logout</button>
   </div>
 </header>

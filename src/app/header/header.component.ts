@@ -17,7 +17,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.active = -1;
   }
@@ -34,6 +35,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onClickLink(index) {
     this.active = index;
+  }
+
+  onLogout() {
+    this.authService.logout().subscribe(response => {
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate(['./auth']);
+      });
+    });
   }
 
 }
