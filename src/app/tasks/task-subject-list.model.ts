@@ -1,5 +1,5 @@
 import {TaskSubject} from "./task-type.model";
 
-export class TaskList {
+export class TaskSubjectList {
   subjects: TaskSubject[];
 }

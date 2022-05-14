@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {TaskList} from "./task-list.model";
+import {TaskSubjectList} from "./task-subject-list.model";
 import {environment} from "../../environments/environment";
+import {GraphTask} from "./graph-task.model";
 
 @Injectable()
 export class TaskService {
@@ -10,9 +11,21 @@ export class TaskService {
   constructor(private http: HttpClient) {
   }
 
-  getAllTasks(): Observable<TaskList> {
-    return this.http.get<TaskList>(
+  getAllTaskSubjects(): Observable<TaskSubjectList> {
+    return this.http.get<TaskSubjectList>(
       environment.apiUrl + "/tasks/subjects"
+    );
+  }
+
+  getUserTask(userId: number): Observable<GraphTask> {
+    return this.http.get<GraphTask>(
+      environment.apiUrl + "/tasks/user/" + userId
+    );//todo: also fetch graph and if 404 return null
+  }
+
+  createTask(userId: number): Observable<any> {
+    return this.http.post(
+      environment.apiUrl + "/tasks/user/" + userId, {}
     );
   }
 

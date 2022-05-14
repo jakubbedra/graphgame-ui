@@ -61,10 +61,10 @@ export class UserRegistrationComponent implements OnInit {
     const password2 = formData.value.password2;
     const username1 = formData.value.username;
 
-    console.log(username1);
+    //console.log(username1);
     //console.log(email + "DUPA");
-    console.log(password1);
-    console.log(password2);
+    //console.log(password1);
+    //console.log(password2);
     if (password1 == password2) {
       this.authService.register(username1, email1, password1).subscribe(
         resData => {

@@ -1,0 +1,102 @@
+.main-div {
+  display: inline-block;
+}
+
+.canvas-div {
+  margin: 16px;
+  float: left;
+  width: 1024px;
+  height: 760px;
+}
+
+.canvas-div canvas {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.08);;
+}
+
+.input-div {
+  position: absolute;
+  bottom: 0;
+  width: 320px;
+}
+
+.task-div {
+  margin-right: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  float: right;
+  width: 320px;
+  height: 760px;
+}
+
+.auth-div {
+  padding-top: 60px;
+  margin: 4% auto;
+  color: #F5F7FA;
+  width: 40%;
+}
+
+.auth-div h1 {
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+.auth-div input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #F5F7FA;
+  box-sizing: border-box;
+  border-radius: 8px;
+
+  border: none;
+  box-shadow: 0 0 1px 1px black;
+}
+
+.auth-div input:focus {
+  outline-style: solid;
+  outline-color: #BB86FC;
+}
+
+.submit-button {
+  transition: all 0.3s ease 0s;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #F5F7FA;
+  padding: 14px 20px;
+  cursor: pointer;
+  width: 100%;
+
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 1px 1px black;
+}
+
+.submit-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.bottom-button {
+  transition: all 0.3s ease 0s;
+  background-color: #BB86FC;
+  color: #F5F7FA;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 1px 1px black;
+}
+
+.warning {
+  color: red;
+}

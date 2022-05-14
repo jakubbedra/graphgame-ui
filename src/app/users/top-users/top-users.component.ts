@@ -34,7 +34,7 @@ export class TopUsersComponent implements OnInit {
   }
 
   fetchTasks(): void {
-    this.taskService.getAllTasks().subscribe(responseData => {
+    this.taskService.getAllTaskSubjects().subscribe(responseData => {
       this.tasks = responseData.subjects;
       console.log(this.tasks);
     });

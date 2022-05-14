@@ -50,7 +50,7 @@ export class UserProgressComponent implements OnInit {
   }
 
   fetchTaskSubjects() {
-    this.taskService.getAllTasks().subscribe(respData => {
+    this.taskService.getAllTaskSubjects().subscribe(respData => {
       this.tasks = respData.subjects;
       this.fetchBarChartStats();
       this.fetchLinearChartStats();
