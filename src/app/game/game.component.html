@@ -1,17 +1,23 @@
 <div class="main-div">
-  <div class="canvas-div">
+  <div class="canvas-div" *ngIf="!debugModeOn">
     <canvas>
 
     </canvas>
   </div>
+  <div class="canvas-div" *ngIf="debugModeOn">
+    <textarea [(ngModel)]="debugString"></textarea>
+  </div>
   <div class="task-div">
     <div class="description-div">
       <h2>{{currentTaskSubject}}</h2>
+      <h2 *ngIf="gotResponseToAnswer && answerIsCorrect" class="answer-correct">Correct!</h2>
+      <h2 *ngIf="gotResponseToAnswer && !answerIsCorrect" class="answer-wrong">Wrong!</h2>
       <p>{{currentTaskDescription}}</p>
-      <div class="input-div">
-        <button class="submit-button">SUBMIT</button>
-      </div>
+
     </div>
+    <button class="submit-button" *ngIf="!gotResponseToAnswer" (click)="onSubmit()">SUBMIT</button>
+    <button class="submit-button" *ngIf="gotResponseToAnswer" (click)="onNewTask()">NEW TASK</button>
+
     <!--YES/NO buttons (optional, only in the specific task type)-->
     <!--correct! / wrong!-->
     <!--SUBMIT-->
