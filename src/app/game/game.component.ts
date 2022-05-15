@@ -5,6 +5,7 @@ import {parse, HtmlGenerator} from 'latex.js';
 import {createHTMLWindow} from 'svgdom';
 import {TaskDescriptionsAndSubjects} from "../tasks/task-descriptions-and-subjects";
 import {TaskGraph} from "../tasks/task-graph";
+import {GameCanvas} from "./game.canvas";
 
 @Component({
   selector: 'app-game',
@@ -26,16 +27,19 @@ export class GameComponent implements OnInit {
 
   task: GraphTask;
   graph: TaskGraph;
+  gameCanvas: GameCanvas;
 
   constructor(
     private taskService: TaskService
   ) {
     this.debugString = "";
-    this.debugModeOn = true;
+    this.debugModeOn = false;//true;
     this.gotResponseToAnswer = false;
     this.answerIsCorrect = false;
     this.currentTaskSubject = "sample text";
     this.currentTaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+	console.log("Construct GameComponent");
+    this.gameCanvas = new GameCanvas();
   }
 
   ngOnInit(): void {
@@ -120,6 +124,7 @@ export class GameComponent implements OnInit {
     this.currentTaskSubject = TaskDescriptionsAndSubjects.SUBJECTS[task.subject];
     this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
       .replace("{}", task.graphVertices.toString());
+//     this.gameCanvas.initTask(this.task.type, this.graph);
   }
 
   private taskRequiresGraph(task: GraphTask): boolean {
