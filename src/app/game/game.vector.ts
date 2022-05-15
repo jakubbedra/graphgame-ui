@@ -11,12 +11,12 @@ export class Vector {
 		else this.y;
 	}
 	
+	dist(o: Vector) {
+		return this.diff(o).len();
+	}
+	
 	equal(o: Vector) {
-		console.log(this);
-		console.log(o);
-		console.log(this.diff(o));
-		console.log("len: " + this.diff(o).len2());
-		return this.diff(o).len2() <= 0.0001;
+		return this.diff(o).len2() <= 0.0000001;
 	}
 	
 	copy() {

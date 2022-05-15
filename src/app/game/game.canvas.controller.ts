@@ -123,28 +123,18 @@ export class GameCanvasController {
 					if(nextId != this.chosenVertexId) {
 						// add edge
 						this.gameCanvas.addEdge(nextId, this.chosenVertexId);
-					} else if(this.mouseDownPosition.equal(this.currentMousePosition)) {
-console.log("1");
+					} else if(this.mouseDownPosition.dist(this.currentMousePosition) < this.gameCanvas.vertexRadius/2) {
 						// delete vertex
 						this.gameCanvas.removeVertexById(nextId);
 					}
-console.log("2");
 				}
-console.log("3");
 			} else {
-console.log("4");
-				console.log(this.mouseDownPosition);
-				console.log(this.currentMousePosition);
-				if(this.mouseDownPosition.equal(this.currentMousePosition)) {
+				if(this.mouseDownPosition.dist(this.currentMousePosition) < this.gameCanvas.vertexRadius/2) {
 					// add vertex
 					this.gameCanvas.addVertex(this.currentMousePosition);
-console.log("5");
 				}	
-console.log("6");
 			}
-console.log("7");
 		}
-console.log("8");
 		this.gameCanvas.renderGraph();
 		this.chosenVertexId = -1;
 	}
