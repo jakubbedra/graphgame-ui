@@ -34,8 +34,18 @@ export class GameCanvas {
 	
 	
 	
+	addEdge(a: number, b: number) {
+		var f = this.edges[a].findIndex((v: number, i: number, obj: number[])=>{return v==b;});
+		if(f) {
+			if(f>=0)
+				return;
+		}
+		this.edges[a].push(b);
+		this.edges[b].push(a);
+	}
+	
 	addVertex(position: Vector) {
-		this.vertices.push(position);
+		this.vertices.push(position.copy());
 		this.edges.push([]);
 	}
 	
@@ -75,11 +85,6 @@ export class GameCanvas {
 		
 		this.graph = graph;
 		this.edges = graph.neighbourLists;
-		console.log("Init task");
-		console.log(this.canvas());
-		console.log(this.edges);
-		console.log(this.vertices);
-		console.log(graph);
 		/*
 		if(this.edges == null) {
 			this.edges = [];
@@ -95,10 +100,6 @@ export class GameCanvas {
 	}
 	
 	generateGraphVertices() {
-		console.log("Generate outer");
-		console.log(this.canvas());
-		console.log(this.edges);
-		console.log(this.vertices);
 		this.beautifier.generateGraphVertices(this.canvas(), this.edges, this.vertices);
 		this.edges = this.beautifier.edges;
 		this.vertices = this.beautifier.vertices;

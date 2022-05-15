@@ -19,10 +19,6 @@ export class GameGraphBeautifier {
 		this.canvas = canvas;
 		this.edges = edges;
 		this.vertices = vertices;
-		console.log("Generate");
-		console.log(this.canvas);
-		console.log(this.edges);
-		console.log(this.vertices);
 		this.vertices = new Array<Vector>(this.edges.length);
 		for(var i=0; i<this.edges.length; ++i) {
 			this.vertices[i] = new Vector();

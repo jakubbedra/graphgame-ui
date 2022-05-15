@@ -1,14 +1,22 @@
 export class Vector {
-	public x: number;
-	public y: number;
+	public x: number = 0;
+	public y: number = 0;
 	
 	constructor(X?:number, Y?:number) {
 		if(X)
-			this.x = X;
+			this.x = X+0;
 		else this.x;
 		if(Y)
-			this.y = Y;
+			this.y = Y+0;
 		else this.y;
+	}
+	
+	equal(o: Vector) {
+		console.log(this);
+		console.log(o);
+		console.log(this.diff(o));
+		console.log("len: " + this.diff(o).len2());
+		return this.diff(o).len2() <= 0.0001;
 	}
 	
 	copy() {
@@ -46,6 +54,10 @@ export class Vector {
 	
 	divf(o: number) {
 		return new Vector(this.x/o, this.y/o);
+	}
+	
+	len2() {
+		return this.x*this.x + this.y*this.y;
 	}
 	
 	len() {

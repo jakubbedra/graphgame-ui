@@ -11,6 +11,7 @@ export class GameCanvasController {
 	leftDown: boolean = false;
 	rightDown: boolean = false;
 	currentMousePosition: Vector = new Vector();
+	mouseDownPosition: Vector = new Vector();
 	chosenVertexId: number = -1;
 	
 	
@@ -80,7 +81,6 @@ export class GameCanvasController {
 	
 	findVertexId(p: Vector) {
 		var d = this.gameCanvas.findVertices(p);
-		console.log(d);
 		if(d.length == 0)
 			return -1;
 		return d[0];
@@ -99,6 +99,7 @@ export class GameCanvasController {
 	
 	mouseDown(ev: MouseEvent) {
 		this.currentMousePosition = this.mousePos(ev);
+		this.mouseDownPosition = this.currentMousePosition.copy();
 		if(ev.button == 0) {
 			this.leftDown = true;
 			// ...
@@ -116,7 +117,35 @@ export class GameCanvasController {
 			// ...
 		} else if(ev.button == 2) {
 			this.rightDown = false;
+			if(this.chosenVertexId >= 0) {
+				var nextId = this.findVertexId(this.currentMousePosition);
+				if(nextId >= 0) {
+					if(nextId != this.chosenVertexId) {
+						// add edge
+						this.gameCanvas.addEdge(nextId, this.chosenVertexId);
+					} else if(this.mouseDownPosition.equal(this.currentMousePosition)) {
+console.log("1");
+						// delete vertex
+						this.gameCanvas.removeVertexById(nextId);
+					}
+console.log("2");
+				}
+console.log("3");
+			} else {
+console.log("4");
+				console.log(this.mouseDownPosition);
+				console.log(this.currentMousePosition);
+				if(this.mouseDownPosition.equal(this.currentMousePosition)) {
+					// add vertex
+					this.gameCanvas.addVertex(this.currentMousePosition);
+console.log("5");
+				}	
+console.log("6");
+			}
+console.log("7");
 		}
+console.log("8");
 		this.gameCanvas.renderGraph();
+		this.chosenVertexId = -1;
 	}
 }
