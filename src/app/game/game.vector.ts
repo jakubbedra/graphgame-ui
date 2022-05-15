@@ -3,11 +3,15 @@ export class Vector {
 	public y: number;
 	
 	constructor(X?:number, Y?:number) {
-		this.x = X ?? 0;
-		this.y = Y ?? 0;
+		if(X)
+			this.x = X;
+		else this.x = 0.0;
+		if(Y)
+			this.y = Y;
+		else this.y = 0.0;
 	}
 	
-	add(o: Vector) : Vector {
-		return new Vector(this.x + o.x, this.y*o.y);
+	copy() {
+		return new Vector(this.x, this.y);
 	}
 }

@@ -113,11 +113,13 @@ export class GameCanvas {
 		
 		fullness = edgesCount / maxEdges;
 		
+		/*
 		if(fullness >= 0.6) {
 			this.beautifyFullGraph();
 		} else if(true) {
 			
 		}
+		*/
 		this.beautifyFullGraph();
 		
 		console.log("Generate full graph");
@@ -159,12 +161,12 @@ export class GameCanvas {
 		this.context.lineWidth = this.edgeWidth;
 		for(var i=0; i<this.edges.length; ++i) {
 			this.context.beginPath();
-			var a = this.vertices[i];
+			var a = this.vertices[i].copy();
 			a.x *= this.canvas.width;
 			a.y *= this.canvas.height;
 			for(var j=0; j<this.edges[i].length; ++j) {
 				var id = this.edges[i][j];
-				var b = this.vertices[id];
+				var b = this.vertices[id].copy();
 				b.x *= this.canvas.width;
 				b.y *= this.canvas.height;
 				this.context.moveTo(a.x, a.y);
