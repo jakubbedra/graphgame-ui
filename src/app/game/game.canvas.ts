@@ -1,47 +1,29 @@
-import {TaskDescriptionsAndSubjects} from "../tasks/task-descriptions-and-subjects";
 import {TaskGraph} from "../tasks/task-graph";
 import {Vector} from "./game.vector";
+import {GameGraphBeautifier} from "./game.graph.beautifier";
+import {GameCanvasController} from "./game.canvas.controller";
 
 export class GameCanvas {
 
 	graph: TaskGraph;
 	taskType: string; // DRAW, VERTEX_SELECTION, EDGE_SELECTION
 	
-	edges: number[][];
- 	vertices: Vector[] = []; // position always {<0;1>, <0;1>}
+	public edges: number[][] = [];
+ 	public vertices: Vector[] = []; // position always {<0;1>, <0;1>}
 	
-	canvas: HTMLCanvasElement;
- 	context: CanvasRenderingContext2D;
+	canvas() { return this.canvasController.canvas; }
+	context() { return this.canvasController.context; }
 	
-	public vertexRadius: number = 13;
-	public edgeWidth: number = 3;
+	beautifier: GameGraphBeautifier = new GameGraphBeautifier();
 	
-	fetchCanvas() {
-		this.canvas = document.getElementById('canvas-id') as HTMLCanvasElement;
-		if(this.canvas == null)
-			return;
-		this.context = this.canvas.getContext("2d");
-		
-		let self = this;
-		this.canvas.onmousemove = function(ev: MouseEvent){self.mouseMove(ev);};
-		this.canvas.onmousedown = function(ev: MouseEvent){self.mouseDown(ev);};
-		this.canvas.onmouseup = function(ev: MouseEvent){self.mouseUp(ev);};
-		
-		this.renderGraph();
-	}
+	canvasController: GameCanvasController;
+	
+	public vertexRadius: number = 16;
+	public edgeWidth: number = 6;
+	
 
 	constructor() {
-		this.fetchCanvas();
-		
-		var self = this;
-		var f = async function() {
-			function s(ms) {
-				return new Promise(resolve => setTimeout(resolve, ms));
-			};
-			await s(1000);
-			self.fetchCanvas();
-		};
-		f();
+		this.canvasController = new GameCanvasController(this);
 		
 		// example graph:
 		var g = [[1,2,3],[0,2],[0,1],[0,4],[3]];
@@ -52,139 +34,106 @@ export class GameCanvas {
 	
 	
 	
-	leftDown: boolean = false;
-	rightDown: boolean = false;
-	downMousePosition: Vector;
-	currentMousePosition: Vector;
-	
-	mouseMove(ev: MouseEvent) {
-		this.renderGraph();
+	addVertex(position: Vector) {
+		this.vertices.push(position);
+		this.edges.push([]);
 	}
 	
-	mouseDown(ev: MouseEvent) {
-		if(ev.button == 0) {
-			this.leftDown = true;
-			// ...
-		} else if(ev.button == 2) {
-			this.rightDown = true;
-			// ...
+	findVertices(position: Vector) {
+		var ret = [];
+		for(var i=0; i<this.vertices.length; ++i) {
+			if(this.vertices[i].diff(position).len() < this.vertexRadius) {
+				ret.push(i);
+			}
+		}
+		return ret;
+	}
+	
+	findEdges(position: Vector) {
+		console.error("GameCanvas::findEdges() is not implemented yet");
+	}
+	
+	removeVertexById(id: number) {
+		this.vertices.splice(id, 1);
+		this.edges.splice(id, 1);
+		for(var i=0; i<this.edges.length; ++i) {
+			for(var j=0; j<this.edges[i].length; ++j) {
+				if(this.edges[i][j] == id)  {
+					this.edges[i].splice(j, 1);
+					--j;
+				} else if(this.edges[i][j] > id) {
+					this.edges[i][j]--;
+				}
+			}
 		}
 	}
 	
-	mouseUp(ev: MouseEvent) {
-	}
+	
 	
 	initTask(taskType: string, graph: TaskGraph) {
 		this.taskType = taskType;
 		
 		this.graph = graph;
 		this.edges = graph.neighbourLists;
-		console.log("Init task graph");
-		console.log(this.graph);
+		console.log("Init task");
+		console.log(this.canvas());
 		console.log(this.edges);
+		console.log(this.vertices);
+		console.log(graph);
+		/*
+		if(this.edges == null) {
+			this.edges = [];
+			this.vertices = [];
+			return;
+		}
+	   */
 		
 // 		if(this.taskType != "DRAW") {
-			this.generateGraphVertices();
+// 			this.generateGraphVertices();
 // 		}
 		this.renderGraph();
 	}
 	
 	generateGraphVertices() {
-		this.vertices = new Array<Vector>(this.graph.neighbourLists.length);
-		for(var i=0; i<this.graph.neighbourLists.length; ++i) {
-			this.vertices[i] = new Vector();
-			console.log("vert: " + this.vertices[i]);
-		}
-		this.beautifyGraph();
-	}
-	
-	beautifyGraph() {
-		var planarity = 0;
-		var fullness = 0;
-		var verticesByHighestDegree = [];
-		var edgesCount = 0;
-		var maxEdges = this.vertices.length * (this.vertices.length-1) / 2;
-		
-		for(var i=0; i<this.edges.length; ++i) {
-			verticesByHighestDegree[i] = i;
-			edgesCount += this.edges[i].length;
-		}
-		this.sortByVertexDegree(verticesByHighestDegree);
-		
-		fullness = edgesCount / maxEdges;
-		
-		/*
-		if(fullness >= 0.6) {
-			this.beautifyFullGraph();
-		} else if(true) {
-			
-		}
-		*/
-		this.beautifyFullGraph();
-		
-		console.log("Generate full graph");
+		console.log("Generate outer");
+		console.log(this.canvas());
+		console.log(this.edges);
 		console.log(this.vertices);
+		this.beautifier.generateGraphVertices(this.canvas(), this.edges, this.vertices);
+		this.edges = this.beautifier.edges;
+		this.vertices = this.beautifier.vertices;
 	}
 	
-	sortByVertexDegree(ids: number[]) {
-		for(var i=0; i<ids.length; ++i) {
-			for(var j=i+1; j<ids.length; ++j) {
-				if(this.edges[ids[i]].length < this.edges[ids[j]].length) {
-					var t = ids[i];
-					ids[i] = ids[j];
-					ids[j] = t;
-				}
-			}
-		}
-	}
-	
-	beautifyFullGraph() {
-		var verticesCount = this.vertices.length;
-		var delta = Math.PI * 2 / verticesCount;
-		for(var i=0; i<this.vertices.length; ++i) {
-			var angle = delta*i;
-			this.vertices[i] = new Vector(
-				Math.sin(angle)*0.5 + 0.5,
-				Math.cos(angle)*0.5 + 0.5
-			);
-			console.log(this.vertices[i]);
-		}
-		console.log(this.vertices);
-	}
 	
 	
 	renderGraph() {
-		if(this.context == null)
+		if(this.context() == null)
 			return;
-		this.context.strokeStyle = 'white';
-		this.context.fillStyle = 'yellow';
-		this.context.lineWidth = this.edgeWidth;
+		this.context().clearRect(0, 0, this.canvas().width, this.canvas().height);
+		this.context().strokeStyle = 'white';
+		this.context().fillStyle = 'yellow';
+		this.context().lineWidth = this.edgeWidth;
 		for(var i=0; i<this.edges.length; ++i) {
-			this.context.beginPath();
+			this.context().beginPath();
 			var a = this.vertices[i].copy();
-			a.x *= this.canvas.width;
-			a.y *= this.canvas.height;
 			for(var j=0; j<this.edges[i].length; ++j) {
 				var id = this.edges[i][j];
 				var b = this.vertices[id].copy();
-				b.x *= this.canvas.width;
-				b.y *= this.canvas.height;
-				this.context.moveTo(a.x, a.y);
-				this.context.lineTo(b.x, b.y);
-				this.context.stroke();
+				this.context().moveTo(a.x, a.y);
+				this.context().lineTo(b.x, b.y);
+				this.context().stroke();
 			}
-			this.context.closePath();
-			this.context.ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
-			this.context.fill();
+			this.context().closePath();
+			this.context().ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
+			this.context().fill();
 		}
 		for(var i=0; i<this.vertices.length; ++i) {
-			this.context.beginPath();
-			var a = this.vertices[i];
-			a.x *= this.canvas.width;
-			a.y *= this.canvas.height;
-			this.context.ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
-			this.context.fill();
+			this.context().beginPath();
+			var a = this.vertices[i].copy();
+			this.context().ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
+			this.context().fill();
 		}
+		this.canvasController.renderAdditional();
 	}
 }
 
