@@ -171,7 +171,6 @@ export class GameCanvas {
 			return;
 		this.context().clearRect(0, 0, this.canvas().width, this.canvas().height);
 		this.context().lineWidth = this.edgeWidth;
-		console.log(" ");
 		this.renderEdges();
 		this.renderVertices();
 		this.canvasController.renderAdditional();
@@ -183,7 +182,6 @@ export class GameCanvas {
 			for(var j=0; j<this.edges[i].length; ++j) {
 				var id = this.edges[i][j];
 				if(id > i) {
-					console.log("edge: " + i + " - " + id);
 					var b = this.vertices[id].copy();
 					this.context().beginPath();
 					this.context().moveTo(a.x, a.y);
@@ -194,8 +192,8 @@ export class GameCanvas {
 					this.context().closePath();
 				}
 			}
-			this.context().ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
-			this.context().fill();
+// 			this.context().ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
+// 			this.context().fill();
 		}
 	}
 	
@@ -226,7 +224,7 @@ export class GameCanvas {
 			this.context().fillStyle = 'black';
 			this.context().strokeStyle = 'white';
 			
-			var text = ""+i;
+			var text = ""+i;//"id: " + i;
 			var s = new Vector(this.context().measureText(text).width, fontSize);
 			var p = a.sub(s.divf(2).mul(new Vector(1, -0.5))).add(new Vector(0,1));
 			
