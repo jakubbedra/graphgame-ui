@@ -8,6 +8,9 @@ export class GameCanvas {
 	graph: TaskGraph;
 	taskType: string; // DRAW, VERTEX_SELECTION, EDGE_SELECTION
 	
+	public edgeSelectionStack: number[][] = [];
+	public vertexSelectionStack: number[] = [];
+	
 	public edges: number[][] = [];
  	public vertices: Vector[] = []; // position always {<0;1>, <0;1>}
 	
@@ -69,37 +72,36 @@ export class GameCanvas {
 				var idb = this.edges[i][j];
 				if(idb > ida) {
 					var b = this.vertices[idb].copy();
-					var ab = b.sub(a);
-					var dir = ab.divf(ab.len());
-					var p = position.sub(a);
-					var tp = p.dot(dir);
-					var tab = ab.dot(dir);
-					
-					var result = true;
-					
-					if(tp < 0)
-						result = false;
-					else if(tp > tab)
-						result = false;
-					
-					var perdir = new Vector(-dir.y, dir.x);
-					
-					var ptp = p.dot(perdir);
-					if(ptp < -this.edgeWidth*3/2)
-						result = false;
-					else if(ptp > this.edgeWidth*3/2)
-						result = false;
-					
-					if(result) {
+					if(this.edgeCollision(a, b, position)) {
 						ret.push([ida, idb]);
 					}
 				}
 			}
 		}
 		return ret;
+	}
+	
+	edgeCollision(a: Vector, b: Vector, position: Vector) {
+		var ab = b.sub(a);
+		var dir = ab.divf(ab.len());
+		var p = position.sub(a);
+		var tp = p.dot(dir);
+		var tab = ab.dot(dir);
+
+		if(tp < 0)
+			return false;
+		else if(tp > tab)
+			return false;
+
+		var perdir = new Vector(-dir.y, dir.x);
+
+		var ptp = p.dot(perdir);
+		if(ptp < -this.edgeWidth*3/2)
+			return false;
+		else if(ptp > this.edgeWidth*3/2)
+			return false;
 		
-		
-		console.error("GameCanvas::findEdges() is not implemented yet");
+		return true;
 	}
 	
 	removeVertexById(id: number) {
@@ -168,30 +170,71 @@ export class GameCanvas {
 		if(this.context() == null)
 			return;
 		this.context().clearRect(0, 0, this.canvas().width, this.canvas().height);
-		this.context().strokeStyle = 'white';
-		this.context().fillStyle = 'yellow';
 		this.context().lineWidth = this.edgeWidth;
+		console.log(" ");
+		this.renderEdges();
+		this.renderVertices();
+		this.canvasController.renderAdditional();
+	}
+	
+	renderEdges() {
 		for(var i=0; i<this.edges.length; ++i) {
-			this.context().beginPath();
 			var a = this.vertices[i].copy();
 			for(var j=0; j<this.edges[i].length; ++j) {
 				var id = this.edges[i][j];
-				var b = this.vertices[id].copy();
-				this.context().moveTo(a.x, a.y);
-				this.context().lineTo(b.x, b.y);
-				this.context().stroke();
+				if(id > i) {
+					console.log("edge: " + i + " - " + id);
+					var b = this.vertices[id].copy();
+					this.context().beginPath();
+					this.context().moveTo(a.x, a.y);
+					this.context().lineTo(b.x, b.y);
+					this.context().lineWidth = this.edgeWidth;
+					this.context().strokeStyle = '#CCC';
+					this.context().stroke();
+					this.context().closePath();
+				}
 			}
-			this.context().closePath();
 			this.context().ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
 			this.context().fill();
 		}
+	}
+	
+	renderVertices() {
+		this.context().lineWidth = 3;
 		for(var i=0; i<this.vertices.length; ++i) {
-			this.context().beginPath();
 			var a = this.vertices[i].copy();
+			
+			if(this.canvasController.chosenVertexId == i ||
+				this.canvasController.currentMousePosition.dist(a)
+						   < this.vertexRadius) {
+				this.context().beginPath();
+				this.context().fillStyle = "red";
+				this.context().ellipse(a.x, a.y, this.vertexRadius+3, this.vertexRadius+3, 0, 0, Math.PI*2);
+				this.context().fill();
+				this.context().closePath();
+			}
+			
+			this.context().beginPath();
+			this.context().fillStyle = '#22B';
 			this.context().ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
 			this.context().fill();
+			this.context().closePath();
+			
+			var fontSize = 20;
+			
+			this.context().font = "bold "+fontSize+"px Arial";
+			this.context().fillStyle = 'black';
+			this.context().strokeStyle = 'white';
+			
+			var text = ""+i;
+			var s = new Vector(this.context().measureText(text).width, fontSize);
+			var p = a.sub(s.divf(2).mul(new Vector(1, -0.5))).add(new Vector(0,1));
+			
+			this.context().beginPath();
+			this.context().strokeText(text, p.x, p.y);
+			this.context().fillText(text, p.x, p.y);
+			this.context().closePath();
 		}
-		this.canvasController.renderAdditional();
 	}
 }
 

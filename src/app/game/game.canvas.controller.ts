@@ -22,6 +22,7 @@ export class GameCanvasController {
 	
 	
 	renderAdditional() {
+		this.context.beginPath();
 		if(this.gameCanvas.taskType == "DRAW") {
 			if(this.rightDown) {
 				if(this.chosenVertexId >= 0) {
@@ -37,6 +38,7 @@ export class GameCanvasController {
 				}
 			}
 		}
+		this.context.closePath();
 	}
 	
 	
@@ -109,10 +111,16 @@ export class GameCanvasController {
 		this.mouseDownPosition = this.currentMousePosition.copy();
 		this.chosenVertexId = this.findVertexId(this.currentMousePosition);
 		if(ev.button == 0) {
-			console.log(this.chosenVertexId);
 			this.leftDown = true;
 		} else if(ev.button == 2) {
 			this.rightDown = true;
+			if(this.gameCanvas.taskType == "DRAW") {
+
+			} else if(this.gameCanvas.taskType == "VERTEX_SELECTION") {
+
+			} else if(this.gameCanvas.taskType == "EDGE_SELECTION") {
+
+			}
 		}
 		this.gameCanvas.renderGraph();
 	}
@@ -123,33 +131,37 @@ export class GameCanvasController {
 			this.leftDown = false;
 		} else if(ev.button == 2) {
 			this.rightDown = false;
-			if(this.chosenVertexId >= 0) {
-				var nextId = this.findVertexId(this.currentMousePosition);
-				if(nextId >= 0) {
-					if(nextId != this.chosenVertexId) {
-						// add edge
-						this.gameCanvas.addEdge(nextId, this.chosenVertexId);
-					} else if(this.mouseDownPosition
-							.dist(this.currentMousePosition)
-							< this.gameCanvas.vertexRadius/2) {
-						// delete vertex
-						this.gameCanvas.removeVertexById(nextId);
+			if(this.gameCanvas.taskType == "DRAW") {
+				if(this.chosenVertexId >= 0) {
+					var nextId = this.findVertexId(this.currentMousePosition);
+					if(nextId >= 0) {
+						if(nextId != this.chosenVertexId) {
+							// add edge
+							this.gameCanvas.addEdge(nextId, this.chosenVertexId);
+						} else if(this.mouseDownPosition
+								  .dist(this.currentMousePosition)
+							  < this.gameCanvas.vertexRadius/2) {
+								  // delete vertex
+								  this.gameCanvas.removeVertexById(nextId);
+							  }
+					}
+				} else {
+					var edges = this.gameCanvas.findEdges(this.currentMousePosition);
+					if(edges.length > 0) {
+						// delete edge
+						this.gameCanvas.removeEdgeByIds(edges[0]);
+					} else {
+						if(this.mouseDownPosition.dist(this.currentMousePosition)
+						   < this.gameCanvas.vertexRadius/2) {
+							   // add vertex
+							   this.gameCanvas.addVertex(this.currentMousePosition);
+						   }
 					}
 				}
-			} else {
-				var edges = this.gameCanvas.findEdges(this.currentMousePosition);
-				if(edges.length > 0) {
-					// delete edge
-					console.log(edges);
-					this.gameCanvas.removeEdgeByIds(edges[0]);
-				} else {
-					console.log(edges);
-					if(this.mouseDownPosition.dist(this.currentMousePosition)
-					   < this.gameCanvas.vertexRadius/2) {
-						   // add vertex
-						   this.gameCanvas.addVertex(this.currentMousePosition);
-					   }
-				}
+			} else if(this.gameCanvas.taskType == "VERTEX_SELECTION") {
+				
+			} else if(this.gameCanvas.taskType == "EDGE_SELECTION") {
+				
 			}
 		}
 		this.gameCanvas.renderGraph();
