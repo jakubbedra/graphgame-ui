@@ -93,6 +93,13 @@ export class GameCanvasController {
 	 */
 	
 	mouseMove(ev: MouseEvent) {
+		var mv = new Vector(ev.movementX, ev.movementY);
+		if(this.leftDown) {
+			if(this.chosenVertexId >= 0) {
+				this.gameCanvas.vertices[this.chosenVertexId]
+					= this.gameCanvas.vertices[this.chosenVertexId].add(mv);
+			}
+		}
 		this.currentMousePosition = this.mousePos(ev);
 		this.gameCanvas.renderGraph();
 	}
@@ -100,12 +107,12 @@ export class GameCanvasController {
 	mouseDown(ev: MouseEvent) {
 		this.currentMousePosition = this.mousePos(ev);
 		this.mouseDownPosition = this.currentMousePosition.copy();
+		this.chosenVertexId = this.findVertexId(this.currentMousePosition);
 		if(ev.button == 0) {
+			console.log(this.chosenVertexId);
 			this.leftDown = true;
-			// ...
 		} else if(ev.button == 2) {
 			this.rightDown = true;
-			this.chosenVertexId = this.findVertexId(this.currentMousePosition);
 		}
 		this.gameCanvas.renderGraph();
 	}
@@ -114,7 +121,6 @@ export class GameCanvasController {
 		this.currentMousePosition = this.mousePos(ev);
 		if(ev.button == 0) {
 			this.leftDown = false;
-			// ...
 		} else if(ev.button == 2) {
 			this.rightDown = false;
 			if(this.chosenVertexId >= 0) {
