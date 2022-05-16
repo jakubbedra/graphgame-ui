@@ -34,7 +34,6 @@ export class GameCanvasController {
 					this.context.lineTo(b.x, b.y);
 					this.context.stroke();
 					this.context.closePath();
-// 					console.log("Draw: " + a.x + "," + a.y + " to " + b.x + "," + b.y);
 				}
 			}
 		}

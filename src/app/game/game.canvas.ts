@@ -129,7 +129,9 @@ export class GameCanvas {
 		this.edges[ids[0]].splice(f, 1);
 		
 		f = this.edges[ids[1]]
-			.findIndex((v: number, i: number, obj: number[])=>{return v==ids[0];});
+			.findIndex((v: number, i: number, obj: number[])=>{
+				return v==ids[0];
+			});
 		if(f) {
 		} else if(f>=0) {
 		} else
@@ -159,7 +161,8 @@ export class GameCanvas {
 	}
 	
 	generateGraphVertices() {
-		this.beautifier.generateGraphVertices(this.canvas(), this.edges, this.vertices);
+		this.beautifier.generateGraphVertices(this.canvas(), this.edges,
+											  this.vertices);
 		this.edges = this.beautifier.edges;
 		this.vertices = this.beautifier.vertices;
 	}
@@ -169,7 +172,8 @@ export class GameCanvas {
 	renderGraph() {
 		if(this.context() == null)
 			return;
-		this.context().clearRect(0, 0, this.canvas().width, this.canvas().height);
+		this.context().clearRect(0, 0, this.canvas().width,
+								 this.canvas().height);
 		this.context().lineWidth = this.edgeWidth;
 		this.renderEdges();
 		this.renderVertices();
@@ -192,8 +196,6 @@ export class GameCanvas {
 					this.context().closePath();
 				}
 			}
-// 			this.context().ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
-// 			this.context().fill();
 		}
 	}
 	
@@ -207,14 +209,16 @@ export class GameCanvas {
 						   < this.vertexRadius) {
 				this.context().beginPath();
 				this.context().fillStyle = "red";
-				this.context().ellipse(a.x, a.y, this.vertexRadius+3, this.vertexRadius+3, 0, 0, Math.PI*2);
+				this.context().ellipse(a.x, a.y, this.vertexRadius+3,
+									   this.vertexRadius+3, 0, 0, Math.PI*2);
 				this.context().fill();
 				this.context().closePath();
 			}
 			
 			this.context().beginPath();
 			this.context().fillStyle = '#22B';
-			this.context().ellipse(a.x, a.y, this.vertexRadius, this.vertexRadius, 0, 0, Math.PI*2);
+			this.context().ellipse(a.x, a.y, this.vertexRadius,
+								   this.vertexRadius, 0, 0, Math.PI*2);
 			this.context().fill();
 			this.context().closePath();
 			
