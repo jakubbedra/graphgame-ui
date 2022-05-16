@@ -123,16 +123,27 @@ export class GameCanvasController {
 					if(nextId != this.chosenVertexId) {
 						// add edge
 						this.gameCanvas.addEdge(nextId, this.chosenVertexId);
-					} else if(this.mouseDownPosition.dist(this.currentMousePosition) < this.gameCanvas.vertexRadius/2) {
+					} else if(this.mouseDownPosition
+							.dist(this.currentMousePosition)
+							< this.gameCanvas.vertexRadius/2) {
 						// delete vertex
 						this.gameCanvas.removeVertexById(nextId);
 					}
 				}
 			} else {
-				if(this.mouseDownPosition.dist(this.currentMousePosition) < this.gameCanvas.vertexRadius/2) {
-					// add vertex
-					this.gameCanvas.addVertex(this.currentMousePosition);
-				}	
+				var edges = this.gameCanvas.findEdges(this.currentMousePosition);
+				if(edges.length > 0) {
+					// delete edge
+					console.log(edges);
+					this.gameCanvas.removeEdgeByIds(edges[0]);
+				} else {
+					console.log(edges);
+					if(this.mouseDownPosition.dist(this.currentMousePosition)
+					   < this.gameCanvas.vertexRadius/2) {
+						   // add vertex
+						   this.gameCanvas.addVertex(this.currentMousePosition);
+					   }
+				}
 			}
 		}
 		this.gameCanvas.renderGraph();

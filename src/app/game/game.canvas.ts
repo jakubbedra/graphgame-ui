@@ -35,7 +35,8 @@ export class GameCanvas {
 	
 	
 	addEdge(a: number, b: number) {
-		var f = this.edges[a].findIndex((v: number, i: number, obj: number[])=>{return v==b;});
+		var f = this.edges[a]
+			.findIndex((v: number, i: number, obj: number[])=>{return v==b;});
 		if(f) {
 			if(f>=0)
 				return;
@@ -60,6 +61,44 @@ export class GameCanvas {
 	}
 	
 	findEdges(position: Vector) {
+		var ret = [];
+		for(var i=0; i<this.edges.length; ++i) {
+			var ida = i;
+			var a = this.vertices[ida].copy();
+			for(var j=0; j<this.edges[i].length; ++j) {
+				var idb = this.edges[i][j];
+				if(idb > ida) {
+					var b = this.vertices[idb].copy();
+					var ab = b.sub(a);
+					var dir = ab.divf(ab.len());
+					var p = position.sub(a);
+					var tp = p.dot(dir);
+					var tab = ab.dot(dir);
+					
+					var result = true;
+					
+					if(tp < 0)
+						result = false;
+					else if(tp > tab)
+						result = false;
+					
+					var perdir = new Vector(-dir.y, dir.x);
+					
+					var ptp = p.dot(perdir);
+					if(ptp < -this.edgeWidth*3/2)
+						result = false;
+					else if(ptp > this.edgeWidth*3/2)
+						result = false;
+					
+					if(result) {
+						ret.push([ida, idb]);
+					}
+				}
+			}
+		}
+		return ret;
+		
+		
 		console.error("GameCanvas::findEdges() is not implemented yet");
 	}
 	
@@ -76,6 +115,24 @@ export class GameCanvas {
 				}
 			}
 		}
+	}
+	
+	removeEdgeByIds(ids: number[]) {
+		var f = this.edges[ids[0]]
+			.findIndex((v: number, i: number, obj: number[])=>{return v==ids[1];});
+		if(f) {
+		} else if(f>=0) {
+		} else
+			return;
+		this.edges[ids[0]].splice(f, 1);
+		
+		f = this.edges[ids[1]]
+			.findIndex((v: number, i: number, obj: number[])=>{return v==ids[0];});
+		if(f) {
+		} else if(f>=0) {
+		} else
+			return;
+		this.edges[ids[1]].splice(f, 1);
 	}
 	
 	

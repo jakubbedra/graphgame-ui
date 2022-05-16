@@ -24,10 +24,12 @@ export class Vector {
 	}
 	
 	
+	add(o: Vector) { return this.sum(o); }
 	sum(o: Vector) {
 		return new Vector(this.x+o.x, this.y+o.y);
 	}
 	
+	sub(o: Vector) { return this.diff(o); }
 	diff(o: Vector) {
 		return new Vector(this.x-o.x, this.y-o.y);
 	}
