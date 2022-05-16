@@ -15,6 +15,7 @@ export class GameCanvasController {
 	chosenVertexId: number = -1;
 	
 	
+	
 	constructor(gameCanvas: GameCanvas) {
 		this.gameCanvas = gameCanvas;
 		this.fetchCanvasAsync();
@@ -158,7 +159,25 @@ export class GameCanvasController {
 					}
 				}
 			} else if(this.gameCanvas.taskType == "VERTEX_SELECTION") {
-				
+				if(this.mouseDownPosition.dist(this.currentMousePosition)
+					< this.gameCanvas.vertexRadius/2) {
+					// select/deselect vertex
+					if(this.gameCanvas.vertexSelectionStack.length > 0) {
+						if(this.gameCanvas.vertexSelectionStack[
+								this.gameCanvas.vertexSelectionStack.length-1]
+								== this.chosenVertexId) {
+							this.gameCanvas.vertexSelectionStack
+								.splice(
+									this.gameCanvas.vertexSelectionStack.length-1, 1);
+						} else {
+							this.gameCanvas.vertexSelectionStack
+							.push(this.chosenVertexId);
+						}
+					} else {
+						this.gameCanvas.vertexSelectionStack
+							.push(this.chosenVertexId);
+					}
+				}
 			} else if(this.gameCanvas.taskType == "EDGE_SELECTION") {
 				
 			}

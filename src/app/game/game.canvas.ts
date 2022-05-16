@@ -24,6 +24,26 @@ export class GameCanvas {
 	public vertexRadius: number = 16;
 	public edgeWidth: number = 6;
 	
+	
+	getNeighbouringMatrix() {
+		var mat:number[][] = new Array<number[]>(this.edges.length);
+		for(var i=0; i<mat.length; ++i) {
+			mat[i] = new Array<number>(this.edges.length);
+			for(var j=0; j<mat.length; ++j) {
+				mat[i][j] = 0;
+			}
+		}
+		for(var i=0; i<this.edges.length; ++i) {
+			var ida = i;
+			for(var j=0; j<this.edges[i].length; ++j) {
+				var idb = this.edges[i][j];
+				mat[ida][idb] = 1;
+				mat[idb][ida] = 1;
+			}
+		}
+		return mat;
+	}
+	
 
 	constructor() {
 		this.canvasController = new GameCanvasController(this);
@@ -32,7 +52,7 @@ export class GameCanvas {
 		var g = [[1,2,3],[0,2],[0,1],[0,4],[3]];
 		var t = new TaskGraph();
 		t.neighbourLists = g;
-		this.initTask("DRAW", t);
+		this.initTask("VERTEX_SELECTION", t);
 	}
 	
 	
@@ -216,7 +236,13 @@ export class GameCanvas {
 			}
 			
 			this.context().beginPath();
-			this.context().fillStyle = '#22B';
+			
+			var onstack = {present: false};
+			this.vertexSelectionStack.findIndex((v, id, n)=>{
+				if(v == i)
+					onstack.present = true;
+			});
+			this.context().fillStyle = onstack.present ? '#C2C' : '#22B';
 			this.context().ellipse(a.x, a.y, this.vertexRadius,
 								   this.vertexRadius, 0, 0, Math.PI*2);
 			this.context().fill();
@@ -228,7 +254,7 @@ export class GameCanvas {
 			this.context().fillStyle = 'black';
 			this.context().strokeStyle = 'white';
 			
-			var text = ""+i;//"id: " + i;
+			var text = ""+i;
 			var s = new Vector(this.context().measureText(text).width, fontSize);
 			var p = a.sub(s.divf(2).mul(new Vector(1, -0.5))).add(new Vector(0,1));
 			
@@ -236,7 +262,46 @@ export class GameCanvas {
 			this.context().strokeText(text, p.x, p.y);
 			this.context().fillText(text, p.x, p.y);
 			this.context().closePath();
+			
+			this.renderVertexDescription(i, fontSize);
 		}
+	}
+	
+	renderVertexDescription(i: number, fontSize: number) {
+		var a = this.vertices[i];
+		
+		var desc = this.vertexStackIndicesDescription(i);
+		var s = new Vector(this.context().measureText(desc).width, fontSize);
+		var p = s.mul(new Vector(-0.5, 1.5));
+
+		if(a.y < 100) {
+			p.y -= 4;
+		} else {
+			p.y = -p.y;
+			p.y -= 2;
+		}
+		p = a.sum(p);
+		p.y += fontSize/2;
+
+		this.context().beginPath();
+		this.context().strokeText(desc, p.x, p.y);
+		this.context().fillText(desc, p.x, p.y);
+		this.context().closePath();
+	}
+	
+	vertexStackIndicesDescription(id: number) {
+		var ids = [];
+		for(var i=0; i<this.vertexSelectionStack.length; ++i) {
+			if(this.vertexSelectionStack[i] == id)
+				ids.push(i);
+		}
+		var desc = "";
+		for(var i=0; i<ids.length; ++i) {
+			if(desc != "")
+				desc += ",";
+			desc += ids[i];
+		}
+		return desc;
 	}
 }
 
