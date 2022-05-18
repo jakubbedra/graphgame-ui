@@ -6,6 +6,11 @@ import {createHTMLWindow} from 'svgdom';
 import {TaskDescriptionsAndSubjects} from "../tasks/task-descriptions-and-subjects";
 import {TaskGraph} from "../tasks/task-graph";
 import {GameCanvas} from "./game.canvas";
+import {AuthService} from "../users/auth.service";
+import {exhaustMap, Observable, take} from "rxjs";
+import {UserStats} from "../users/user-stats.model";
+import {environment} from "../../environments/environment";
+import {User} from "../users/user.auth.model";
 
 @Component({
   selector: 'app-game',
@@ -23,14 +28,16 @@ export class GameComponent implements OnInit {
   currentTaskSubject: string;
   currentTaskDescription: string; //todo: config file containing the descriptions
 
-  testUserId = 1;
+  //testUserId = 1;
+  userId = -1;
 
   task: GraphTask;
   graph: TaskGraph;
   gameCanvas: GameCanvas;
 
   constructor(
-    private taskService: TaskService
+    private taskService: TaskService,
+    private authService: AuthService
   ) {
     this.debugString = "";
     this.debugModeOn = false;//true;
@@ -43,11 +50,18 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tryToFetchTask();
+    this.fetchUser().subscribe(user => {
+      this.userId = user.id;
+      this.tryToFetchTask();
+    });
+  }
+
+  fetchUser(): Observable<User> {
+    return this.authService.user.pipe(take(1));
   }
 
   tryToFetchTask() {
-    this.taskService.getUserTask(this.testUserId).subscribe(response => {
+    this.taskService.getUserTask(this.userId).subscribe(response => {
       console.log(response);
       if (response.type == "UNDEFINED") {
         this.createAndFetchTask();
@@ -59,8 +73,8 @@ export class GameComponent implements OnInit {
   }
 
   createAndFetchTask() {
-    this.taskService.createTask(this.testUserId).subscribe(response => {
-      this.taskService.getUserTask(this.testUserId).subscribe(response => {
+    this.taskService.createTask(this.userId).subscribe(response => {
+      this.taskService.getUserTask(this.userId).subscribe(response => {
         this.task = response;
         this.extractGraphTask(this.task);
       });

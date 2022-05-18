@@ -2,7 +2,7 @@
   <img class="logo" alt="[insert logo here]"/>
   <nav class="navigation-bar">
     <ul class="navigation-links">
-      <li routerLinkActive="active">
+      <li routerLinkActive="active" *ngIf="isAuthenticated">
         <a routerLink="./game">Play</a>
       </li>
       <li routerLinkActive="active">
@@ -10,9 +10,6 @@
       </li>
       <li routerLinkActive="active" *ngIf="isAuthenticated">
         <a routerLink="./my-progress">My progress</a>
-      </li>
-      <li [ngClass]="{'active' : active === 3}" *ngIf="isAuthenticated">
-        <a href="#" (click)="onClickLink(3)">Manage users</a>
       </li>
     </ul>
   </nav>

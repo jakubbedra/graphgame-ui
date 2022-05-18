@@ -13,7 +13,6 @@
       <h2 *ngIf="gotResponseToAnswer && answerIsCorrect" class="answer-correct">Correct!</h2>
       <h2 *ngIf="gotResponseToAnswer && !answerIsCorrect" class="answer-wrong">Wrong!</h2>
       <p>{{currentTaskDescription}}</p>
-
     </div>
     <button class="submit-button" *ngIf="!gotResponseToAnswer" (click)="onSubmit()">SUBMIT</button>
     <button class="submit-button" *ngIf="gotResponseToAnswer" (click)="onNewTask()">NEW TASK</button>
