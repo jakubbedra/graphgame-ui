@@ -38,8 +38,8 @@ export class GameComponent implements OnInit {
     this.answerIsCorrect = false;
     this.currentTaskSubject = "sample text";
     this.currentTaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-	console.log("Construct GameComponent");
-    this.gameCanvas = new GameCanvas();
+    //console.log("Construct GameComponent");
+    //this.gameCanvas = new GameCanvas();
   }
 
   ngOnInit(): void {
@@ -81,7 +81,44 @@ export class GameComponent implements OnInit {
         });
       }
     } else {
-      //todo: actual input from the player
+      if (this.task.type == "DRAW") {
+        let matrix = this.gameCanvas.getNeighbouringMatrix();
+        let m = 0;
+        for (let a of matrix) {
+          for (let b of a) {
+            if (b != 0) {
+              m++;
+            }
+          }
+        }
+        m /= 2;
+        let json = {
+          m: m,
+          matrix: matrix,
+          n: matrix.length
+        };
+        //console.log(JSON.stringify(json));
+        this.sendAnswer(JSON.stringify(json));
+      } else if (this.task.type == "VERTEX_SELECTION") {
+//todo
+        let json = {
+          selectedVertices: this.gameCanvas.vertexSelectionStack
+        };
+        this.sendAnswer(JSON.stringify(json));
+      }
+    }
+  }
+
+  private sendAnswer(json: string) {
+    if (this.task.type == "DRAW") {
+      this.taskService.postTaskAnswerDraw(json, this.task.taskUuid).subscribe(response => {
+        this.onAnswerResponse(response);
+      });
+    } else if (this.task.type == "VERTEX_SELECTION") {
+      console.log(this.debugString);
+      this.taskService.postTaskAnswerVertexSelection(json, this.task.taskUuid).subscribe(response => {
+        this.onAnswerResponse(response);
+      });
     }
   }
 
@@ -118,13 +155,20 @@ export class GameComponent implements OnInit {
       this.taskService.getTaskGraph(task.taskUuid).subscribe(response => {
         this.graph = response;
         console.log(response);
+        this.gameCanvas = new GameCanvas(this.task.type, this.graph);
       });
+    } else {
+      this.graph = new TaskGraph();
+      this.graph.neighbourLists = [];
+      this.gameCanvas = new GameCanvas(this.task.type, this.graph);
     }
 
     this.currentTaskSubject = TaskDescriptionsAndSubjects.SUBJECTS[task.subject];
     this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
       .replace("{}", task.graphVertices.toString());
 //     this.gameCanvas.initTask(this.task.type, this.graph);
+    //this.gameCanvas = new GameCanvas(this.task.type, this.graph);
+
   }
 
   private taskRequiresGraph(task: GraphTask): boolean {
