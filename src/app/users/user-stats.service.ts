@@ -21,13 +21,13 @@ export class UserStatsService {
     if (startDate === undefined || endDate === undefined) {
       return this.authService.user.pipe(take(1), exhaustMap(user => {
         return this.http.get<UserStats>(
-          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "?token=" + user.token
+          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId
         );
       }));
     } else {
       return this.authService.user.pipe(take(1), exhaustMap(user => {
         return this.http.get<UserStats>(
-          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "?token=" + user.token,
+          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId,
           {params: {startDate: startDate, endDate: endDate}}
         );
       }));
@@ -40,13 +40,13 @@ export class UserStatsService {
     if (startDate === undefined || endDate === undefined) {
       return this.authService.user.pipe(take(1), exhaustMap(user => {
         return this.http.get<UserStatsList>(
-          environment.apiUrl + "/users/" + user.id + "/stats/list?token=" + user.token
+          environment.apiUrl + "/users/" + user.id + "/stats/list"
         );
       }));
     } else {
       return this.authService.user.pipe(take(1), exhaustMap(user => {
         return this.http.get<UserStatsList>(
-          environment.apiUrl + "/users/" + user.id + "/stats/list?token=" + user.token,
+          environment.apiUrl + "/users/" + user.id + "/stats/list",
           {params: {startDate: startDate, endDate: endDate}}
         );
       }));
@@ -59,13 +59,13 @@ export class UserStatsService {
     if (startDate === undefined || endDate === undefined) {
       return this.authService.user.pipe(take(1), exhaustMap(user => {
         return this.http.get<UserStatsList>(
-          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "/list?token=" + user.token
+          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "/list"
         );
       }));
     } else {
       return this.authService.user.pipe(take(1), exhaustMap(user => {
         return this.http.get<UserStatsList>(
-          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "/list?token=" + user.token,
+          environment.apiUrl + "/users/" + user.id + "/stats/" + taskId + "/list",
           {params: {startDate: startDate, endDate: endDate}}
         );
       }));

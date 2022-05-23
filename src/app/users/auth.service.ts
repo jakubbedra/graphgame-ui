@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, exhaustMap, Subject, take, tap} from "rxjs";
+import {BehaviorSubject, exhaustMap, interval, Observable, Subject, switchMap, take, tap} from "rxjs";
 import {User} from "./user.auth.model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
 export interface AuthResponseData {
@@ -16,6 +16,15 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient) {
+  }
+
+  prolongSession(token: string): Observable<any> {
+    return this.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        console.log("dupa");
+        return this.http.put(environment.apiUrl + "/users/prolong_session?token=" + token, {});
+      }));
   }
 
   register(username: string, email: string, password: string) {
@@ -53,7 +62,7 @@ export class AuthService {
     return this.user.pipe(take(1), exhaustMap(user => {
       this.user.next(null);
       return this.http.delete(
-        environment.apiUrl + "/users/logout?token=" + user.token
+        environment.apiUrl + "/users/logout"
       );
     }));
   }

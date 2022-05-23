@@ -9,12 +9,13 @@ import {FormsModule} from "@angular/forms";
 import { UserPasswordRecoveryComponent } from './user-password-recovery/user-password-recovery.component';
 import {AuthService} from "./users/auth.service";
 import { UserProgressComponent } from './users/user-progress/user-progress.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { TopUsersComponent } from './users/top-users/top-users.component';
 import {TopUsersService} from "./users/top-users.service";
 import {TaskService} from "./tasks/task.service";
 import {UserStatsService} from "./users/user-stats.service";
 import { GameComponent } from './game/game.component';
+import {AuthInterceptorService} from "./users/auth-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { GameComponent } from './game/game.component';
     AuthService,
     TopUsersService,
     TaskService,
-    UserStatsService
+    UserStatsService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
