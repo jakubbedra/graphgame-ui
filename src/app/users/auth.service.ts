@@ -18,12 +18,12 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  prolongSession(token: string): Observable<any> {
+  prolongSession(): Observable<any> {
     return this.user.pipe(
       take(1),
       exhaustMap(user => {
         console.log("dupa");
-        return this.http.put(environment.apiUrl + "/users/prolong_session?token=" + token, {});
+        return this.http.put(environment.apiUrl + "/users/prolong_session", {});
       }));
   }
 

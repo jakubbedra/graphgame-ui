@@ -21,7 +21,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         }
 
         if (!req.url.includes('prolong_session') && this.prolongCounter % 4 == 0) {
-          this.authService.prolongSession(user.token).subscribe();
+          this.authService.prolongSession().subscribe();
         }
 
         this.prolongCounter++;
