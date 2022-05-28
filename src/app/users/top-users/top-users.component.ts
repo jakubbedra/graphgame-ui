@@ -3,6 +3,7 @@ import {TopUser} from "../top-user.model";
 import {TopUsersService} from "../top-users.service";
 import {TaskService} from "../../tasks/task.service";
 import {TaskSubject} from "../../tasks/task-type.model";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-top-users',
@@ -18,17 +19,27 @@ export class TopUsersComponent implements OnInit {
   selectedTaskSubject: string;
 
   page: number;
+  userId: number;
 
   constructor(
     private userStatsService: TopUsersService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private authService: AuthService
   ) {
     this.selectedTimePeriod = "all time";
     this.selectedTaskSubject = "all";
     this.page = 1;
+    this.userId = -1;
   }
 
   ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+      if(!!user){
+        this.userId = user.id;
+      } else {
+        this.userId = -1;
+      }
+    });
     this.fetchTopUsersOverallPage(this.page);
     this.fetchTasks();
   }

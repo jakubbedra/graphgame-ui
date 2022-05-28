@@ -1,0 +1,18 @@
+.info-div {
+  padding-top: 16px;
+  text-align: center;
+  width: 720px;
+  margin: 0 auto;
+}
+
+.warning-message {
+  color: red;
+}
+
+h2 {
+  margin-top: 36px;
+}
+
+h3 {
+  margin-top: 24px;
+}

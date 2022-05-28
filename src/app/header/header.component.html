@@ -1,5 +1,5 @@
 <header>
-  <img class="logo" alt="[insert logo here]"/>
+  <img class="logo" alt="[insert logo here]" routerLink="/"/>
   <nav class="navigation-bar">
     <ul class="navigation-links">
       <li routerLinkActive="active" *ngIf="isAuthenticated">
@@ -17,6 +17,7 @@
     <button class="login-button" routerLink="auth">Login</button>
   </div>
   <div class="user-login" *ngIf="isAuthenticated">
+    <label>{{username}}</label>
     <button class="login-button" (click)="onLogout()">Logout</button>
   </div>
 </header>
