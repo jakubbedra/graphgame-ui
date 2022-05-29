@@ -25,7 +25,7 @@
       <th>Correct answers</th>
       <th>Wrong answers</th>
     </tr>
-    <tr *ngFor="let topUser of topUsers">
+    <tr *ngFor="let topUser of topUsers" [ngClass]="{'logged-in': userId === topUser.id}">
       <td>{{topUser.place}}</td>
       <td>{{topUser.username}}</td>
       <td>{{topUser.correctTotal}}</td>

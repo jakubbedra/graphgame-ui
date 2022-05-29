@@ -5,8 +5,10 @@ import {UserPasswordRecoveryComponent} from "./user-password-recovery/user-passw
 import {UserProgressComponent} from "./users/user-progress/user-progress.component";
 import {TopUsersComponent} from "./users/top-users/top-users.component";
 import {GameComponent} from "./game/game.component";
+import {HomeComponent} from "./home/home.component";
 
 const routes: Routes = [
+  {path: '', component: HomeComponent},
   {path: 'auth', component: UserRegistrationComponent},
   {path: 'auth/recovery', component: UserPasswordRecoveryComponent},
   {path: 'my-progress', component: UserProgressComponent},

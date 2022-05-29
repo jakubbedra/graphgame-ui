@@ -16,6 +16,7 @@ import {TaskService} from "./tasks/task.service";
 import {UserStatsService} from "./users/user-stats.service";
 import { GameComponent } from './game/game.component';
 import {AuthInterceptorService} from "./users/auth-interceptor.service";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {AuthInterceptorService} from "./users/auth-interceptor.service";
     UserPasswordRecoveryComponent,
     UserProgressComponent,
     TopUsersComponent,
-    GameComponent
+    GameComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
