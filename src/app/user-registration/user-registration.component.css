@@ -5,6 +5,10 @@
   width: 40%;
 }
 
+.length-error {
+  color: red;
+}
+
 .auth-div h1 {
   text-align: center;
   padding-top: 10%;

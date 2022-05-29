@@ -22,7 +22,6 @@ export class AuthService {
     return this.user.pipe(
       take(1),
       exhaustMap(user => {
-        console.log("dupa");
         return this.http.put(environment.apiUrl + "/users/prolong_session", {});
       }));
   }
@@ -61,8 +60,9 @@ export class AuthService {
   logout() {
     return this.user.pipe(take(1), exhaustMap(user => {
       this.user.next(null);
+      //note: only place where the token won't be attached by interceptor because the user will already be null
       return this.http.delete(
-        environment.apiUrl + "/users/logout"
+        environment.apiUrl + "/users/logout?token=" + user.token
       );
     }));
   }

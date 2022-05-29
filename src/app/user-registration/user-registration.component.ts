@@ -10,6 +10,16 @@ import {Router} from "@angular/router";
 })
 export class UserRegistrationComponent implements OnInit {
 
+  MAX_EMAIL_LENGTH = 50;
+  MAX_PASSWORD_LENGHT = 50;
+  MAX_USERNAME_LENGHT = 30;
+
+  lengthError = {
+    username: false,
+    password: false,
+    email: false
+  }
+
   loginMode: boolean;
   invalidPassword: boolean;
   //login
@@ -44,7 +54,13 @@ export class UserRegistrationComponent implements OnInit {
   onSubmitLogin(formData: NgForm): void {
     const email = formData.value.email;
     const password = formData.value.password;
-    console.log(email + "_DUPA_" + password);
+
+    if (
+      email.length > this.MAX_EMAIL_LENGTH ||
+      password.length > this.MAX_PASSWORD_LENGHT
+    ) {
+      return;
+    }
 
     var authObs = this.authService.login(email, password);
     //todo: if authorization successfull!!!
@@ -61,10 +77,20 @@ export class UserRegistrationComponent implements OnInit {
     const password2 = formData.value.password2;
     const username1 = formData.value.username;
 
-    //console.log(username1);
-    //console.log(email + "DUPA");
-    //console.log(password1);
-    //console.log(password2);
+    if (
+      email1.length > this.MAX_EMAIL_LENGTH ||
+      password1.length > this.MAX_PASSWORD_LENGHT ||
+      username1.tagLength > this.MAX_USERNAME_LENGHT
+    ) {
+      this.lengthError["email"] = email1.length > this.MAX_EMAIL_LENGTH;
+      this.lengthError["password"] = password1.length > this.MAX_PASSWORD_LENGHT;
+      this.lengthError["username"] = username1.length > this.MAX_USERNAME_LENGHT;
+      return;
+    }
+    this.lengthError["email"] = false;
+    this.lengthError["password"] = false;
+    this.lengthError["username"] = false;
+
     if (password1 == password2) {
       this.authService.register(username1, email1, password1).subscribe(
         resData => {
