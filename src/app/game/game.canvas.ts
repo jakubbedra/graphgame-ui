@@ -47,11 +47,6 @@ export class GameCanvas {
 
   constructor(taskType: string, graph: TaskGraph) {
     this.canvasController = new GameCanvasController(this);
-
-    // example graph:
-    //var g = [[1,2,3],[0,2],[0,1],[0,4],[3]];
-    //var t = new TaskGraph();
-    //t.neighbourLists = g;
     this.initTask(taskType, graph);
   }
 
@@ -73,13 +68,17 @@ export class GameCanvas {
     this.edges.push([]);
   }
 
-  findVertices(position: Vector) {
+  findVertices(position: Vector, radiusTolerance: number = 1.5) {
     var ret = [];
     for(var i=0; i<this.vertices.length; ++i) {
-      if(this.vertices[i].diff(position).len() < this.vertexRadius) {
+      if(this.vertices[i].diff(position).len() < this.vertexRadius*radiusTolerance) {
         ret.push(i);
       }
     }
+    var self__this__game_canvas____vertices = this.vertices;
+		ret.sort(function(a,b){
+		  return self__this__game_canvas____vertices[a].dist(position) - self__this__game_canvas____vertices[b].dist(position);
+		});
     return ret;
   }
 
@@ -166,17 +165,6 @@ export class GameCanvas {
 
     this.graph = graph;
     this.edges = graph.neighbourLists;
-    /*
-    if(this.edges == null) {
-      this.edges = [];
-      this.vertices = [];
-      return;
-    }
-     */
-
-// 		if(this.taskType != "DRAW") {
-// 			this.generateGraphVertices();
-// 		}
     this.renderGraph();
   }
 
@@ -224,9 +212,8 @@ export class GameCanvas {
     for(var i=0; i<this.vertices.length; ++i) {
       var a = this.vertices[i].copy();
 
-      if(this.canvasController.chosenVertexId == i ||
-        this.canvasController.currentMousePosition.dist(a)
-        < this.vertexRadius) {
+      if(this.canvasController.chosenVertexId == i
+        || this.canvasController.findVertexId(this.canvasController.currentMousePosition) == i) {
         this.context().beginPath();
         this.context().fillStyle = "red";
         this.context().ellipse(a.x, a.y, this.vertexRadius+3,

@@ -24,7 +24,6 @@ export class GameCanvasController {
 
 
 	renderAdditional() {
-		this.context.beginPath();
 		if(this.gameCanvas.taskType == "DRAW") {
 			if(this.buttonActionDown) {
 				if(this.chosenVertexId >= 0) {
@@ -39,7 +38,6 @@ export class GameCanvasController {
 				}
 			}
 		}
-		this.context.closePath();
 	}
 
 
@@ -174,23 +172,25 @@ export class GameCanvasController {
 				}
 			} else if(this.gameCanvas.taskType == "VERTEX_SELECTION") {
 				if(this.mouseDownPosition.dist(this.currentMousePosition)
-					< this.gameCanvas.vertexRadius/2) {
+					< this.gameCanvas.vertexRadius) {
 					// select/deselect vertex
-					if(this.gameCanvas.vertexSelectionStack.length > 0) {
-						if(this.gameCanvas.vertexSelectionStack[
-								this.gameCanvas.vertexSelectionStack.length-1]
-								== this.chosenVertexId) {
-							this.gameCanvas.vertexSelectionStack
-								.splice(
-									this.gameCanvas.vertexSelectionStack.length-1, 1);
-						} else {
-							this.gameCanvas.vertexSelectionStack
-							.push(this.chosenVertexId);
-						}
-					} else {
-						this.gameCanvas.vertexSelectionStack
-							.push(this.chosenVertexId);
-					}
+					if(this.chosenVertexId >= 0) {
+            if(this.gameCanvas.vertexSelectionStack.length > 0) {
+              if(this.gameCanvas.vertexSelectionStack[
+                  this.gameCanvas.vertexSelectionStack.length-1]
+                  == this.chosenVertexId) {
+                this.gameCanvas.vertexSelectionStack
+                  .splice(
+                    this.gameCanvas.vertexSelectionStack.length-1, 1);
+              } else {
+                this.gameCanvas.vertexSelectionStack
+                .push(this.chosenVertexId);
+              }
+            } else {
+              this.gameCanvas.vertexSelectionStack
+                .push(this.chosenVertexId);
+            }
+          }
 				}
 			} else if(this.gameCanvas.taskType == "EDGE_SELECTION") {
 
