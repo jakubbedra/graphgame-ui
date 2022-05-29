@@ -8,8 +8,8 @@ export class GameCanvasController {
 	public canvas: HTMLCanvasElement;
  	public context: CanvasRenderingContext2D;
 
-	leftDown: boolean = false;
-	rightDown: boolean = false;
+  buttonActionDown: boolean = false;
+	buttonMovementDown: boolean = false;
 	currentMousePosition: Vector = new Vector();
 	mouseDownPosition: Vector = new Vector();
 	chosenVertexId: number = -1;
@@ -26,7 +26,7 @@ export class GameCanvasController {
 	renderAdditional() {
 		this.context.beginPath();
 		if(this.gameCanvas.taskType == "DRAW") {
-			if(this.rightDown) {
+			if(this.buttonActionDown) {
 				if(this.chosenVertexId >= 0) {
 					this.context.strokeStyle = "blue";
 					this.context.beginPath();
@@ -111,7 +111,7 @@ export class GameCanvasController {
 
 	mouseMove(ev: MouseEvent) {
 		var mv = new Vector(ev.movementX, ev.movementY);
-		if(this.leftDown) {
+		if(this.buttonMovementDown) {
 			if(this.chosenVertexId >= 0) {
 				this.gameCanvas.vertices[this.chosenVertexId]
 					= this.gameCanvas.vertices[this.chosenVertexId].add(mv);
@@ -125,10 +125,10 @@ export class GameCanvasController {
 		this.currentMousePosition = this.mousePos(ev);
 		this.mouseDownPosition = this.currentMousePosition.copy();
 		this.chosenVertexId = this.findVertexId(this.currentMousePosition);
-		if(ev.button == this.getMouseGraphAction()) {
-			this.leftDown = true;
-		} else if(ev.button == this.getMouseVertexMove()) {
-			this.rightDown = true;
+		if(ev.button == this.getMouseVertexMove()) {
+			this.buttonMovementDown = true;
+		} else if(ev.button == this.getMouseGraphAction()) {
+			this.buttonActionDown = true;
 			if(this.gameCanvas.taskType == "DRAW") {
 
 			} else if(this.gameCanvas.taskType == "VERTEX_SELECTION") {
@@ -143,9 +143,9 @@ export class GameCanvasController {
 	mouseUp(ev: MouseEvent) {
 		this.currentMousePosition = this.mousePos(ev);
 		if(ev.button == this.getMouseVertexMove()) {
-			this.leftDown = false;
+			this.buttonMovementDown = false;
 		} else if(ev.button == this.getMouseGraphAction()) {
-			this.rightDown = false;
+			this.buttonActionDown = false;
 			if(this.gameCanvas.taskType == "DRAW") {
 				if(this.chosenVertexId >= 0) {
 					var nextId = this.findVertexId(this.currentMousePosition);
