@@ -80,7 +80,7 @@ export class UserRegistrationComponent implements OnInit {
     if (
       email1.length > this.MAX_EMAIL_LENGTH ||
       password1.length > this.MAX_PASSWORD_LENGHT ||
-      username1.tagLength > this.MAX_USERNAME_LENGHT
+      username1.length > this.MAX_USERNAME_LENGHT
     ) {
       this.lengthError["email"] = email1.length > this.MAX_EMAIL_LENGTH;
       this.lengthError["password"] = password1.length > this.MAX_PASSWORD_LENGHT;
