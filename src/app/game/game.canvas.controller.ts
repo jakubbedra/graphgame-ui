@@ -14,6 +14,7 @@ export class GameCanvasController {
 	mouseDownPosition: Vector = new Vector();
 	chosenVertexId: number = -1;
 
+  invertedLefRightMouseButtons: boolean = false;
 
 
 	constructor(gameCanvas: GameCanvas) {
@@ -76,9 +77,7 @@ export class GameCanvasController {
 
 
 	mousePos(ev: MouseEvent) {
-		var p = new Vector(ev.x, ev.y)
-			.diff(new Vector(this.canvas.offsetLeft, this.canvas.offsetTop));
-// 			.div(new Vector(this.canvas.offsetWidth, this.canvas.offsetHeight))
+		var p = new Vector(ev.offsetX, ev.offsetY)
 		return p;
 	}
 
@@ -89,6 +88,21 @@ export class GameCanvasController {
 		return d[0];
 	}
 
+  getMouseGraphAction() {
+    if(this.invertedLefRightMouseButtons) {
+      return 2;
+    } else {
+      return 0;
+    }
+  }
+
+  getMouseVertexMove() {
+    if(this.invertedLefRightMouseButtons) {
+      return 0;
+    } else {
+      return 2;
+    }
+  }
 
 
 	/*
@@ -111,9 +125,9 @@ export class GameCanvasController {
 		this.currentMousePosition = this.mousePos(ev);
 		this.mouseDownPosition = this.currentMousePosition.copy();
 		this.chosenVertexId = this.findVertexId(this.currentMousePosition);
-		if(ev.button == 0) {
+		if(ev.button == this.getMouseGraphAction()) {
 			this.leftDown = true;
-		} else if(ev.button == 2) {
+		} else if(ev.button == this.getMouseVertexMove()) {
 			this.rightDown = true;
 			if(this.gameCanvas.taskType == "DRAW") {
 
@@ -128,9 +142,9 @@ export class GameCanvasController {
 
 	mouseUp(ev: MouseEvent) {
 		this.currentMousePosition = this.mousePos(ev);
-		if(ev.button == 0) {
+		if(ev.button == this.getMouseVertexMove()) {
 			this.leftDown = false;
-		} else if(ev.button == 2) {
+		} else if(ev.button == this.getMouseGraphAction()) {
 			this.rightDown = false;
 			if(this.gameCanvas.taskType == "DRAW") {
 				if(this.chosenVertexId >= 0) {
