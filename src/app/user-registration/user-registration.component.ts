@@ -48,7 +48,6 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.loginMode);
   }
 
   onSubmitLogin(formData: NgForm): void {
@@ -63,7 +62,6 @@ export class UserRegistrationComponent implements OnInit {
     }
 
     var authObs = this.authService.login(email, password);
-    //todo: if authorization successfull!!!
     authObs.subscribe(
       resData => {
         this.router.navigate(['./my-progress']);

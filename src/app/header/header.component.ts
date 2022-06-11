@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router
   ) {
-    this.username = "chujchuj";
+    this.username = "sample_text";
     this.active = -1;
   }
 
@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.authService.logout().subscribe(response => {
-      console.log("chuj XD");
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
         this.router.navigate(['./auth']);
       });

@@ -40,13 +40,11 @@ export class GameComponent implements OnInit {
     private authService: AuthService
   ) {
     this.debugString = "";
-    this.debugModeOn = false;//true;
+    this.debugModeOn = false;
     this.gotResponseToAnswer = false;
     this.answerIsCorrect = false;
     this.currentTaskSubject = "sample text";
     this.currentTaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-    //console.log("Construct GameComponent");
-    //this.gameCanvas = new GameCanvas();
   }
 
   ngOnInit(): void {
@@ -62,7 +60,6 @@ export class GameComponent implements OnInit {
 
   tryToFetchTask() {
     this.taskService.getUserTask(this.userId).subscribe(response => {
-      console.log(response);
       if (response.type == "UNDEFINED") {
         this.createAndFetchTask();
       } else {
@@ -89,7 +86,6 @@ export class GameComponent implements OnInit {
           this.onAnswerResponse(response);
         });
       } else if (this.task.type == "VERTEX_SELECTION") {
-        console.log(this.debugString);
         this.taskService.postTaskAnswerVertexSelection(this.debugString, this.task.taskUuid).subscribe(response => {
           this.onAnswerResponse(response);
         });
@@ -111,10 +107,9 @@ export class GameComponent implements OnInit {
           matrix: matrix,
           n: matrix.length
         };
-        //console.log(JSON.stringify(json));
         this.sendAnswer(JSON.stringify(json));
       } else if (this.task.type == "VERTEX_SELECTION") {
-//todo
+
         let json = {
           selectedVertices: this.gameCanvas.vertexSelectionStack
         };
@@ -129,7 +124,6 @@ export class GameComponent implements OnInit {
         this.onAnswerResponse(response);
       });
     } else if (this.task.type == "VERTEX_SELECTION") {
-      console.log(this.debugString);
       this.taskService.postTaskAnswerVertexSelection(json, this.task.taskUuid).subscribe(response => {
         this.onAnswerResponse(response);
       });
@@ -142,10 +136,8 @@ export class GameComponent implements OnInit {
   }
 
   private onAnswerResponse(response: boolean) {
-    console.log(response);
     this.answerIsCorrect = response;
     this.gotResponseToAnswer = true;
-    //todo: disable input for canvas
   }
 
   private extractGraphTask(task: GraphTask) {
@@ -168,7 +160,6 @@ export class GameComponent implements OnInit {
       //fetch graph
       this.taskService.getTaskGraph(task.taskUuid).subscribe(response => {
         this.graph = response;
-        console.log(response);
         this.gameCanvas = new GameCanvas(this.task.type, this.graph);
       });
     } else {
@@ -180,9 +171,6 @@ export class GameComponent implements OnInit {
     this.currentTaskSubject = TaskDescriptionsAndSubjects.SUBJECTS[task.subject];
     this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
       .replace("{}", task.graphVertices.toString());
-//     this.gameCanvas.initTask(this.task.type, this.graph);
-    //this.gameCanvas = new GameCanvas(this.task.type, this.graph);
-
   }
 
   private taskRequiresGraph(task: GraphTask): boolean {
