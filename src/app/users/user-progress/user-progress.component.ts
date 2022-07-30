@@ -133,18 +133,11 @@ export class UserProgressComponent implements OnInit {
   }
 
   onChangeDateLinear() {
-    console.log(this.startDateLinear);
-    console.log(this.endDateLinear);
     if (this.endDateLinear != undefined && this.startDateLinear != undefined) {
       this.fetchLinearChartStats();
     }
   }
 
-  /*
-  *
-  * todo: UPDATE BAR CHART METHOD!!!
-  *
-  * */
   onChangeDateBar() {
     this.fetchBarChartStats();
   }

@@ -47,7 +47,6 @@ export class TopUsersComponent implements OnInit {
   fetchTasks(): void {
     this.taskService.getAllTaskSubjects().subscribe(responseData => {
       this.tasks = responseData.subjects;
-      console.log(this.tasks);
     });
   }
 
@@ -80,13 +79,11 @@ export class TopUsersComponent implements OnInit {
   }
 
   onChangeOption() {
-    console.log(this.selectedTaskSubject);
     if (this.selectedTaskSubject == "all") {
       this.fetchTopUsersOverallPage(this.page);
     } else {
       this.fetchTopUsersByTaskPage(this.page);
     }
-    console.log(this.selectedTimePeriod);
   }
 
   onNextPage() {
