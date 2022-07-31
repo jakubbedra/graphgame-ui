@@ -8,7 +8,8 @@
 export class GraphTask {
   taskUuid: string;
   userId: number;
-  subject: string;//todo: change to enum
+  subject: string;
   type: string;
   graphVertices: number;
+  specialValues: string[];
 }

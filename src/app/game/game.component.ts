@@ -169,8 +169,25 @@ export class GameComponent implements OnInit {
     }
 
     this.currentTaskSubject = TaskDescriptionsAndSubjects.SUBJECTS[task.subject];
-    this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-      .replace("{}", task.graphVertices.toString());
+    this.createTaskDescription(task);
+  }
+
+  private createTaskDescription(task: GraphTask): void {
+    switch (this.currentTaskSubject) {
+      case TaskDescriptionsAndSubjects.SUBJECTS["HYPERCUBES"]:
+        this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+          .replace("{}", Math.floor(Math.log2(task.graphVertices)).toString());
+        break;
+      case TaskDescriptionsAndSubjects.SUBJECTS["REGULAR_GRAPHS"]:
+        this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+          .replace("{}", task.graphVertices.toString())
+          .replace("{k}", task.specialValues[0].toString());
+        break;
+      default:
+        this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+          .replace("{}", task.graphVertices.toString());
+        break;
+    }
   }
 
   private taskRequiresGraph(task: GraphTask): boolean {

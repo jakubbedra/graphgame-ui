@@ -8,7 +8,9 @@ export class TaskDescriptionsAndSubjects {
     PATH_GRAPHS: "Path Graphs",
     CYCLE_GRAPHS: "Cycle Graphs",
     STAR_GRAPHS: "Star Graphs",
-    WHEEL_GRAPHS: "Wheel Graphs"
+    WHEEL_GRAPHS: "Wheel Graphs",
+    HYPERCUBES: "Hypercubes",
+    REGULAR_GRAPHS: "Regular Graphs"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
@@ -18,7 +20,9 @@ export class TaskDescriptionsAndSubjects {
     PATH_GRAPHS_DRAW: "Draw the following graph: P {}",
     CYCLE_GRAPHS_DRAW: "Draw the following graph: C {}",
     STAR_GRAPHS_DRAW: "Draw the following graph: S {}",
-    WHEEL_GRAPHS_DRAW: "Draw the following graph: W {}"
-  };
+    WHEEL_GRAPHS_DRAW: "Draw the following graph: W {}",
+    HYPERCUBES_DRAW: "Draw the following graph: Q {}",
+    REGULAR_GRAPHS_DRAW: "Draw a {k}-regular graph with {} vertices."
+};
 
 }
