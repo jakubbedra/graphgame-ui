@@ -11,5 +11,6 @@ export class GraphTask {
   subject: string;
   type: string;
   graphVertices: number;
+  graphEdges: number;
   specialValues: string[];
 }
