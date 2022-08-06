@@ -13,6 +13,7 @@ export class GameCanvas {
 	public vertexSelectionStack: number[] = [];
 
 	public edges: number[][] = [];
+	public weightsMatrix: number[][] = null;
 	public vertices: Vector[] = []; // position always {<0;1>, <0;1>}
 
 	canvas() { return this.canvasController.canvas; }
@@ -169,6 +170,16 @@ export class GameCanvas {
 
 		this.graph = graph;
 		this.edges = graph.neighbourLists;
+		
+		/*
+		 * Generating weights matrix from TaskGraph argument. If NULL, then
+		 * do not render weights
+		 */
+// 		this.weightsMatrix = graph.weightsMatrix;
+		console.warn("Need to add loading weights to a ",
+					 "weightMatrix here from argument in file ",
+					 "/src/app/game/game.canvas.ts::initTask(...)");
+		
 		this.renderGraph();
 	}
 
@@ -205,6 +216,13 @@ export class GameCanvas {
 					this.context().strokeStyle = '#CCC';
 					this.context().stroke();
 					this.context().closePath();
+				}
+			}
+		}
+		for(var i=0; i<this.edges.length; ++i) {
+			for(var j=0; j<this.edges[i].length; ++j) {
+				var id = this.edges[i][j];
+				if(id > i) {
 					var fontSize = 20;
 					this.renderEdgeDescription(i, id, fontSize);
 				}
@@ -315,9 +333,38 @@ export class GameCanvas {
 		p = mid.sum(p);
 		p.y += fontSize/2;
 		
+		if(this.weightsMatrix != null) {
+			if(desc.length > 0) {
+				p.y -= fontSize/2 + 3;
+			}
+		}
+		
 		this.context().beginPath();
 		this.context().strokeText(desc, p.x, p.y);
 		this.context().fillText(desc, p.x, p.y);
+		if(this.weightsMatrix != null) {
+			var w = "" + this.weightsMatrix[ida][idb];
+			var i = w.lastIndexOf(".");
+			w = "(" + w.slice(0, i+3) + ")";
+			
+			
+			s = new Vector(this.context().measureText(w).width, fontSize);
+			p = s.mul(new Vector(-0.5, 1.5));
+
+			if(mid.y < 100) {
+				p.y -= 4;
+			} else {
+				p.y = -p.y;
+				p.y -= 2;
+			}
+			p = mid.sum(p);
+			p.y += fontSize/2;
+			if(desc.length > 0) {
+				p.y += fontSize/2 + 3;
+			}
+			this.context().strokeText(w, p.x, p.y);
+			this.context().fillText(w, p.x, p.y);
+		}
 		this.context().closePath();
 	}
 	
