@@ -13,7 +13,8 @@ export class TaskDescriptionsAndSubjects {
     REGULAR_GRAPHS: "Regular Graphs",
     MAX_CLIQUE: "Max Clique Problem",
     MAX_INDEPENDENT_SET: "Max Independent Set Problem",
-    MIN_VERTEX_COVER: "Min Vertex Cover"
+    MIN_VERTEX_COVER: "Min Vertex Cover",
+    EULER_CYCLE: "Euler Cycle"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
@@ -28,7 +29,8 @@ export class TaskDescriptionsAndSubjects {
     STAR_GRAPHS_DRAW: "Draw the following graph: S {}",
     WHEEL_GRAPHS_DRAW: "Draw the following graph: W {}",
     HYPERCUBES_DRAW: "Draw the following graph: Q {}",
-    REGULAR_GRAPHS_DRAW: "Draw a {k}-regular graph with {} vertices."
+    REGULAR_GRAPHS_DRAW: "Draw a {k}-regular graph with {} vertices.",
+    EULER_CYCLE_VERTEX_SELECTION: "Select the vertices in order they are visited when traversing the Euler Cycle in the given graph."
   };
 
 }
