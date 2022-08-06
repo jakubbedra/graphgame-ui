@@ -11,6 +11,7 @@ import {exhaustMap, Observable, take} from "rxjs";
 import {UserStats} from "../users/user-stats.model";
 import {environment} from "../../environments/environment";
 import {User} from "../users/user.auth.model";
+import {Edge} from "../tasks/edge.model";
 
 @Component({
 	selector: 'app-game',
@@ -114,9 +115,20 @@ export class GameComponent implements OnInit {
 				};
 				this.sendAnswer(JSON.stringify(json));
 			} else if(this.task.type == "EDGE_SELECTION") {
-				console.error("game.component::onSubmit does not have",
-							  " implemented ", "EDGE_SELECTION");
-			} else if(this.task.type == "VERTEX_COLORING") {
+        let edges: Edge[] = [];
+        this.gameCanvas.edgeSelectionStack.forEach(e => {
+          edges.push(new Edge(e[0], e[1]));
+        });
+        let json = {
+          selectedEdges: edges
+        };
+
+        //todo
+        console.log(json);
+
+
+        this.sendAnswer(JSON.stringify(json));
+      } else if(this.task.type == "VERTEX_COLORING") {
 				console.error("game.component::onSubmit does not have",
 							  " implemented ", "VERTEX_COLORING");
 			} else if(this.task.type == "EDGE_COLORING") {
@@ -140,8 +152,11 @@ export class GameComponent implements OnInit {
 						this.onAnswerResponse(response);
 					});
 		} else if(this.task.type == "EDGE_SELECTION") {
-			console.warn("game.component::onSubmit does not have",
-						  " implemented ", "EDGE_SELECTION");
+      this.taskService
+        .postTaskAnswerEdgeSelection(json, this.task.taskUuid)
+        .subscribe(response => {
+          this.onAnswerResponse(response);
+        });
 		} else if(this.task.type == "VERTEX_COLORING") {
 			console.error("game.component::onSubmit does not have",
 						  " implemented ", "VERTEX_COLORING");

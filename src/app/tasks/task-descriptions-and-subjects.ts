@@ -30,7 +30,8 @@ export class TaskDescriptionsAndSubjects {
     WHEEL_GRAPHS_DRAW: "Draw the following graph: W {}",
     HYPERCUBES_DRAW: "Draw the following graph: Q {}",
     REGULAR_GRAPHS_DRAW: "Draw a {k}-regular graph with {} vertices.",
-    EULER_CYCLE_VERTEX_SELECTION: "Select the vertices in order they are visited when traversing the Euler Cycle in the given graph."
+    EULER_CYCLE_VERTEX_SELECTION: "Select the vertices in order they are visited when traversing the Euler Cycle in the given graph.",
+    EULER_CYCLE_EDGE_SELECTION: "Select the edges in order they are visited when traversing the Euler Cycle in the given graph."
   };
 
 }
