@@ -2,6 +2,7 @@ import {TaskGraph} from "../tasks/task-graph";
 import {Vector} from "./game.vector";
 import {GameGraphBeautifier} from "./game.graph.beautifier";
 import {GameCanvasController} from "./game.canvas.controller";
+import {WeightedGraph} from "../tasks/weighted-graph.model";
 
 export class GameCanvas {
 
@@ -47,7 +48,7 @@ export class GameCanvas {
 	}
 
 
-	constructor(taskType: string, graph: TaskGraph) {
+	constructor(taskType: string, graph: TaskGraph, weightedGraph?: WeightedGraph) {
 		this.canvasController = new GameCanvasController(this);
 		this.initTask(taskType, graph);
 	}

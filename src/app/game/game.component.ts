@@ -119,7 +119,7 @@ export class GameComponent implements OnInit {
       } else if (this.task.type == "EDGE_SELECTION") {
         let edges: Edge[] = [];
         this.gameCanvas.edgeSelectionStack.forEach(e => {
-          edges.push(new Edge(e[0], e[1]));
+          edges.push(new Edge(e[0], e[1], 1));
         });
         let json = {
           selectedEdges: edges
@@ -206,8 +206,9 @@ export class GameComponent implements OnInit {
         this.graph = null;
         this.taskService.getTaskWeightedGraph(task.taskUuid).subscribe(response => {
           this.weightedGraph = response;
+          this.gameCanvas = new GameCanvas(this.task.type, null, this.weightedGraph);
           /**
-           * TODO:
+           * TODO: this shit + sending answer dto (add edge weight)
            */
           //this.gameCanvas = new GameCanvas(this.task.type, this.weightedGraph);
         });
