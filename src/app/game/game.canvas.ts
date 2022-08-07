@@ -59,9 +59,9 @@ export class GameCanvas {
 				[4,3,0,0,5],
 				[0,2,5,5,0] ];
 		}
-		
-		if(weightedGraph != null) {
-			graph = new TaskGraph(); 
+
+		if(weightedGraph != null && weightedGraph != undefined) {
+			graph = new TaskGraph();
 			graph.neighbourLists = new Array<number[]>(weightedGraph.matrix.length);
 			for(var i=0; i<weightedGraph.matrix.length; ++i) {
 				graph.neighbourLists[i] = [];
@@ -75,9 +75,9 @@ export class GameCanvas {
 					}
 				}
 			}
+      this.weightsMatrix = weightedGraph.matrix;
 		}
-		
-		this.weightsMatrix = weightedGraph.matrix;
+
 		this.canvasController = new GameCanvasController(this);
 		this.initTask(taskType, graph);
 	}
