@@ -49,6 +49,35 @@ export class GameCanvas {
 
 
 	constructor(taskType: string, graph: TaskGraph, weightedGraph?: WeightedGraph) {
+		if(false) {
+			taskType = "VERTEX_SELECTION";
+			weightedGraph = new WeightedGraph();
+			weightedGraph.matrix  = [
+				[0,1,0,4,0],
+				[1,0,2,3,2],
+				[0,2,0,0,5],
+				[4,3,0,0,5],
+				[0,2,5,5,0] ];
+		}
+		
+		if(weightedGraph != null) {
+			graph = new TaskGraph(); 
+			graph.neighbourLists = new Array<number[]>(weightedGraph.matrix.length);
+			for(var i=0; i<weightedGraph.matrix.length; ++i) {
+				graph.neighbourLists[i] = [];
+			}
+			for(var i=0; i<weightedGraph.matrix.length; ++i) {
+				for(var j=0; j<weightedGraph.matrix.length; ++j) {
+					if(i != j) {
+						if(weightedGraph.matrix[i][j] > 0) {
+							graph.neighbourLists[i].push(j);
+						}
+					}
+				}
+			}
+		}
+		
+		this.weightsMatrix = weightedGraph.matrix;
 		this.canvasController = new GameCanvasController(this);
 		this.initTask(taskType, graph);
 	}
