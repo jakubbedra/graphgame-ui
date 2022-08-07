@@ -15,6 +15,7 @@ export class TaskDescriptionsAndSubjects {
     MAX_INDEPENDENT_SET: "Max Independent Set Problem",
     MIN_VERTEX_COVER: "Min Vertex Cover",
     EULER_CYCLE: "Euler Cycle",
+    HAMILTON_CYCLE: "Hamilton Cycle",
     MIN_SPANNING_TREE: "Minimum Spanning Tree"
   };
 
@@ -34,6 +35,7 @@ export class TaskDescriptionsAndSubjects {
     EULER_CYCLE_VERTEX_SELECTION: "Select the vertices in order they are visited when traversing the Euler Cycle in the given graph.",
     EULER_CYCLE_EDGE_SELECTION: "Select the edges in order they are visited when traversing the Euler Cycle in the given graph.",
     EULER_CYCLE_BOOLEAN: "Does the following graph contain an Euler Cycle?",
+    HAMILTON_CYCLE_VERTEX_SELECTION: "Select vertices in such order, that they form a Hamilton Cycle.",
     MIN_SPANNING_TREE_EDGE_SELECTION: "Select the edges of the Minimum Spanning Tree."
   };
 
