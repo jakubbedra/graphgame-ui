@@ -5,6 +5,7 @@ import {TaskSubjectList} from "./task-subject-list.model";
 import {environment} from "../../environments/environment";
 import {GraphTask} from "./graph-task.model";
 import {TaskGraph} from "./task-graph";
+import {WeightedGraph} from "./weighted-graph.model";
 
 @Injectable()
 export class TaskService {
@@ -33,6 +34,12 @@ export class TaskService {
   getTaskGraph(uuid: string): Observable<TaskGraph> {
     return this.http.get<TaskGraph>(
       environment.apiUrl + "/graphs/task/" + uuid
+    );
+  }
+
+  getTaskWeightedGraph(uuid: string): Observable<WeightedGraph> {
+    return this.http.get<WeightedGraph>(
+      environment.apiUrl + "/graphs/weighted/task/" + uuid
     );
   }
 

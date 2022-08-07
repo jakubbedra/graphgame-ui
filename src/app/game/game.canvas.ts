@@ -52,8 +52,6 @@ export class GameCanvas {
 		this.initTask(taskType, graph);
 	}
 
-
-
 	addEdge(a: number, b: number) {
 		var f = this.edges[a]
 		.findIndex((v: number, i: number, obj: number[])=>{return v==b;});
@@ -170,7 +168,7 @@ export class GameCanvas {
 
 		this.graph = graph;
 		this.edges = graph.neighbourLists;
-		
+
 		/*
 		 * Generating weights matrix from TaskGraph argument. If NULL, then
 		 * do not render weights
@@ -179,7 +177,7 @@ export class GameCanvas {
 		console.warn("Need to add loading weights to a ",
 					 "weightMatrix here from argument in file ",
 					 "/src/app/game/game.canvas.ts::initTask(...)");
-		
+
 		this.renderGraph();
 	}
 
@@ -317,7 +315,7 @@ export class GameCanvas {
 	renderEdgeDescription(ida: number, idb: number, fontSize: number) {
 		var a = this.vertices[ida].copy();
 		var b = this.vertices[idb].copy();
-		
+
 		var mid = a.add(b).mulf(0.5);
 
 		var desc = this.edgeStackIndicesDescription(ida, idb);
@@ -332,13 +330,13 @@ export class GameCanvas {
 		}
 		p = mid.sum(p);
 		p.y += fontSize/2;
-		
+
 		if(this.weightsMatrix != null) {
 			if(desc.length > 0) {
 				p.y -= fontSize/2 + 3;
 			}
 		}
-		
+
 		this.context().beginPath();
 		this.context().strokeText(desc, p.x, p.y);
 		this.context().fillText(desc, p.x, p.y);
@@ -346,8 +344,8 @@ export class GameCanvas {
 			var w = "" + this.weightsMatrix[ida][idb];
 			var i = w.lastIndexOf(".");
 			w = "(" + w.slice(0, i+3) + ")";
-			
-			
+
+
 			s = new Vector(this.context().measureText(w).width, fontSize);
 			p = s.mul(new Vector(-0.5, 1.5));
 
@@ -367,7 +365,7 @@ export class GameCanvas {
 		}
 		this.context().closePath();
 	}
-	
+
 	edgeStackIndicesDescription(ida: number, idb: number) {
 		var ids = [];
 		for(var i=0; i<this.edgeSelectionStack.length; ++i) {
