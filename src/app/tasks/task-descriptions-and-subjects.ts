@@ -16,7 +16,8 @@ export class TaskDescriptionsAndSubjects {
     MIN_VERTEX_COVER: "Min Vertex Cover",
     EULER_CYCLE: "Euler Cycle",
     HAMILTON_CYCLE: "Hamilton Cycle",
-    MIN_SPANNING_TREE: "Minimum Spanning Tree"
+    MIN_SPANNING_TREE: "Minimum Spanning Tree",
+    TREE_GRAPHS: "Tree Graphs"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
@@ -36,7 +37,8 @@ export class TaskDescriptionsAndSubjects {
     EULER_CYCLE_EDGE_SELECTION: "Select the edges in order they are visited when traversing the Euler Cycle in the given graph.",
     EULER_CYCLE_BOOLEAN: "Does the following graph contain an Euler Cycle?",
     HAMILTON_CYCLE_VERTEX_SELECTION: "Select vertices in such order, that they form a Hamilton Cycle.",
-    MIN_SPANNING_TREE_EDGE_SELECTION: "Select the edges of the Minimum Spanning Tree."
+    MIN_SPANNING_TREE_EDGE_SELECTION: "Select the edges of the Minimum Spanning Tree.",
+    TREE_GRAPHS_BOOLEAN: "Is the given graph a Tree?"
   };
 
 }
