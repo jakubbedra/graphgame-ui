@@ -246,6 +246,11 @@ export class GameComponent implements OnInit {
           .replace("{}", task.graphVertices.toString())
           .replace("{k}", task.specialValues[0].toString());
         break;
+      case TaskDescriptionsAndSubjects.SUBJECTS["BIPARTITE_GRAPHS"]:
+        this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+          .replace("{r}", task.specialValues[0].toString())
+          .replace("{s}", task.specialValues[1].toString());
+        break;
       default:
         this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
           .replace("{}", task.graphVertices.toString());
