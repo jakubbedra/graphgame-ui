@@ -40,7 +40,8 @@ export class TaskDescriptionsAndSubjects {
     HAMILTON_CYCLE_VERTEX_SELECTION: "Select vertices in such order, that they form a Hamilton Cycle.",
     MIN_SPANNING_TREE_EDGE_SELECTION: "Select the edges of the Minimum Spanning Tree.",
     TREE_GRAPHS_BOOLEAN: "Is the given graph a Tree?",
-    BIPARTITE_GRAPHS_DRAW: "Draw the following graph: K {r}, {s}"
+    BIPARTITE_GRAPHS_DRAW: "Draw the following graph: K {r}, {s}",
+    BIPARTITE_GRAPHS_BOOLEAN: "Is the given Graph Bipartite?"
   };
 
 }
