@@ -29,6 +29,7 @@ export class TaskDescriptionsAndSubjects {
     MAX_INDEPENDENT_SET_VERTEX_SELECTION: "Select vertices which make the max independent set (ore one of them) in the following graph.",
     MIN_VERTEX_COVER_VERTEX_SELECTION: "Select vertices which make the min vertex cover (ore one of them) in the following graph.",
     COMPLETE_GRAPHS_DRAW: "Draw the following graph: K {}",
+    COMPLETE_GRAPHS_BOOLEAN: "Is the given graph Complete?",
     PATH_GRAPHS_DRAW: "Draw the following graph: P {}",
     CYCLE_GRAPHS_DRAW: "Draw the following graph: C {}",
     STAR_GRAPHS_DRAW: "Draw the following graph: S {}",
