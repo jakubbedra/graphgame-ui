@@ -20,7 +20,8 @@ export class TaskDescriptionsAndSubjects {
     MIN_SPANNING_TREE: "Minimum Spanning Tree",
     TREE_GRAPHS: "Tree Graphs",
     BIPARTITE_GRAPHS: "Bipartite Graphs",
-    PLANAR_GRAPHS: "Planar Graphs"
+    PLANAR_GRAPHS: "Planar Graphs",
+    ISOMORPHISM: "Isomorphism"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
@@ -46,7 +47,8 @@ export class TaskDescriptionsAndSubjects {
     TREE_GRAPHS_BOOLEAN: "Is the given graph a Tree?",
     BIPARTITE_GRAPHS_DRAW: "Draw the following graph: K {r}, {s}",
     BIPARTITE_GRAPHS_BOOLEAN: "Is the given graph Bipartite?",
-    PLANAR_GRAPHS_BOOLEAN: "Is the given graph planar?"
+    PLANAR_GRAPHS_BOOLEAN: "Is the given graph Planar?",
+    ISOMORPHISM_BOOLEAN: "Are the given graphs Isomorphic?"
   };
 
 }
