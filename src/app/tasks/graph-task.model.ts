@@ -14,4 +14,5 @@ export class GraphTask {
   graphEdges: number;
   graphWeighted: boolean;
   specialValues: string[];
+  descriptionDetails: string;
 }

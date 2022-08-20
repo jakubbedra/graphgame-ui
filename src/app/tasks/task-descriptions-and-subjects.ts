@@ -22,7 +22,8 @@ export class TaskDescriptionsAndSubjects {
     BIPARTITE_GRAPHS: "Bipartite Graphs",
     PLANAR_GRAPHS: "Planar Graphs",
     ISOMORPHISM: "Isomorphism",
-    HOMEOMORPHISM: "Homeomorphism"
+    HOMEOMORPHISM: "Homeomorphism",
+    NAMED_GRAPHS: "Named Graphs"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
@@ -50,7 +51,8 @@ export class TaskDescriptionsAndSubjects {
     BIPARTITE_GRAPHS_BOOLEAN: "Is the given graph Bipartite?",
     PLANAR_GRAPHS_BOOLEAN: "Is the given graph Planar?",
     ISOMORPHISM_BOOLEAN: "Are the given graphs Isomorphic?",
-    HOMEOMORPHISM_BOOLEAN: "Are the given graphs Homeomorphic?"
+    HOMEOMORPHISM_BOOLEAN: "Are the given graphs Homeomorphic?",
+    NAMED_GRAPHS_DRAW: "Draw the {gn}."
   };
 
 }

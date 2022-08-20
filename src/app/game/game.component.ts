@@ -251,6 +251,10 @@ export class GameComponent implements OnInit {
           .replace("{r}", task.specialValues[0].toString())
           .replace("{s}", task.specialValues[1].toString());
         break;
+      case TaskDescriptionsAndSubjects.SUBJECTS["NAMED_GRAPHS"]:
+        this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+          .replace("{gn}", task.descriptionDetails);
+        break;
       default:
         this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
           .replace("{}", task.graphVertices.toString());
