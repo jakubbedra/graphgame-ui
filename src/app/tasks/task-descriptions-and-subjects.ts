@@ -44,6 +44,7 @@ export class TaskDescriptionsAndSubjects {
     EULER_CYCLE_EDGE_SELECTION: "Select the edges in order they are visited when traversing the Euler Cycle in the given graph.",
     EULER_CYCLE_BOOLEAN: "Does the following graph contain an Euler Cycle?",
     HAMILTON_CYCLE_VERTEX_SELECTION: "Select vertices in such order, that they form a Hamilton Cycle.",
+    HAMILTON_CYCLE_BOOLEAN: "Does the following graph contain a Hamilton Cycle?",
     TRAVELING_SALESMAN_PROBLEM_EDGE_SELECTION: "Select an optimal route through all the edges.",
     MIN_SPANNING_TREE_EDGE_SELECTION: "Select the edges of the Minimum Spanning Tree.",
     TREE_GRAPHS_BOOLEAN: "Is the given graph a Tree?",
