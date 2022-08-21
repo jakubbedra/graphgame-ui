@@ -1,15 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from "../tasks/task.service";
 import {GraphTask} from "../tasks/graph-task.model";
-import {parse, HtmlGenerator} from 'latex.js';
-import {createHTMLWindow} from 'svgdom';
 import {TaskDescriptionsAndSubjects} from "../tasks/task-descriptions-and-subjects";
 import {TaskGraph} from "../tasks/task-graph";
 import {GameCanvas} from "./game.canvas";
 import {AuthService} from "../users/auth.service";
-import {exhaustMap, Observable, take} from "rxjs";
-import {UserStats} from "../users/user-stats.model";
-import {environment} from "../../environments/environment";
+import {Observable, take} from "rxjs";
 import {User} from "../users/user.auth.model";
 import {Edge} from "../tasks/edge.model";
 import {WeightedGraph} from "../tasks/weighted-graph.model";
@@ -126,7 +122,7 @@ export class GameComponent implements OnInit {
       } else if (this.task.type == "EDGE_SELECTION") {
         let edges: Edge[] = [];
         this.gameCanvas.edgeSelectionStack.forEach(e => {
-          edges.push(new Edge(e[0], e[1], this.gameCanvas.weightsMatrix[e[0]][e[1]]));
+          edges.push(new Edge(e[0], e[1], this.gameCanvas.weightsMatrix === null ? 1 : this.gameCanvas.weightsMatrix[e[0]][e[1]]));
         });
         let json = {
           selectedEdges: edges
@@ -254,6 +250,15 @@ export class GameComponent implements OnInit {
       case TaskDescriptionsAndSubjects.SUBJECTS["NAMED_GRAPHS"]:
         this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
           .replace("{gn}", task.descriptionDetails);
+        break;
+      case TaskDescriptionsAndSubjects.SUBJECTS["TRIVIAL_QUESTIONS"]:
+        if (task.type === 'DRAW' && task.descriptionDetails === 'Empty Graph') {
+          this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+            .replace("{}", "$N_{" + task.graphVertices + "}$");
+        } else if (task.type === 'VERTEX_SELECTION') {
+          this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+            .replace("{}", task.descriptionDetails);
+        }
         break;
       default:
         this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]

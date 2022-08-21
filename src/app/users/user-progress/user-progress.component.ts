@@ -5,8 +5,6 @@ import {UserStatsService} from "../user-stats.service";
 import {UserStats} from "../user-stats.model";
 import {TaskSubject} from "../../tasks/task-type.model";
 import {UserStatsList} from "../usr-stats-list.model";
-import {AuthService} from "../auth.service";
-import {take} from "rxjs";
 
 Chart.register(...registerables);
 
@@ -21,6 +19,8 @@ export class UserProgressComponent implements OnInit {
   startDateLinear: string;
   endDateLinear: string;
   selectedTaskId: string;
+
+  selectedChart: string;
 
   specificTimePeriodInBarChart: boolean;
   startDateBar: string;
@@ -41,6 +41,7 @@ export class UserProgressComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectedChart = "Bar"
     this.selectedTaskId = "all";
     this.specificTimePeriodInLinearChart = false;
     this.specificTimePeriodInBarChart = false;
@@ -125,6 +126,14 @@ export class UserProgressComponent implements OnInit {
   onSpecificTimePeriodLinear() {
     this.specificTimePeriodInLinearChart = !this.specificTimePeriodInLinearChart;
     this.fetchLinearChartStats();
+  }
+
+  onChartType() {
+    if(this.selectedChart === "Bar"){
+      this.selectedChart = "Linear";
+    } else {
+      this.selectedChart = "Bar";
+    }
   }
 
   onSpecificTimePeriodBar() {

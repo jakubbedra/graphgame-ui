@@ -12,7 +12,7 @@
       <h2>{{currentTaskSubject}}</h2>
       <h2 *ngIf="gotResponseToAnswer && answerIsCorrect" class="answer-correct">Correct!</h2>
       <h2 *ngIf="gotResponseToAnswer && !answerIsCorrect" class="answer-wrong">Wrong!</h2>
-      <p>{{currentTaskDescription}}</p>
+      <ng-katex-paragraph [paragraph]="currentTaskDescription"></ng-katex-paragraph>
     </div>
     <div></div>
 
@@ -22,15 +22,11 @@
     >SUBMIT</button>
 
     <div *ngIf="this.task.type == 'BOOLEAN' && !gotResponseToAnswer" class="yes-no-div">
-      <!--TODO-->
       <button class="yes-no-button" (click)="onSubmitBoolean(true)">YES</button>
       <button class="yes-no-button" (click)="onSubmitBoolean(false)">NO</button>
     </div>
 
     <button class="submit-button" *ngIf="gotResponseToAnswer" (click)="onNewTask()">NEW TASK</button>
-    <!--YES/NO buttons (optional, only in the specific task type)-->
-    <!--correct! / wrong!-->
-    <!--SUBMIT-->
   </div>
 </div>
 

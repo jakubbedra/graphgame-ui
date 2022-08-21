@@ -1,8 +1,11 @@
 <div clas="user-progress-div">
 
-  <div class="bar-chart-div">
+<button class="chart-select-button" (click)="onChartType()">Chart type: {{selectedChart}}</button>
+
+  <div class="bar-chart-div" [hidden]="selectedChart === 'Linear'">
     <canvas id="myChart"></canvas>
     <div class="user-stats-input">
+
 
       <button *ngIf="!specificTimePeriodInBarChart" (click)="onSpecificTimePeriodBar()">
         All time
@@ -29,7 +32,7 @@
     </div>
   </div>
 
-  <div class="linear-chart-div">
+  <div class="linear-chart-div" [hidden]="selectedChart === 'Bar'">
     <canvas id="linearChart"></canvas>
     <div class="user-stats-input">
 

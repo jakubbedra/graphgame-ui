@@ -23,7 +23,8 @@ export class TaskDescriptionsAndSubjects {
     PLANAR_GRAPHS: "Planar Graphs",
     ISOMORPHISM: "Isomorphism",
     HOMEOMORPHISM: "Homeomorphism",
-    NAMED_GRAPHS: "Named Graphs"
+    NAMED_GRAPHS: "Named Graphs",
+    TRIVIAL_QUESTIONS: "Trivial Questions"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
@@ -32,28 +33,30 @@ export class TaskDescriptionsAndSubjects {
     MAX_CLIQUE_VERTEX_SELECTION: "Select vertices which make the max clique (ore one of them) in the following graph.",
     MAX_INDEPENDENT_SET_VERTEX_SELECTION: "Select vertices which make the max independent set (ore one of them) in the following graph.",
     MIN_VERTEX_COVER_VERTEX_SELECTION: "Select vertices which make the min vertex cover (ore one of them) in the following graph.",
-    COMPLETE_GRAPHS_DRAW: "Draw the following graph: K {}",
+    COMPLETE_GRAPHS_DRAW: "Draw the following graph: $K_{{}}$",
     COMPLETE_GRAPHS_BOOLEAN: "Is the given graph Complete?",
-    PATH_GRAPHS_DRAW: "Draw the following graph: P {}",
-    CYCLE_GRAPHS_DRAW: "Draw the following graph: C {}",
-    STAR_GRAPHS_DRAW: "Draw the following graph: S {}",
-    WHEEL_GRAPHS_DRAW: "Draw the following graph: W {}",
-    HYPERCUBES_DRAW: "Draw the following graph: Q {}",
+    PATH_GRAPHS_DRAW: "Draw the following graph: $P_{{}}$",
+    CYCLE_GRAPHS_DRAW: "Draw the following graph: $C_{{}}$",
+    STAR_GRAPHS_DRAW: "Draw the following graph: $S_{{}}$",
+    WHEEL_GRAPHS_DRAW: "Draw the following graph: $W_{{}}$",
+    HYPERCUBES_DRAW: "Draw the following graph: $Q_{{}}$",
     REGULAR_GRAPHS_DRAW: "Draw a {k}-regular graph with {} vertices.",
     EULER_CYCLE_VERTEX_SELECTION: "Select the vertices in order they are visited when traversing the Euler Cycle in the given graph.",
     EULER_CYCLE_EDGE_SELECTION: "Select the edges in order they are visited when traversing the Euler Cycle in the given graph.",
     EULER_CYCLE_BOOLEAN: "Does the following graph contain an Euler Cycle?",
     HAMILTON_CYCLE_VERTEX_SELECTION: "Select vertices in such order, that they form a Hamilton Cycle.",
     HAMILTON_CYCLE_BOOLEAN: "Does the following graph contain a Hamilton Cycle?",
-    TRAVELING_SALESMAN_PROBLEM_EDGE_SELECTION: "Select an optimal route through all the edges.",
+    TRAVELING_SALESMAN_PROBLEM_EDGE_SELECTION: "Select an optimal route through all the vertices.",
     MIN_SPANNING_TREE_EDGE_SELECTION: "Select the edges of the Minimum Spanning Tree.",
     TREE_GRAPHS_BOOLEAN: "Is the given graph a Tree?",
-    BIPARTITE_GRAPHS_DRAW: "Draw the following graph: K {r}, {s}",
+    BIPARTITE_GRAPHS_DRAW: "Draw the following graph: $K_{{{r}}, {{s}}}$",
     BIPARTITE_GRAPHS_BOOLEAN: "Is the given graph Bipartite?",
     PLANAR_GRAPHS_BOOLEAN: "Is the given graph Planar?",
     ISOMORPHISM_BOOLEAN: "Are the given graphs Isomorphic?",
     HOMEOMORPHISM_BOOLEAN: "Are the given graphs Homeomorphic?",
-    NAMED_GRAPHS_DRAW: "Draw the {gn}."
+    NAMED_GRAPHS_DRAW: "Draw the {gn}.",
+    TRIVIAL_QUESTIONS_VERTEX_SELECTION: "Select vertices of the {}.",
+    TRIVIAL_QUESTIONS_DRAW: "Draw the following graph: {}."
   };
 
 }

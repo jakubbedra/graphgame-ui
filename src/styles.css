@@ -1,3 +1,5 @@
+@import '~katex/dist/katex.css';
+
 body {
   background-color: #121212;
   color: #F5F7FA;

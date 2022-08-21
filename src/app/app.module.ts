@@ -17,6 +17,7 @@ import {UserStatsService} from "./users/user-stats.service";
 import { GameComponent } from './game/game.component';
 import {AuthInterceptorService} from "./users/auth-interceptor.service";
 import { HomeComponent } from './home/home.component';
+import {KatexModule} from "ng-katex";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    KatexModule
   ],
   providers: [
     AuthService,
