@@ -260,6 +260,13 @@ export class GameComponent implements OnInit {
             .replace("{}", task.descriptionDetails);
         }
         break;
+      case TaskDescriptionsAndSubjects.SUBJECTS["DISTANCES"]:
+        if (task.type === 'VERTEX_SELECTION') {
+          this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+            .replace("{v}", task.specialValues.length > 0 ? " starting with the vertex " + task.specialValues[0] : "")
+            .replace("{d}", (task.specialValues.length > 0 ? "its " : "the graph's ") + task.descriptionDetails);
+        }
+        break;
       default:
         this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
           .replace("{}", task.graphVertices.toString());

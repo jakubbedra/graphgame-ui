@@ -24,7 +24,8 @@ export class TaskDescriptionsAndSubjects {
     ISOMORPHISM: "Isomorphism",
     HOMEOMORPHISM: "Homeomorphism",
     NAMED_GRAPHS: "Named Graphs",
-    TRIVIAL_QUESTIONS: "Trivial Questions"
+    TRIVIAL_QUESTIONS: "Trivial Questions",
+    DISTANCES: "Distances"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
@@ -56,7 +57,8 @@ export class TaskDescriptionsAndSubjects {
     HOMEOMORPHISM_BOOLEAN: "Are the given graphs Homeomorphic?",
     NAMED_GRAPHS_DRAW: "Draw the {gn}.",
     TRIVIAL_QUESTIONS_VERTEX_SELECTION: "Select vertices of the {}.",
-    TRIVIAL_QUESTIONS_DRAW: "Draw the following graph: {}."
+    TRIVIAL_QUESTIONS_DRAW: "Draw the following graph: {}.",
+    DISTANCES_VERTEX_SELECTION: "Select the vertices of the path{v} with the length of {d}."
   };
 
 }
