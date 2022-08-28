@@ -28,9 +28,9 @@ export class AuthInterceptorService implements HttpInterceptor {
         if (this.prolongCounter >= 4) {
           this.prolongCounter = 0;
         }
-
         const modifiedReq = req.clone({
-          params: new HttpParams().set('token', user.token)
+          params: (req.params ? req.params : new HttpParams())
+            .set('token', user.token)
         });
         return next.handle(modifiedReq);
       }));
