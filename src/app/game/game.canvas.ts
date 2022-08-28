@@ -27,6 +27,55 @@ export class GameCanvas {
 	public vertexRadius: number = 16;
 	public edgeWidth: number = 6;
 
+	
+	
+	
+	
+	
+	
+	public vertexColor: number[] = [];
+	public edgeColorMatrix: number[][] = [];
+	
+	public limitColors: number = 10;
+
+	getVertexColoring() {
+		return this.vertexColor;
+	}
+	
+	getEdgeColoringMatrix() {
+		return this.edgeColorMatrix;
+	}
+	
+	setVertexColor(vertexId: number, color: number, relative: boolean) {
+		this.getVertexColor(0);
+		if(relative) {
+			this.vertexColor[vertexId] += color;
+		} else {
+			this.vertexColor[vertexId] = color;
+		}
+		this.vertexColor[vertexId] += this.limitColors;
+		this.vertexColor[vertexId] %= this.limitColors;
+		if(this.vertexColor[vertexId] < 0) {
+			this.vertexColor[vertexId] += this.limitColors;
+		}
+		this.vertexColor[vertexId] %= this.limitColors;
+	}
+	
+	getVertexColor(vertexId: number) {
+		if(this.vertexColor.length != this.vertices.length) {
+			this.vertexColor = new Array<number>(this.vertices.length);
+			for(var i=0; i<this.vertexColor.length; ++i) {
+				this.vertexColor[i] = 0;
+			}
+		}
+		return this.vertexColor[vertexId];
+	}
+	
+	
+	
+	
+	
+	
 
 	getNeighbouringMatrix() {
 		var mat:number[][] = new Array<number[]>(this.edges.length);
@@ -206,7 +255,7 @@ export class GameCanvas {
 // 		this.weightsMatrix = graph.weightsMatrix;
 		console.warn("Need to add loading weights to a ",
 					 "weightMatrix here from argument in file ",
-					 "/src/app/game/game.canvas.ts::initTask(...)");
+					 "/src/app/game/game.canvas.ts ::initTask" );
 
 		this.renderGraph();
 	}
@@ -329,9 +378,13 @@ export class GameCanvas {
 
 	vertexStackIndicesDescription(id: number) {
 		var ids = [];
-		for(var i=0; i<this.vertexSelectionStack.length; ++i) {
-			if(this.vertexSelectionStack[i] == id)
-				ids.push(i);
+		if(this.taskType == "VERTEX_SELECTION") {
+			for(var i=0; i<this.vertexSelectionStack.length; ++i) {
+				if(this.vertexSelectionStack[i] == id)
+					ids.push(i);
+			}
+		} else if(this.taskType == "VERTEX_COLORING") {
+			return "" + this.getVertexColor(id);
 		}
 		var desc = "";
 		for(var i=0; i<ids.length; ++i) {

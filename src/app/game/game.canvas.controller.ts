@@ -15,6 +15,8 @@ export class GameCanvasController {
 	chosenVertexId: number = -1;
 
 	invertedLefRightMouseButtons: boolean = false;
+	
+	selectColor: number = 0;
 
 
 	constructor(gameCanvas: GameCanvas) {
@@ -61,6 +63,7 @@ export class GameCanvasController {
 		this.canvas.onmousemove = function(ev: MouseEvent){self.mouseMove(ev);};
 		this.canvas.onmousedown = function(ev: MouseEvent){self.mouseDown(ev);};
 		this.canvas.onmouseup = function(ev: MouseEvent){self.mouseUp(ev);};
+		this.canvas.onkeyup = function(ev: KeyboardEvent){self.keyUp(ev);};
 		this.canvas.onresize = function() {
 			self.canvas.width = self.canvas.offsetWidth;
 			self.canvas.height = self.canvas.offsetHeight;
@@ -71,6 +74,32 @@ export class GameCanvasController {
 
 		this.gameCanvas.generateGraphVertices();
 		this.gameCanvas.renderGraph();
+	}
+	
+	
+	
+	keyUp(ev: KeyboardEvent) {
+		if(this.gameCanvas.taskType == "VERTEX_COLORING" ||
+			this.gameCanvas.taskType == "EDGE_COLORING") {
+			console.log(ev);
+			console.log(ev.char);
+			console.log(ev.keyCode);
+			switch(ev.code) {
+				case "Digit0": this.selectColor = 0; break;
+				case "Digit1": this.selectColor = 1; break;
+				case "Digit2": this.selectColor = 2; break;
+				case "Digit3": this.selectColor = 3; break;
+				case "Digit4": this.selectColor = 4; break;
+				case "Digit5": this.selectColor = 5; break;
+				case "Digit6": this.selectColor = 6; break;
+				case "Digit7": this.selectColor = 7; break;
+				case "Digit8": this.selectColor = 8; break;
+				case "Digit9": this.selectColor = 9; break;
+				case "Minus":     this.selectColor = -1; break;
+				case "Equal":     this.selectColor = -1; break;
+				case "Backspace": this.selectColor = -1; break;
+			}
+		}
 	}
 
 
@@ -232,6 +261,20 @@ export class GameCanvasController {
 				console.warn("game.canvas::mouseUp does not have",
 							  " implemented ", "EDGE_SELECTION");
 			} else if(this.gameCanvas.taskType == "VERTEX_COLORING") {
+				
+				if(this.mouseDownPosition.dist(this.currentMousePosition)
+						< this.gameCanvas.vertexRadius) {
+					// select/deselect vertex
+					if(this.chosenVertexId >= 0) {
+						if(this.selectColor < 0) {
+							this.gameCanvas.setVertexColor(this.chosenVertexId,
+								1, true);
+						} else {
+							this.gameCanvas.setVertexColor(this.chosenVertexId,
+								this.selectColor, false);
+						}
+					}
+				}
 				
 				
 				console.error("game.canvas::mouseUp does not have",
