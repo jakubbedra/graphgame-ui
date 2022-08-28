@@ -63,7 +63,7 @@ export class GameCanvasController {
 		this.canvas.onmousemove = function(ev: MouseEvent){self.mouseMove(ev);};
 		this.canvas.onmousedown = function(ev: MouseEvent){self.mouseDown(ev);};
 		this.canvas.onmouseup = function(ev: MouseEvent){self.mouseUp(ev);};
-		this.canvas.onkeyup = function(ev: KeyboardEvent){self.keyUp(ev);};
+		this.canvas.onkeyup = function(){console.log("key event", this);self.keyUp(this);};
 		this.canvas.onresize = function() {
 			self.canvas.width = self.canvas.offsetWidth;
 			self.canvas.height = self.canvas.offsetHeight;
@@ -78,12 +78,13 @@ export class GameCanvasController {
 	
 	
 	
-	keyUp(ev: KeyboardEvent) {
+	keyUp(ev) {
+			console.log(ev);
 		if(this.gameCanvas.taskType == "VERTEX_COLORING" ||
 			this.gameCanvas.taskType == "EDGE_COLORING") {
 			console.log(ev);
-			console.log(ev.char);
 			console.log(ev.keyCode);
+			console.log(ev.code);
 			switch(ev.code) {
 				case "Digit0": this.selectColor = 0; break;
 				case "Digit1": this.selectColor = 1; break;
@@ -175,6 +176,24 @@ export class GameCanvasController {
 		this.currentMousePosition = this.mousePos(ev);
 		if(ev.button == this.getMouseVertexMove()) {
 			this.buttonMovementDown = false;
+			if(this.gameCanvas.taskType == "VERTEX_COLORING") {
+				
+				if(this.mouseDownPosition.dist(this.currentMousePosition)
+						< this.gameCanvas.vertexRadius) {
+					// select/deselect vertex
+					if(this.chosenVertexId >= 0) {
+// 						if(this.selectColor < 0) {
+// 							this.gameCanvas.setVertexColor(this.chosenVertexId,
+// 								1, true);
+// 						} else {
+// 							this.gameCanvas.setVertexColor(this.chosenVertexId,
+// 								this.selectColor, false);
+// 						}
+						this.gameCanvas.setVertexColor(this.chosenVertexId,
+							-1, true);
+					}
+				}
+			}
 		} else if(ev.button == this.getMouseGraphAction()) {
 			this.buttonActionDown = false;
 			if(this.gameCanvas.taskType == "DRAW") {
@@ -266,18 +285,20 @@ export class GameCanvasController {
 						< this.gameCanvas.vertexRadius) {
 					// select/deselect vertex
 					if(this.chosenVertexId >= 0) {
-						if(this.selectColor < 0) {
-							this.gameCanvas.setVertexColor(this.chosenVertexId,
-								1, true);
-						} else {
-							this.gameCanvas.setVertexColor(this.chosenVertexId,
-								this.selectColor, false);
-						}
+// 						if(this.selectColor < 0) {
+// 							this.gameCanvas.setVertexColor(this.chosenVertexId,
+// 								1, true);
+// 						} else {
+// 							this.gameCanvas.setVertexColor(this.chosenVertexId,
+// 								this.selectColor, false);
+// 						}
+						this.gameCanvas.setVertexColor(this.chosenVertexId,
+							1, true);
 					}
 				}
 				
 				
-				console.error("game.canvas::mouseUp does not have",
+				console.warn("game.canvas::mouseUp does not have",
 							  " implemented ", "VERTEX_COLORING");
 			} else if(this.gameCanvas.taskType == "EDGE_COLORING") {
 				

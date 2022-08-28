@@ -71,6 +71,16 @@ export class GameCanvas {
 		return this.vertexColor[vertexId];
 	}
 	
+	setEdgeColoring() {
+		console.error("game.canvas::setEdgeColoring does not have been",
+					"implemented");
+	}
+	
+	getEdgeColoring() {
+		console.error("game.canvas::getEdgeColoring does not have been",
+					"implemented");
+	}
+	
 	
 	
 	
@@ -99,7 +109,7 @@ export class GameCanvas {
 
 	constructor(taskType: string, graph: TaskGraph, weightedGraph?: WeightedGraph) {
 		if(false) {
-			taskType = "VERTEX_SELECTION";
+			taskType = "VERTEX_COLORING";
 			weightedGraph = new WeightedGraph();
 			weightedGraph.matrix  = [
 				[0,1,0,4,0],
@@ -124,7 +134,7 @@ export class GameCanvas {
 					}
 				}
 			}
-      this.weightsMatrix = weightedGraph.matrix;
+			this.weightsMatrix = weightedGraph.matrix;
 		}
 
 		this.canvasController = new GameCanvasController(this);
@@ -377,22 +387,23 @@ export class GameCanvas {
 	}
 
 	vertexStackIndicesDescription(id: number) {
-		var ids = [];
 		if(this.taskType == "VERTEX_SELECTION") {
+			var ids = [];
 			for(var i=0; i<this.vertexSelectionStack.length; ++i) {
 				if(this.vertexSelectionStack[i] == id)
 					ids.push(i);
 			}
+			var desc = "";
+			for(var i=0; i<ids.length; ++i) {
+				if(desc != "")
+					desc += ",";
+				desc += ids[i];
+			}
+			return desc;
 		} else if(this.taskType == "VERTEX_COLORING") {
 			return "" + this.getVertexColor(id);
 		}
-		var desc = "";
-		for(var i=0; i<ids.length; ++i) {
-			if(desc != "")
-				desc += ",";
-			desc += ids[i];
-		}
-		return desc;
+		return " ";
 	}
 
 	renderEdgeDescription(ida: number, idb: number, fontSize: number) {
@@ -450,21 +461,26 @@ export class GameCanvas {
 	}
 
 	edgeStackIndicesDescription(ida: number, idb: number) {
-		var ids = [];
-		for(var i=0; i<this.edgeSelectionStack.length; ++i) {
-			if(this.edgeSelectionStack[i][0] == ida) {
-				if(this.edgeSelectionStack[i][1] == idb) {
-					ids.push(i);
+		if(this.taskType == "EDGE_SELECTION") {
+			var ids = [];
+			for(var i=0; i<this.edgeSelectionStack.length; ++i) {
+				if(this.edgeSelectionStack[i][0] == ida) {
+					if(this.edgeSelectionStack[i][1] == idb) {
+						ids.push(i);
+					}
 				}
 			}
+			var desc = "";
+			for(var i=0; i<ids.length; ++i) {
+				if(desc != "")
+					desc += ",";
+				desc += ids[i];
+			}
+			return desc;
+		} else if(this.taskType == "EDGE_COLORING") {
+			this.setEdgeColoring();
 		}
-		var desc = "";
-		for(var i=0; i<ids.length; ++i) {
-			if(desc != "")
-				desc += ",";
-			desc += ids[i];
-		}
-		return desc;
+		return " ";
 	}
 }
 
