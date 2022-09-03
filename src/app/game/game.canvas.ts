@@ -27,25 +27,25 @@ export class GameCanvas {
 	public vertexRadius: number = 16;
 	public edgeWidth: number = 6;
 
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	public vertexColor: number[] = [];
 	public edgeColorMatrix: number[][] = [];
-	
+
 	public limitColors: number = 10;
 
 	getVertexColoring() {
 		return this.vertexColor;
 	}
-	
+
 	getEdgeColoringMatrix() {
 		return this.edgeColorMatrix;
 	}
-	
+
 	setVertexColor(vertexId: number, color: number, relative: boolean) {
 		this.getVertexColor(0);
 		if(relative) {
@@ -60,7 +60,7 @@ export class GameCanvas {
 		}
 		this.vertexColor[vertexId] %= this.limitColors;
 	}
-	
+
 	getVertexColor(vertexId: number) {
 		if(this.vertexColor.length != this.vertices.length) {
 			this.vertexColor = new Array<number>(this.vertices.length);
@@ -70,22 +70,22 @@ export class GameCanvas {
 		}
 		return this.vertexColor[vertexId];
 	}
-	
+
 	setEdgeColoring() {
 		console.error("game.canvas::setEdgeColoring does not have been",
 					"implemented");
 	}
-	
+
 	getEdgeColoring() {
 		console.error("game.canvas::getEdgeColoring does not have been",
 					"implemented");
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 	getNeighbouringMatrix() {
 		var mat:number[][] = new Array<number[]>(this.edges.length);

@@ -26,14 +26,15 @@ export class TaskDescriptionsAndSubjects {
     HOMEOMORPHISM: "Homeomorphism",
     NAMED_GRAPHS: "Named Graphs",
     TRIVIAL_QUESTIONS: "Trivial Questions",
-    DISTANCES: "Distances"
+    DISTANCES: "Distances",
+    VERTEX_COLORING: "Vertex Coloring"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
     BFS_VERTEX_SELECTION: "Select all vertices in the order they are visited using the BFS algorithm.",
     DFS_VERTEX_SELECTION: "Select all vertices in the order they are visited using the DFS algorithm.",
-    MAX_CLIQUE_VERTEX_SELECTION: "Select vertices which make the max clique (ore one of them) in the following graph.",
-    MAX_INDEPENDENT_SET_VERTEX_SELECTION: "Select vertices which make the max independent set (ore one of them) in the following graph.",
+    MAX_CLIQUE_VERTEX_SELECTION: "Select vertices of the max clique (ore one of them) in the following graph.",
+    MAX_INDEPENDENT_SET_VERTEX_SELECTION: "Select vertices of the max independent set (ore one of them) in the following graph.",
     MIN_VERTEX_COVER_VERTEX_SELECTION: "Select vertices which make the min vertex cover (ore one of them) in the following graph.",
     COMPLETE_GRAPHS_DRAW: "Draw the following graph: $K_{{}}$",
     COMPLETE_GRAPHS_BOOLEAN: "Is the given graph Complete?",
@@ -60,7 +61,8 @@ export class TaskDescriptionsAndSubjects {
     NAMED_GRAPHS_DRAW: "Draw the {gn}.",
     TRIVIAL_QUESTIONS_VERTEX_SELECTION: "Select vertices of the {}.",
     TRIVIAL_QUESTIONS_DRAW: "Draw the following graph: {}.",
-    DISTANCES_VERTEX_SELECTION: "Select the vertices of the path{v} with the length of {d}."
+    DISTANCES_VERTEX_SELECTION: "Select the vertices of the path{v} with the length of {d}.",
+    VERTEX_COLORING_VERTEX_COLORING: "Color the given graph optimally, so that it has exactly $\\chi(G)$ colors."
   };
 
 }

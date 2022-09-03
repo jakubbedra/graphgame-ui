@@ -132,8 +132,10 @@ export class GameComponent implements OnInit {
 
         this.sendAnswer(JSON.stringify(json));
       } else if (this.task.type == "VERTEX_COLORING") {
-        console.error("game.component::onSubmit does not have",
-          " implemented ", "VERTEX_COLORING");
+        let json = {
+          colors: this.gameCanvas.getVertexColoring()
+        };
+        this.sendAnswer(JSON.stringify(json));
       } else if (this.task.type == "EDGE_COLORING") {
         console.error("game.component::onSubmit does not have",
           " implemented ", "EDGE_COLORING");
@@ -163,8 +165,11 @@ export class GameComponent implements OnInit {
           this.onAnswerResponse(response);
         });
     } else if (this.task.type == "VERTEX_COLORING") {
-      console.error("game.component::onSubmit does not have",
-        " implemented ", "VERTEX_COLORING");
+      this.taskService
+        .postTaskAnswerVertexColoring(json, this.task.taskUuid)
+        .subscribe(response => {
+          this.onAnswerResponse(response);
+        });
     } else if (this.task.type == "EDGE_COLORING") {
       console.error("game.component::onSubmit does not have",
         " implemented ", "EDGE_COLORING");

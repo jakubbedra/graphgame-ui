@@ -79,4 +79,13 @@ export class TaskService {
     );
   }
 
+  postTaskAnswerVertexColoring(answer: string, uuid: string): Observable<boolean> {
+    const options = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.post<boolean>(
+      environment.apiUrl + "/tasks/answer/vertexColoring/" + uuid, answer, options
+    );
+  }
+
 }
