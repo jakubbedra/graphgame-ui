@@ -39,10 +39,12 @@ export class GameCanvas {
 	public limitColors: number = 10;
 
 	getVertexColoring() {
+		this.getVertexColor(0);
 		return this.vertexColor;
 	}
 
 	getEdgeColoringMatrix() {
+		this.getEdgeColor(0, 1);
 		return this.edgeColorMatrix;
 	}
 
@@ -53,6 +55,8 @@ export class GameCanvas {
 		} else {
 			this.vertexColor[vertexId] = color;
 		}
+		if(this.limitColors > this.vertices.length)
+			this.limitColors = this.vertices.length;
 		this.vertexColor[vertexId] += this.limitColors;
 		this.vertexColor[vertexId] %= this.limitColors;
 		if(this.vertexColor[vertexId] < 0) {
@@ -71,14 +75,62 @@ export class GameCanvas {
 		return this.vertexColor[vertexId];
 	}
 
-	setEdgeColoring() {
-		console.error("game.canvas::setEdgeColoring does not have been",
-					"implemented");
+	setEdgeColor(ida: number, idb: number, color: number, relative: boolean) {
+// 		console.error("game.canvas::setEdgeColoring does not have been",
+// 					"implemented");
+		if(ida > idb) {
+			var tmp = ida;
+			ida = idb;
+			idb = tmp;
+		}
+		var c = this.getEdgeColor(ida, idb);
+		if(relative) {
+			this.edgeColorMatrix[ida][idb] += color;
+		} else {
+			this.edgeColorMatrix[ida][idb] = color;
+		}
+		if(this.limitColors > this.countEdges())
+			this.limitColors = this.countEdges();
+		this.edgeColorMatrix[ida][idb] += this.limitColors;
+		this.edgeColorMatrix[ida][idb] %= this.limitColors;
+		if(this.edgeColorMatrix[ida][idb] < 0) {
+			this.edgeColorMatrix[ida][idb] += this.limitColors;
+		}
+		this.edgeColorMatrix[ida][idb] %= this.limitColors;
+		this.edgeColorMatrix[idb][ida] = this.edgeColorMatrix[ida][idb];
 	}
 
-	getEdgeColoring() {
-		console.error("game.canvas::getEdgeColoring does not have been",
-					"implemented");
+	getEdgeColor(ida: number, idb: number) {
+// 		console.error("game.canvas::getEdgeColoring does not have been",
+// 					"implemented");
+		if(this.edgeColorMatrix.length != this.vertices.length) {
+			this.edgeColorMatrix = new Array<number[]>(this.vertices.length);
+			for(var i=0; i<this.edgeColorMatrix.length; ++i) {
+				this.edgeColorMatrix[i] = new Array<number>(this.vertices.length);
+				for(var j=0; j<this.edgeColorMatrix.length; ++j) {
+					this.edgeColorMatrix[i][j] = 0;
+				}
+			}
+		}
+		if(ida > idb) {
+			var tmp = ida;
+			ida = idb;
+			idb = tmp;
+		}
+		return this.edgeColorMatrix[ida][idb];
+	}
+	
+	countEdges() {
+		var count = 0;
+		for(var i=0; i<this.edges.length; ++i) {
+			for(var j=0; j<this.edges[i].length; ++j) {
+				var id = this.edges[i][j];
+				if(id > i) {
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 
 
@@ -109,7 +161,7 @@ export class GameCanvas {
 
 	constructor(taskType: string, graph: TaskGraph, weightedGraph?: WeightedGraph) {
 		if(false) {
-			taskType = "VERTEX_COLORING";
+			taskType = "EDGE_COLORING";
 			weightedGraph = new WeightedGraph();
 			weightedGraph.matrix  = [
 				[0,1,0,4,0],
@@ -478,7 +530,7 @@ export class GameCanvas {
 			}
 			return desc;
 		} else if(this.taskType == "EDGE_COLORING") {
-			this.setEdgeColoring();
+			return "" + this.getEdgeColor(ida, idb);
 		}
 		return " ";
 	}
