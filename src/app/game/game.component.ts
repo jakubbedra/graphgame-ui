@@ -137,8 +137,10 @@ export class GameComponent implements OnInit {
         };
         this.sendAnswer(JSON.stringify(json));
       } else if (this.task.type == "EDGE_COLORING") {
-        console.error("game.component::onSubmit does not have",
-          " implemented ", "EDGE_COLORING");
+        let json = {
+          colors: this.gameCanvas.getEdgeColoringMatrix()
+        };
+        this.sendAnswer(JSON.stringify(json));
       } else if (this.task.type == "BOOLEAN") {
         this.sendAnswer(JSON.stringify({answer: this.booleanTaskAnswer}));
       }
@@ -171,8 +173,15 @@ export class GameComponent implements OnInit {
           this.onAnswerResponse(response);
         });
     } else if (this.task.type == "EDGE_COLORING") {
-      console.error("game.component::onSubmit does not have",
-        " implemented ", "EDGE_COLORING");
+
+      // todo
+      console.log(json);
+
+      this.taskService
+        .postTaskAnswerEdgeColoring(json, this.task.taskUuid)
+        .subscribe(response => {
+          this.onAnswerResponse(response);
+        });
     } else if (this.task.type == "BOOLEAN") {
       this.taskService
         .postTaskAnswerBoolean(json, this.task.taskUuid)

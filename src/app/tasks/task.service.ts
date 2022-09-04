@@ -88,4 +88,13 @@ export class TaskService {
     );
   }
 
+  postTaskAnswerEdgeColoring(answer: string, uuid: string): Observable<boolean> {
+    const options = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.post<boolean>(
+      environment.apiUrl + "/tasks/answer/edgeColoring/" + uuid, answer, options
+    );
+  }
+
 }
