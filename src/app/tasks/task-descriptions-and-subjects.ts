@@ -27,7 +27,8 @@ export class TaskDescriptionsAndSubjects {
     NAMED_GRAPHS: "Named Graphs",
     TRIVIAL_QUESTIONS: "Trivial Questions",
     DISTANCES: "Distances",
-    VERTEX_COLORING: "Vertex Coloring"
+    VERTEX_COLORING: "Vertex Coloring",
+    EDGE_COLORING: "Edge Coloring"
   };
 
   public static DESCRIPTIONS: Record<string, string> = {
@@ -62,7 +63,8 @@ export class TaskDescriptionsAndSubjects {
     TRIVIAL_QUESTIONS_VERTEX_SELECTION: "Select vertices of the {}.",
     TRIVIAL_QUESTIONS_DRAW: "Draw the following graph: {}.",
     DISTANCES_VERTEX_SELECTION: "Select the vertices of the path{v} with the length of {d}.",
-    VERTEX_COLORING_VERTEX_COLORING: "Color the given graph optimally, so that it has exactly $\\chi(G)$ colors."
+    VERTEX_COLORING_VERTEX_COLORING: "Color the vertices of the given graph optimally, so that they have exactly $\\chi (G)$ colors.",
+    EDGE_COLORING_EDGE_COLORING: "Color the edges of the given graph (sub)optimally, so that they have exactly $\\chi '(G)$ or $\\chi '(G) + 1$ colors."
   };
 
 }
