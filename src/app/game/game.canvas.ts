@@ -108,7 +108,12 @@ export class GameCanvas {
 			for(var i=0; i<this.edgeColorMatrix.length; ++i) {
 				this.edgeColorMatrix[i] = new Array<number>(this.vertices.length);
 				for(var j=0; j<this.edgeColorMatrix.length; ++j) {
-					this.edgeColorMatrix[i][j] = 0;
+					this.edgeColorMatrix[i][j] = -1;
+				}
+			}
+			for(var i=0; i<this.edges.length; ++i) {
+				for(var j=0; j<this.edges[i].length; ++j) {
+					this.edgeColorMatrix[i][this.edges[i][j]] = 0;
 				}
 			}
 		}
