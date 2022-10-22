@@ -30,6 +30,21 @@ export class GameCanvas {
 
 
 
+	public colorsList:string[] = [
+		'#F00',
+		'#0F0',
+		'#00F',
+		'#0FF',
+		'#F0F',
+		'#FF0',
+		'#880',
+		'#088',
+		'#808',
+		'#888',
+		'#8F8',
+		'#88F',
+		'#F88'
+	];
 
 
 
@@ -357,12 +372,14 @@ export class GameCanvas {
 					this.context().moveTo(a.x, a.y);
 					this.context().lineTo(b.x, b.y);
 					this.context().lineWidth = this.edgeWidth;
-					this.context().strokeStyle = '#CCC';
+					this.context().strokeStyle = this.taskType=="EDGE_COLORING" ? this.colorsList[
+							this.getEdgeColor(i, id)] : '#CCC';
 					this.context().stroke();
 					this.context().closePath();
 				}
 			}
 		}
+		this.context().strokeStyle = '#CCC';
 		for(var i=0; i<this.edges.length; ++i) {
 			for(var j=0; j<this.edges[i].length; ++j) {
 				var id = this.edges[i][j];
@@ -396,7 +413,9 @@ export class GameCanvas {
 				if(v == i)
 					onstack.present = true;
 			});
-			this.context().fillStyle = onstack.present ? '#C2C' : '#22B';
+// 			this.context().fillStyle = onstack.present ? '#C2C' : '#22B';
+			this.context().fillStyle = this.taskType=="VERTEX_COLORING" ? this.colorsList[
+					this.getVertexColor(i)] : (onstack.present ? '#C2C' : '#22B');
 			this.context().ellipse(a.x, a.y, this.vertexRadius,
 				this.vertexRadius, 0, 0, Math.PI*2);
 			this.context().fill();
