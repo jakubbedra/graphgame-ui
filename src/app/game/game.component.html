@@ -9,12 +9,12 @@
   </div>
   <div class="task-div">
 
-    <div class="subject-selection-div">
-      <select id="task-type" [(ngModel)]="selectedTaskId">
-        <option value="all">every subject</option>
-        <option *ngFor="let task of tasks" value="{{task.value}}">{{task.label}}</option>
-      </select>
-    </div>
+    <select id="task-type" [(ngModel)]="selectedTaskId">
+      <option value="all">every subject</option>
+      <option *ngFor="let task of tasks" value="{{task.value}}">{{task.label}}</option>
+    </select>
+    <br/>
+    <br/>
 
     <div class="description-div">
       <h2>{{currentTaskSubject}}</h2>
