@@ -9,6 +9,7 @@ import {Observable, take} from "rxjs";
 import {User} from "../users/user.auth.model";
 import {Edge} from "../tasks/edge.model";
 import {WeightedGraph} from "../tasks/weighted-graph.model";
+import {TaskSubject} from "../tasks/task-type.model";
 
 @Component({
 	selector: 'app-game',
@@ -34,11 +35,15 @@ export class GameComponent implements OnInit {
 	graph: TaskGraph;
 	weightedGraph: WeightedGraph;
 	gameCanvas: GameCanvas;
+  selectedTaskId: string;
+
+  tasks: TaskSubject[] = [];
 
 	constructor(
 		private taskService: TaskService,
 		private authService: AuthService
 	) {
+    this.selectedTaskId = "all";
 		this.booleanTaskAnswer = false;
 		this.debugString = "";
 		this.debugModeOn = false;
@@ -53,7 +58,14 @@ export class GameComponent implements OnInit {
 			this.userId = user.id;
 			this.tryToFetchTask();
 		});
+    this.fetchTaskSubjects();
 	}
+
+  fetchTaskSubjects() {
+    this.taskService.getAllTaskSubjects().subscribe(respData => {
+      this.tasks = respData.subjects;
+    });
+  }
 
 	fetchUser(): Observable<User> {
 		return this.authService.user.pipe(take(1));
@@ -71,7 +83,7 @@ export class GameComponent implements OnInit {
 	}
 
 	createAndFetchTask() {
-		this.taskService.createTask(this.userId).subscribe(response => {
+		this.taskService.createTask(this.userId, this.selectedTaskId).subscribe(response => {
 			this.taskService.getUserTask(this.userId).subscribe(response => {
 				this.task = response;
 				this.extractGraphTask(this.task);

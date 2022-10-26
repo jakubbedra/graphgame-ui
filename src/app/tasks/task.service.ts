@@ -21,13 +21,14 @@ export class TaskService {
 
   getUserTask(userId: number): Observable<GraphTask> {
     return this.http.get<GraphTask>(
-      environment.apiUrl + "/tasks/user/" + userId
-    );
+        environment.apiUrl + "/tasks/user/" + userId
+      );
   }
 
-  createTask(userId: number): Observable<any> {
+  createTask(userId: number, subject: string): Observable<any> {
+    let subjectUrl: string = subject == "all" ? "" : "?subject=" + subject;
     return this.http.post(
-      environment.apiUrl + "/tasks/user/" + userId, {}
+      environment.apiUrl + "/tasks/user/" + userId + subjectUrl, {}
     );
   }
 

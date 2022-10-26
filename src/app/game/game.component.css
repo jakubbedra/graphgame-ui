@@ -1,6 +1,6 @@
 h2 {
   font-size: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .main-div {
@@ -40,6 +40,32 @@ h2 {
   width: 320px;
   height: 760px;
   position: relative;
+}
+
+.subject-selection-div{
+  margin-bottom: 20px;
+}
+
+select {
+  position: absolute;
+  transition: all 0.3s ease 0s;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #F5F7FA;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  width: 100%;
+
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 1px 1px black;
+}
+
+option {
+  background-color: #323232;
+  outline-color: #121212;
+  border: 1px solid black;
+  font-size: 18px;
 }
 
 .submit-button {

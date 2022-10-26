@@ -8,6 +8,14 @@
     <textarea [(ngModel)]="debugString"></textarea>
   </div>
   <div class="task-div">
+
+    <div class="subject-selection-div">
+      <select id="task-type" [(ngModel)]="selectedTaskId">
+        <option value="all">every subject</option>
+        <option *ngFor="let task of tasks" value="{{task.value}}">{{task.label}}</option>
+      </select>
+    </div>
+
     <div class="description-div">
       <h2>{{currentTaskSubject}}</h2>
       <h2 *ngIf="gotResponseToAnswer && answerIsCorrect" class="answer-correct">Correct!</h2>
@@ -19,7 +27,8 @@
     <button class="submit-button"
             *ngIf="!gotResponseToAnswer && this.task.type != 'BOOLEAN'"
             (click)="onSubmit()"
-    >SUBMIT</button>
+    >SUBMIT
+    </button>
 
     <div *ngIf="this.task.type == 'BOOLEAN' && !gotResponseToAnswer" class="yes-no-div">
       <button class="yes-no-button" (click)="onSubmitBoolean(true)">YES</button>
