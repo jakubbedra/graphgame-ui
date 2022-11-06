@@ -4,7 +4,6 @@ import {environment} from "../../environments/environment";
 
 export class User {
   constructor(
-    public email: string,
     public username: string,
     public id: number,
     private _token: string,

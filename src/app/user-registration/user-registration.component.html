@@ -2,8 +2,8 @@
   <h1>Login</h1>
 
   <form #loginForm="ngForm" (ngSubmit)="onSubmitLogin(loginForm)">
-    <label for="email"><b>Email:</b></label>
-    <input name="email" id="email" type="text" placeholder="Enter Email" ngModel required #email="ngModel"/>
+    <label for="username"><b>Username:</b></label>
+    <input name="username" id="username" type="text" placeholder="Enter Username" ngModel required #email="ngModel"/>
     <label for="password"><b>Password:</b></label>
     <input name="password" id="password" type="password" placeholder="Enter Password" ngModel required
            #password="ngModel"/>
@@ -26,9 +26,6 @@
   <h1>Register</h1>
 
   <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
-    <label for="email1"><b>Email:</b></label>
-    <span *ngIf="lengthError['email']" class="length-error">Please enter an email that has no more than {{MAX_EMAIL_LENGTH}} characters.</span>
-    <input name="email1" id="email1" type="text" placeholder="Enter Email" ngModel required #email1="ngModel"/>
     <label for="username"><b>Username:</b></label>
     <span *ngIf="lengthError['username']" class="length-error">Please enter an username that has no more than {{MAX_USERNAME_LENGHT}} characters.</span>
     <input name="username" id="username" type="text" placeholder="Enter Username" ngModel required #username="ngModel"/>

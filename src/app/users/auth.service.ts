@@ -26,28 +26,26 @@ export class AuthService {
       }));
   }
 
-  register(username: string, email: string, password: string) {
+  register(username: string, password: string) {
     return this.http.post<AuthResponseData>(
       environment.apiUrl + "/users",
       {
-        email,
         username,
         password
       }
     );
   }
 
-  login(email: string, password: string) {
+  login(username: string, password: string) {
     return this.http.post<AuthResponseData>(
       environment.apiUrl + "/users/login",
       {
-        email,
+        username,
         password
       }
     ).pipe(
       tap(resData => {
         this.handleAuthentication(
-          email,
           resData.username,
           resData.user_id,
           resData._token,
@@ -68,13 +66,12 @@ export class AuthService {
   }
 
   private handleAuthentication(
-    email: string, username: string, user_id: number, token: string, expiresIn: string
+    username: string, user_id: number, token: string, expiresIn: string
   ) {
     const expirationDate = new Date(
       expiresIn
     );
     const user = new User(
-      email,
       username,
       user_id,
       token,
