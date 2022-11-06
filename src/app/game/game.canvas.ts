@@ -367,11 +367,15 @@ export class GameCanvas {
 			for(var j=0; j<this.edges[i].length; ++j) {
 				var id = this.edges[i][j];
 				if(id > i) {
-					
 					var b = this.vertices[id].copy();
-					
-					var col = this.taskType=="EDGE_COLORING" ? this.colorsList[
-							this.getEdgeColor(i, id)] : '#CCC';
+
+					var onstack = {present: false};
+					this.edgeSelectionStack.findIndex((v, id_, n)=>{
+						if((v[0] == i && v[1]==id) || (v[1]==i && v[0]==id))
+							onstack.present = true;
+					});
+					var col = this.taskType=="VERTEX_COLORING" ? this.colorsList[
+							this.getVertexColor(i)] : (onstack.present ? '#C28' : '#CCC');
 					
 					var fe = this.findEdges(this.canvasController.currentMousePosition);
 					if(fe.length > 0) {
