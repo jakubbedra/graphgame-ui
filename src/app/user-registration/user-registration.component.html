@@ -7,6 +7,7 @@
     <label for="password"><b>Password:</b></label>
     <input name="password" id="password" type="password" placeholder="Enter Password" ngModel required
            #password="ngModel"/>
+    <span *ngIf="serverError['usernameOrPasswordInvalid']" class="length-error">Invalid username or password.<br/></span>
     <button class="auth-button">Login</button>
   </form>
 
@@ -24,7 +25,7 @@
   <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
     <label for="username"><b>Username:</b></label>
     <span *ngIf="lengthError['username']" class="length-error">Please enter an username that has no more than {{MAX_USERNAME_LENGHT}} characters.</span>
-    <span *ngIf="lengthError['usernameRegex']" class="length-error"><br/>Username should contain at least 5 characters. You can use only lower and upper case letters and numbers.</span>
+    <span *ngIf="lengthError['usernameRegex']" class="length-error"><br/>Username should contain at least 5 characters. You can use only lower and upper case letters, numbers and '_', '-', '.', '@'.</span>
     <input name="username" id="username" type="text" placeholder="Enter Username" ngModel required #username="ngModel"/>
     <label for="password1"><b>Password:</b></label>
     <span *ngIf="lengthError['password']" class="length-error">Please enter a password that has no more than {{MAX_PASSWORD_LENGHT}} characters.</span>
@@ -35,6 +36,7 @@
     <input name="password2" id="password2" type="password" placeholder="Retype Password" ngModel required
            #password2="ngModel"/>
     <p class="warning" *ngIf="invalidPassword">Retyped password is incorrect.</p>
+    <span *ngIf="serverError['usernameExists']" class="length-error">User with the given username already exists.<br/></span>
     <button class="auth-button">Register</button>
   </form>
 
