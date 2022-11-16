@@ -15,7 +15,9 @@ export class UserRegistrationComponent implements OnInit {
 
   lengthError = {
     username: false,
+    usernameRegex: false,
     password: false,
+    passwordRegex: false
   }
 
   loginMode: boolean;
@@ -29,6 +31,9 @@ export class UserRegistrationComponent implements OnInit {
   password1: string;
   password2: string;
 
+  regexPassword: RegExp;
+  regexUsername: RegExp;
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -41,6 +46,8 @@ export class UserRegistrationComponent implements OnInit {
     this.password1 = "";
     this.password2 = "";
     this.invalidPassword = false;
+    this.regexUsername = new RegExp('/[a-zA-Z0-9.@-_]{5,}/g');
+    this.regexPassword = new RegExp('/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9,.\\/;\'\\[\\]\\\\`~!@#$%^&*()-=_+{}|:"<>? ]{10,}/g');
   }
 
   ngOnInit(): void {
@@ -80,6 +87,17 @@ export class UserRegistrationComponent implements OnInit {
     }
     this.lengthError["password"] = false;
     this.lengthError["username"] = false;
+
+    var usernameValid = this.regexUsername.test(username1);
+    var passwordValid = this.regexPassword.test(password1);
+    if (!usernameValid || !passwordValid) {
+      this.lengthError["passwordRegex"] = !passwordValid;
+      this.lengthError["usernameRegex"] = !usernameValid;
+      return;
+    }
+
+    this.lengthError["passwordRegex"] = false;
+    this.lengthError["usernameRegex"] = false;
 
     if (password1 == password2) {
       this.authService.register(username1, password1).subscribe(

@@ -15,10 +15,6 @@
       <p>Do not have an account yet?</p>
       <button class="bottom-button" (click)="onClickChangeMode()">Register</button>
     </div>
-    <div class="right-bottom-div">
-      <p>Forgot password?</p>
-      <button class="bottom-button" routerLink="../auth/recovery">Recovery</button>
-    </div>
   </div>
 </div>
 
@@ -28,9 +24,11 @@
   <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
     <label for="username"><b>Username:</b></label>
     <span *ngIf="lengthError['username']" class="length-error">Please enter an username that has no more than {{MAX_USERNAME_LENGHT}} characters.</span>
+    <span *ngIf="lengthError['usernameRegex']" class="length-error"><br/>Username should contain at least 5 characters. You can use only lower and upper case letters and numbers.</span>
     <input name="username" id="username" type="text" placeholder="Enter Username" ngModel required #username="ngModel"/>
     <label for="password1"><b>Password:</b></label>
     <span *ngIf="lengthError['password']" class="length-error">Please enter a password that has no more than {{MAX_PASSWORD_LENGHT}} characters.</span>
+    <span *ngIf="lengthError['passwordRegex']" class="length-error"><br/>Password needs to contain at least 8 characters, including at least 1 lowercase letter and 1 digit.</span>
     <input name="password1" id="password1" type="password" placeholder="Enter Password" ngModel required
            #password1="ngModel"/>
     <label for="password2"><b>Retype Password:</b></label>
