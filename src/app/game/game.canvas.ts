@@ -375,7 +375,7 @@ export class GameCanvas {
 							onstack.present = true;
 					});
 					var col = this.taskType=="EDGE_COLORING" ? this.colorsList[
-							this.getVertexColor(i)] : (onstack.present ? '#C28' : '#CCC');
+						this.getEdgeColor(i, id)] : (onstack.present ? '#C28' : '#CCC');
 					
 					var fe = this.findEdges(this.canvasController.currentMousePosition);
 					if(fe.length > 0) {
