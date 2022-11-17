@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import {FormsModule} from "@angular/forms";
-import { UserPasswordRecoveryComponent } from './user-password-recovery/user-password-recovery.component';
 import {AuthService} from "./users/auth.service";
 import { UserProgressComponent } from './users/user-progress/user-progress.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
@@ -24,7 +23,6 @@ import {KatexModule} from "ng-katex";
     AppComponent,
     HeaderComponent,
     UserRegistrationComponent,
-    UserPasswordRecoveryComponent,
     UserProgressComponent,
     TopUsersComponent,
     GameComponent,

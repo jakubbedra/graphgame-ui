@@ -45,12 +45,16 @@ export class AuthService {
       }
     ).pipe(
       tap(resData => {
-        this.handleAuthentication(
-          resData.username,
-          resData.user_id,
-          resData._token,
-          resData._tokenExpirationTime
-        )
+        if (resData != null) {
+          this.handleAuthentication(
+            resData.username,
+            resData.user_id,
+            resData._token,
+            resData._tokenExpirationTime
+          )
+        } else {
+          return null;
+        }
       })
     );
   }
