@@ -51,8 +51,8 @@ export class UserRegistrationComponent implements OnInit {
     this.password1 = "";
     this.password2 = "";
     this.invalidPassword = false;
-    this.regexUsername = new RegExp(/[a-zA-Z0-9.@-_]{5,}/g);
-    this.regexPassword = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9,.\/;'\[\]\\`~!@#$%^&*()-=_+{}|:"<>? ]{10,}/g);
+    this.regexUsername = new RegExp(/^[a-zA-Z0-9.@\-_]{5,}$/g);
+    this.regexPassword = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9])[ -~]{8,}/g);
   }
 
   ngOnInit(): void {
