@@ -65,8 +65,11 @@ export class TaskDescriptionsAndSubjects {
     DISTANCES_VERTEX_SELECTION: "Select the vertices of the path{v} with the length of {d}.",
     VERTEX_COLORING_VERTEX_COLORING: "Color the vertices of the given graph optimally, so that they have exactly $\\chi (G)$ colors.",
     EDGE_COLORING_EDGE_COLORING: "Color the edges of the given graph (sub)optimally, so that they have exactly $\\chi '(G)$ or $\\chi '(G) + 1$ colors.",
-	PATH_GRAPHS_VERTEX_COLORING: "Color the vertices of the given path optimally.",
-	PATH_GRAPHS_EDGE_COLORING: "Color the edges of the given path optimally."
+
+	  PATH_GRAPHS_VERTEX_COLORING: "Color the vertices of the given path optimally.",
+	  PATH_GRAPHS_EDGE_COLORING: "Color the edges of the given path optimally.",
+	  CYCLE_GRAPHS_VERTEX_COLORING: "Color the vertices of the given cycle optimally.",
+	  CYCLE_GRAPHS_EDGE_COLORING: "Color the edges of the given cycle optimally."
   };
 
 }
