@@ -73,12 +73,12 @@ export class TaskDescriptionsAndSubjects {
 
 	  STAR_GRAPHS_VERTEX_COLORING: "Color the vertices of the given star optimally.",
 	  STAR_GRAPHS_EDGE_COLORING: "Color the edges of the given star optimally.",
-	  BBIPARTITE_GRAPHS_VERTEX_COLORING: "Color the vertices of the given bipartite graph optimally.",
-	  BBIPARTITE_GRAPHS_EDGE_COLORING: "Color the edges of the given bipartite graph (sub)optimally.",
 	  TREE_GRAPHS_VERTEX_COLORING: "Color the vertices of the given tree optimally.",
 	  TREE_GRAPHS_EDGE_COLORING: "Color the edges of the given tree optimally.",
+	  BIPARTITE_GRAPHS_VERTEX_COLORING: "Color the vertices of the given bipartite graph optimally.",
+	  BIPARTITE_GRAPHS_EDGE_COLORING: "Color the edges of the given bipartite graph (sub)optimally.",
 	  COMPLETE_GRAPHS_VERTEX_COLORING: "Color the vertices of the given complete graph optimally.",
-	  COMPLETE_GRAPHS_EDGE_COLORING: "Color the edges of the given complete graph optimally.",
+	  COMPLETE_GRAPHS_EDGE_COLORING: "Color the edges of the given complete graph optimally."
   };
 
 }
