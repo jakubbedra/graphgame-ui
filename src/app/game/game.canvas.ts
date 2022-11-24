@@ -46,12 +46,19 @@ export class GameCanvas {
 		'#F88'
 	];
 
+	getColorValue(colorId: number) {
+		if(colorId >= this.colorsList.length) {
+			return this.colorsList[0];
+		}
+		return this.colorsList[colorId];
+	}
+
 
 
 	public vertexColor: number[] = [];
 	public edgeColorMatrix: number[][] = [];
 
-	public limitColors: number = 10;
+	public limitColors: number = 13;
 
 	getVertexColoring() {
 		this.getVertexColor(0);
@@ -374,8 +381,8 @@ export class GameCanvas {
 						if((v[0] == i && v[1]==id) || (v[1]==i && v[0]==id))
 							onstack.present = true;
 					});
-					var col = this.taskType=="EDGE_COLORING" ? this.colorsList[
-						this.getEdgeColor(i, id)] : (onstack.present ? '#C28' : '#CCC');
+					var col = this.taskType=="EDGE_COLORING" ? this.getColorValue(
+						this.getEdgeColor(i, id)) : (onstack.present ? '#C28' : '#CCC');
 					
 					var fe = this.findEdges(this.canvasController.currentMousePosition);
 					if(fe.length > 0) {
@@ -424,8 +431,8 @@ export class GameCanvas {
 				if(v == i)
 					onstack.present = true;
 			});
-			var col = this.taskType=="VERTEX_COLORING" ? this.colorsList[
-					this.getVertexColor(i)] : (onstack.present ? '#C2C' : '#22B');
+			var col = this.taskType=="VERTEX_COLORING" ? this.getColorValue(
+					this.getVertexColor(i)) : (onstack.present ? '#C2C' : '#22B');
 
 			if(this.canvasController.chosenVertexId == i
 					|| this.canvasController.findVertexId(this.canvasController.currentMousePosition) == i) {

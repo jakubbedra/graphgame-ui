@@ -257,46 +257,46 @@ export class GameComponent implements OnInit {
 		this.createTaskDescription(task);
 	}
 
-					private createTaskDescription(task: GraphTask): void {
-						switch (this.currentTaskSubject) {
-							case TaskDescriptionsAndSubjects.SUBJECTS["HYPERCUBES"]:
-								this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-							.replace("{}", Math.floor(Math.log2(task.graphVertices)).toString());
-							break;
-							case TaskDescriptionsAndSubjects.SUBJECTS["REGULAR_GRAPHS"]:
-								this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-							.replace("{}", task.graphVertices.toString())
-							.replace("{k}", task.specialValues[0].toString());
-							break;
-							case TaskDescriptionsAndSubjects.SUBJECTS["BIPARTITE_GRAPHS"]:
-								this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-							.replace("{r}", task.specialValues[0].toString())
-							.replace("{s}", task.specialValues[1].toString());
-							break;
-							case TaskDescriptionsAndSubjects.SUBJECTS["NAMED_GRAPHS"]:
-								this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-							.replace("{gn}", task.descriptionDetails);
-							break;
-							case TaskDescriptionsAndSubjects.SUBJECTS["TRIVIAL_QUESTIONS"]:
-								if (task.type === 'DRAW' && task.descriptionDetails === 'Empty Graph') {
-								this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-								.replace("{}", "$N_{" + task.graphVertices + "}$");
-							} else if (task.type === 'VERTEX_SELECTION') {
-								this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-								.replace("{}", task.descriptionDetails);
-							}
-							break;
-							case TaskDescriptionsAndSubjects.SUBJECTS["DISTANCES"]:
-								if (task.type === 'VERTEX_SELECTION') {
-								this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-								.replace("{v}", task.specialValues.length > 0 ? " starting with the vertex " + task.specialValues[0] : "")
-								.replace("{d}", (task.specialValues.length > 0 ? "its " : "the graph's ") + task.descriptionDetails);
-							}
-							break;
-							default:
-								this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
-							.replace("{}", task.graphVertices.toString());
-							break;
+	private createTaskDescription(task: GraphTask): void {
+		switch (this.currentTaskSubject) {
+			case TaskDescriptionsAndSubjects.SUBJECTS["HYPERCUBES"]:
+				this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+			.replace("{}", Math.floor(Math.log2(task.graphVertices)).toString());
+			break;
+			case TaskDescriptionsAndSubjects.SUBJECTS["REGULAR_GRAPHS"]:
+				this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+			.replace("{}", task.graphVertices.toString())
+			.replace("{k}", task.specialValues[0].toString());
+			break;
+			case TaskDescriptionsAndSubjects.SUBJECTS["BIPARTITE_GRAPHS"]:
+				this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+			.replace("{r}", task.specialValues[0].toString())
+			.replace("{s}", task.specialValues[1].toString());
+			break;
+			case TaskDescriptionsAndSubjects.SUBJECTS["NAMED_GRAPHS"]:
+				this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+			.replace("{gn}", task.descriptionDetails);
+			break;
+			case TaskDescriptionsAndSubjects.SUBJECTS["TRIVIAL_QUESTIONS"]:
+				if (task.type === 'DRAW' && task.descriptionDetails === 'Empty Graph') {
+				this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+				.replace("{}", "$N_{" + task.graphVertices + "}$");
+			} else if (task.type === 'VERTEX_SELECTION') {
+				this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+				.replace("{}", task.descriptionDetails);
+			}
+			break;
+			case TaskDescriptionsAndSubjects.SUBJECTS["DISTANCES"]:
+				if (task.type === 'VERTEX_SELECTION') {
+				this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+				.replace("{v}", task.specialValues.length > 0 ? " starting with the vertex " + task.specialValues[0] : "")
+				.replace("{d}", (task.specialValues.length > 0 ? "its " : "the graph's ") + task.descriptionDetails);
+			}
+			break;
+			default:
+				this.currentTaskDescription = TaskDescriptionsAndSubjects.DESCRIPTIONS[task.subject + "_" + task.type]
+			.replace("{}", task.graphVertices.toString());
+			break;
 		}
 	}
 
