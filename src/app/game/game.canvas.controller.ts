@@ -112,7 +112,7 @@ export class GameCanvasController {
 	 */
 
 	mouseMove(ev: MouseEvent) {
-		var mv = new Vector(ev.movementX, ev.movementY);
+		var mv = this.mousePos(ev).sub(this.currentMousePosition);
 		if(this.buttonMovementDown) {
 			if(this.chosenVertexId >= 0) {
 				this.gameCanvas.vertices[this.chosenVertexId]
