@@ -16,6 +16,9 @@ export class GameCanvas {
 	public edges: number[][] = [];
 	public weightsMatrix: number[][] = null;
 	public vertices: Vector[] = []; // position always {<0;1>, <0;1>}
+	public vertexColor: number[] = [];
+	public edgeColorMatrix: number[][] = [];
+	public limitColors: number = 13;
 
 	canvas() { return this.canvasController.canvas; }
 	context() { return this.canvasController.context; }
@@ -26,6 +29,8 @@ export class GameCanvas {
 
 	public vertexRadius: number = 16;
 	public edgeWidth: number = 6;
+
+
 
 
 
@@ -54,11 +59,6 @@ export class GameCanvas {
 	}
 
 
-
-	public vertexColor: number[] = [];
-	public edgeColorMatrix: number[][] = [];
-
-	public limitColors: number = 13;
 
 	getVertexColoring() {
 		this.getVertexColor(0);
@@ -250,7 +250,7 @@ export class GameCanvas {
 		return ret;
 	}
 
-	findEdges(position: Vector) {
+	findEdges(position: Vector, radiusTolerance: number = 1.5) {
 		var ret = [];
 		for(var i=0; i<this.edges.length; ++i) {
 			var ida = i;
@@ -259,7 +259,7 @@ export class GameCanvas {
 				var idb = this.edges[i][j];
 				if(idb > ida) {
 					var b = this.vertices[idb].copy();
-					if(this.edgeCollision(a, b, position)) {
+					if(this.edgeCollision(a, b, position, radiusTolerance)) {
 						if(ida < idb)
 							ret.push([ida, idb]);
 						else if(ida > idb)
@@ -271,7 +271,7 @@ export class GameCanvas {
 		return ret;
 	}
 
-	edgeCollision(a: Vector, b: Vector, position: Vector) {
+	edgeCollision(a: Vector, b: Vector, position: Vector, radiusTolerance: number = 1.5) {
 		var ab = b.sub(a);
 		var dir = ab.divf(ab.len());
 		var p = position.sub(a);
@@ -286,9 +286,9 @@ export class GameCanvas {
 		var perdir = new Vector(-dir.y, dir.x);
 
 		var ptp = p.dot(perdir);
-		if(ptp < -this.edgeWidth*3/2)
+		if(ptp < -this.edgeWidth*radiusTolerance)
 			return false;
-		else if(ptp > this.edgeWidth*3/2)
+		else if(ptp > this.edgeWidth*radiusTolerance)
 			return false;
 
 		return true;
