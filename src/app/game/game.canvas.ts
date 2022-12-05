@@ -544,7 +544,7 @@ export class GameCanvas {
 		if(this.weightsMatrix != null) {
 			var w = "" + this.weightsMatrix[ida][idb];
 			var i = w.lastIndexOf(".");
-			w = "(" + w.slice(0, i+3) + ")";
+			w = "w=" + w.slice(0, i+3);
 
 
 			s = new Vector(this.context().measureText(w).width, fontSize);
