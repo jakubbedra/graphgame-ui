@@ -171,6 +171,27 @@ export class GameCanvasController {
 						}
 					}
 				}
+			} else if(this.gameCanvas.taskType == "EDGE_SELECTION") {
+				if(this.chosenVertexId < 0) {
+					var edges = this.gameCanvas.findEdges(this.currentMousePosition);
+					if(edges.length > 0) {
+						if(this.mouseDownPosition.dist(this.currentMousePosition)
+								< this.gameCanvas.vertexRadius/4) {
+							var newEdge = edges[0];
+							// select new edge
+							this.gameCanvas.edgeSelectionStack.push(newEdge);
+						}
+					}
+				}
+			} else if(this.gameCanvas.taskType == "VERTEX_SELECTION") {
+				if(this.mouseDownPosition.dist(this.currentMousePosition)
+						< this.gameCanvas.vertexRadius) {
+					if(this.chosenVertexId >= 0) {
+						// select vertex
+						this.gameCanvas.vertexSelectionStack
+						.push(this.chosenVertexId);
+					}
+				}
 			}
 		} else if(ev.button == this.getMouseGraphAction()) {
 			this.buttonActionDown = false;
@@ -253,8 +274,6 @@ export class GameCanvasController {
 						}
 					}
 				}
-				console.warn("game.canvas::mouseUp does not have",
-							  " implemented ", "EDGE_SELECTION");
 			} else if(this.gameCanvas.taskType == "VERTEX_COLORING") {
 				if(this.mouseDownPosition.dist(this.currentMousePosition)
 						< this.gameCanvas.vertexRadius) {
@@ -264,8 +283,6 @@ export class GameCanvasController {
 							1, true);
 					}
 				}
-				console.warn("game.canvas::mouseUp does not have",
-							  " implemented ", "VERTEX_COLORING");
 			} else if(this.gameCanvas.taskType == "EDGE_COLORING") {
 				if(this.chosenVertexId < 0) {
 					var edges = this.gameCanvas.findEdges(this.currentMousePosition);
@@ -278,8 +295,6 @@ export class GameCanvasController {
 						}
 					}
 				}
-				console.warn("game.canvas::mouseUp does not have",
-							  " implemented ", "EDGE_COLORING");
 			}
 		}
 		this.gameCanvas.renderGraph();
