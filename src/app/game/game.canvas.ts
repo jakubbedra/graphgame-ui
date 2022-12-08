@@ -186,6 +186,8 @@ export class GameCanvas {
 	}
 
 
+
+
 	constructor(taskType: string, graph: TaskGraph, weightedGraph?: WeightedGraph) {
 		if(false) {
 			taskType = "EDGE_COLORING";
@@ -218,6 +220,22 @@ export class GameCanvas {
 
 		this.canvasController = new GameCanvasController(this);
 		this.initTask(taskType, graph);
+
+		if(taskType == "EDGE_COLORING" || taskType == "VERTEX_COLORING") {
+			var randomColor = function() {
+				var r = "#";
+				const C = "0123456789ABCDEF";
+				for(var I=0; I<3; ++I) {
+					var pos = Math.floor(Math.random()*15.9999999);
+					r += C.charAt(pos);
+				}
+				return r;
+			}
+			for(var i=0; i<graph.neighbourLists.length*(taskType == "VERTEX_COLORING"?1:graph.neighbourLists.length); ++i) {
+				this.colorsList.push(randomColor());
+			}
+			this.limitColors = this.colorsList.length;
+		}
 	}
 
 	addEdge(a: number, b: number) {
