@@ -6,8 +6,6 @@ import {AuthService} from "./auth.service";
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
-  prolongCounter = 0;
-
   constructor(private authService: AuthService) {
 
   }
@@ -20,14 +18,10 @@ export class AuthInterceptorService implements HttpInterceptor {
           return next.handle(req);
         }
 
-        if (!req.url.includes('prolong_session') && this.prolongCounter % 4 == 0) {
+        if (!req.url.includes('prolong_session')) {
           this.authService.prolongSession().subscribe();
         }
 
-        this.prolongCounter++;
-        if (this.prolongCounter >= 4) {
-          this.prolongCounter = 0;
-        }
         const modifiedReq = req.clone({
           params: (req.params ? req.params : new HttpParams())
             .set('token', user.token)
