@@ -14,7 +14,7 @@
     </ul>
   </nav>
   <div class="user-login" *ngIf="!isAuthenticated">
-    <button class="login-button" routerLink="auth">Login</button>
+    <button class="login-button" routerLink="auth" *ngIf="!isAuthPage()">Login</button>
   </div>
   <div class="user-login" *ngIf="isAuthenticated">
     <label>{{username}}</label>

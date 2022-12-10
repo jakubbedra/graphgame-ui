@@ -39,8 +39,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
-  onClickLink(index) {
-    this.active = index;
+  isAuthPage(): boolean {
+    return this.router.url.indexOf('/auth') > -1;
   }
 
   onLogout() {
