@@ -26,10 +26,9 @@ export class GameComponent implements OnInit {
 	booleanTaskAnswer: boolean;
 
 	currentTaskSubject: string;
-	currentTaskDescription: string; //todo: config file containing the descriptions
+  currentTaskDescription: string;
 
-	//testUserId = 1;
-	userId = -1;
+  userId = -1;
 
 	task: GraphTask;
 	graph: TaskGraph;
@@ -139,7 +138,6 @@ export class GameComponent implements OnInit {
 				let json = {
 					selectedEdges: edges
 				};
-				//todo
 				console.log(json);
 
 				this.sendAnswer(JSON.stringify(json));
@@ -186,7 +184,6 @@ export class GameComponent implements OnInit {
 			});
 		} else if (this.task.type == "EDGE_COLORING") {
 
-			// todo
 			console.log(json);
 
 			this.taskService
@@ -242,9 +239,6 @@ export class GameComponent implements OnInit {
 				this.taskService.getTaskWeightedGraph(task.taskUuid).subscribe(response => {
 					this.weightedGraph = response;
 					this.gameCanvas = new GameCanvas(this.task.type, null, this.weightedGraph);
-					/**
-					 * TODO: this shit + sending answer dto (add edge weight)
-					 */
 					});
 			}
 		} else {
