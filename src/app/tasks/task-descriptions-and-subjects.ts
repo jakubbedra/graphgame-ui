@@ -13,6 +13,7 @@ export class TaskDescriptionsAndSubjects {
     REGULAR_GRAPHS: "Regular Graphs",
     MAX_CLIQUE: "Max Clique Problem",
     MAX_INDEPENDENT_SET: "Max Independent Set Problem",
+
     MIN_VERTEX_COVER: "Min Vertex Cover",
     EULER_CYCLE: "Euler Cycle",
     CHINESE_POSTMAN_PROBLEM: "Chinese Postman Problem",
@@ -64,13 +65,11 @@ export class TaskDescriptionsAndSubjects {
     TRIVIAL_QUESTIONS_DRAW: "Draw the following graph: {}.",
     DISTANCES_VERTEX_SELECTION: "Select the vertices of the path{v} with the length of {d}.",
     VERTEX_COLORING_VERTEX_COLORING: "Color the vertices of the given graph optimally, so that they have exactly $\\chi (G)$ colors.",
-    EDGE_COLORING_EDGE_COLORING: "Color the edges of the given graph (sub)optimally, so that they have exactly $\\chi '(G)$ or $\\chi '(G) + 1$ colors.",
-
+    EDGE_COLORING_EDGE_COLORING: "Color the edges of the given graph (sub)optimally, so that they have exactly $\\Delta (G)$ or $\\Delta (G) + 1$ colors.",
 	  PATH_GRAPHS_VERTEX_COLORING: "Color the vertices of the given path optimally.",
 	  PATH_GRAPHS_EDGE_COLORING: "Color the edges of the given path optimally.",
 	  CYCLE_GRAPHS_VERTEX_COLORING: "Color the vertices of the given cycle optimally.",
 	  CYCLE_GRAPHS_EDGE_COLORING: "Color the edges of the given cycle optimally.",
-
 	  STAR_GRAPHS_VERTEX_COLORING: "Color the vertices of the given star optimally.",
 	  STAR_GRAPHS_EDGE_COLORING: "Color the edges of the given star optimally.",
 	  TREE_GRAPHS_VERTEX_COLORING: "Color the vertices of the given tree optimally.",
