@@ -3,6 +3,12 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
 
+## Configuration
+
+Before building or running any server it is required to install all libraries used by project with the following command:
+
+`npm install`
+
 ## Development server
 
 Run `ng serve` for a local dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
