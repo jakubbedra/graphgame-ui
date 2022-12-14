@@ -36,7 +36,7 @@ export class TaskDescriptionsAndSubjects {
     BFS_VERTEX_SELECTION: "Select all vertices in the order they are visited using the BFS algorithm.",
     DFS_VERTEX_SELECTION: "Select all vertices in the order they are visited using the DFS algorithm.",
     MAX_CLIQUE_VERTEX_SELECTION: "Select vertices of the max clique (ore one of them) in the following graph.",
-    MAX_INDEPENDENT_SET_VERTEX_SELECTION: "Select vertices of the max independent set (ore one of them) in the following graph.",
+    MAX_INDEPENDENT_SET_VERTEX_SELECTION: "Select vertices of the max independent set (or one of them) in the following graph.",
     MIN_VERTEX_COVER_VERTEX_SELECTION: "Select vertices which make the min vertex cover (ore one of them) in the following graph.",
     COMPLETE_GRAPHS_DRAW: "Draw the following graph: $K_{{}}$",
     COMPLETE_GRAPHS_BOOLEAN: "Is the given graph Complete?",
